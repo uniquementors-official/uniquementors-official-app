@@ -14,7 +14,7 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import type { Course, BlogPost } from "@/types";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Unique Mentors | MOH DHA HAAD Exam Training & Finishing School - Kochi",

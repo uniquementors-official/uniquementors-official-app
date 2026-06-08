@@ -9,7 +9,7 @@ import { Icon } from "@/components/common/Icon";
 import { formatDate } from "@/lib/utils";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Unique Mentors Events - Quizzes, Seminars & Finishing School News",

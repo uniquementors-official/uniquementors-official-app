@@ -12,15 +12,9 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { formatDate, slugify, stripHtml } from "@/lib/utils";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-  const events = await prisma.event.findMany({
-    where: { status: "PUBLISHED" },
-    select: { slug: true }
-  });
-  return events.map((e) => ({ slug: e.slug }));
-}
+
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const event = await prisma.event.findUnique({

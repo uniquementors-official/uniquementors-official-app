@@ -10,7 +10,7 @@ import { Icon } from "@/components/common/Icon";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import type { Course } from "@/types";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Medical Licensing Exam Training Courses - MOH DHA HAAD CORU",

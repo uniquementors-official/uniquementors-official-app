@@ -15,7 +15,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { BlogPostSchema, generateBlogMetadata } from "@/lib/seo";
 import { formatDate, slugify, stripHtml } from "@/lib/utils";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 function mapDbBlogToBlogPost(dbBlog: {
   id: string;
@@ -50,13 +50,7 @@ function mapDbBlogToBlogPost(dbBlog: {
   };
 }
 
-export async function generateStaticParams() {
-  const posts = await prisma.blog.findMany({
-    where: { status: "PUBLISHED" },
-    select: { slug: true }
-  });
-  return posts.map((post) => ({ slug: post.slug }));
-}
+
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await prisma.blog.findUnique({

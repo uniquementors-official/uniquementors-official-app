@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { BlogPostsGrid, type GridBlogPost } from "@/components/ui/blog-posts";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
-export const revalidate = 60; // Revalidate every minute in production for dynamic additions
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Medical Licensing Exam Blog - Tips, News & Career Guides",

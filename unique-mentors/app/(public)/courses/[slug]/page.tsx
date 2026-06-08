@@ -15,7 +15,7 @@ import { CourseSchema, FAQSchema, generateCourseMetadata } from "@/lib/seo";
 import { SITE_CONFIG } from "@/lib/constants";
 import type { Course } from "@/types";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 function mapDbCourseToCourse(dbCourse: {
   id: string;
@@ -64,13 +64,7 @@ function mapDbCourseToCourse(dbCourse: {
   };
 }
 
-export async function generateStaticParams() {
-  const courses = await prisma.course.findMany({
-    where: { status: "PUBLISHED" },
-    select: { slug: true }
-  });
-  return courses.map((course) => ({ slug: course.slug }));
-}
+
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const course = await prisma.course.findUnique({
