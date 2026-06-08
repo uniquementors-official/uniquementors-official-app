@@ -25,7 +25,7 @@ export default function CourseManagerPage() {
             ...c,
             status: c.status.toLowerCase(),
             excerpt: c.shortDescription,
-            coverImage: c.coverImage || "/images/courses/default.jpg",
+            coverImage: c.coverImage || "/images/metro-pillar-candidate.png",
             imageAlt: c.title
           }))
         );

@@ -15,7 +15,7 @@ export function generateMetadata({
   title,
   description,
   path = "/",
-  image = "/images/og-image.jpg",
+  image = "/images/metro-pillar-candidate.png",
   noIndex = false,
   keywords = []
 }: MetadataInput): Metadata {
@@ -96,8 +96,8 @@ export function OrganizationSchema() {
     name: SITE_CONFIG.name,
     alternateName: "Unique Mentors Overseas Medical Licensing Exam Training Centre",
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/images/logo.png`,
-    image: `${SITE_CONFIG.url}/images/og-image.jpg`,
+    logo: `${SITE_CONFIG.url}/logo.svg`,
+    image: `${SITE_CONFIG.url}/images/metro-pillar-candidate.png`,
     description: SITE_CONFIG.description,
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
@@ -120,7 +120,7 @@ export function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: SITE_CONFIG.name,
-    image: `${SITE_CONFIG.url}/images/og-image.jpg`,
+    image: `${SITE_CONFIG.url}/images/metro-pillar-candidate.png`,
     url: SITE_CONFIG.url,
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
@@ -188,7 +188,7 @@ export function BlogPostSchema(blog: BlogPost) {
       name: SITE_CONFIG.name,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_CONFIG.url}/images/logo.png`
+        url: `${SITE_CONFIG.url}/logo.svg`
       }
     },
     mainEntityOfPage: `${SITE_CONFIG.url}/blog/${blog.slug}`

@@ -44,7 +44,7 @@ function mapDbCourseToCourse(dbCourse: any): Course {
     faqs: (dbCourse.faqs as any) || [],
     featured: dbCourse.featured,
     status: dbCourse.status.toLowerCase() as any,
-    coverImage: dbCourse.coverImage || "/images/courses/default.jpg",
+    coverImage: dbCourse.coverImage || "/images/metro-pillar-candidate.png",
     imageAlt: dbCourse.title
   };
 }
@@ -58,7 +58,7 @@ function mapDbBlogToBlogPost(dbBlog: any): BlogPost {
     content: dbBlog.content,
     category: dbBlog.category,
     tags: dbBlog.tags,
-    coverImage: dbBlog.coverImage || "/images/blog/default.jpg",
+    coverImage: dbBlog.coverImage || "/images/image.png",
     imageAlt: dbBlog.title,
     author: dbBlog.author,
     readTime: dbBlog.readTime,
@@ -126,7 +126,7 @@ export default async function HomePage() {
       <EventsSection events={events} />
       <TestimonialsSection />
       <BlogSection posts={blogs} />
-      <NewsletterSection />
+      {/* <NewsletterSection /> */}
       <CTASection />
       <ContactSection />
     </>

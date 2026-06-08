@@ -59,7 +59,7 @@ function mapDbCourseToCourse(dbCourse: {
     faqs: (dbCourse.faqs as any) || [],
     featured: dbCourse.featured,
     status: dbCourse.status.toLowerCase() as any,
-    coverImage: dbCourse.coverImage || "/images/courses/default.jpg",
+    coverImage: dbCourse.coverImage || "/images/metro-pillar-candidate.png",
     imageAlt: dbCourse.title
   };
 }

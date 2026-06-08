@@ -28,6 +28,12 @@ export const SITE_CONFIG = {
   googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Unique%20Mentors%20Kochi"
 } as const;
 
+export const APP_LINKS = {
+  login: "https://app.uniquementors.com/login",
+  appStore: "https://apps.apple.com/in/app/unique-mentors/id6758348129",
+  playStore: "https://play.google.com/store/apps/details?id=com.hari401.myapp&pcampaignid=web_share"
+} as const;
+
 export const EXAM_TYPES = [
   { label: "MOH", value: "MOH", description: "Ministry of Health UAE exam training" },
   { label: "DHA", value: "DHA", description: "Dubai Health Authority exam coaching" },

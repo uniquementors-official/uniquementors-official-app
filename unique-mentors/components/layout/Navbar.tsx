@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { NAV_ITEMS, PHONE_DISPLAY, SITE_CONFIG } from "@/lib/constants";
+import { APP_LINKS, NAV_ITEMS, PHONE_DISPLAY, SITE_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { Button } from "@/components/ui/button";
@@ -39,11 +40,17 @@ export function Navbar({ hasBanner = false }: { hasBanner?: boolean }) {
         )}
       >
         <div className="container flex h-20 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3" aria-label="Unique Mentors home">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-gradient-to-br from-primary to-secondary font-display text-sm font-bold text-white shadow-soft">
-              UM
+          <Link href="/" className="flex items-center" aria-label="Unique Mentors home">
+            <span className="flex h-12 items-center rounded-md  transition">
+              <Image
+                src="/logo.svg"
+                alt="Unique Mentors"
+                width={156}
+                height={54}
+                priority
+                className="h-9 w-auto"
+              />
             </span>
-            <span className={cn("font-display text-lg font-bold", isScrolled ? "text-brand-ink dark:text-white" : "text-white")}>Unique Mentors</span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
@@ -126,13 +133,12 @@ export function Navbar({ hasBanner = false }: { hasBanner?: boolean }) {
 
           <div className="hidden items-center gap-2 lg:flex">
             <Button asChild variant={isScrolled ? "outline" : "light"} size="sm">
-              <a href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label="Chat with Unique Mentors on WhatsApp">
-                <Icon name="MessageCircle" className="h-4 w-4" />
-                WhatsApp
+              <a href={APP_LINKS.login} target="_blank" rel="noopener noreferrer">
+                Login
               </a>
             </Button>
             <Button asChild size="sm">
-              <Link href="/apply">Enroll Now</Link>
+              <Link href="/contact#contact-form">Sign up</Link>
             </Button>
           </div>
 

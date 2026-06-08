@@ -6,6 +6,7 @@ import { MetroPillarShowcase } from "@/components/sections/MetroPillarShowcase";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { Icon } from "@/components/common/Icon";
+import AboutSection3 from "@/components/ui/about-section";
 import { FounderStoryTimeline } from "@/components/ui/polaroid-flick-through";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
@@ -30,13 +31,56 @@ const founders = [
     name: "Dr. Deepa Seira Babu",
     role: "Co-Founder",
     bio: "Academic mentoring, candidate guidance and structured exam preparation for overseas medical licensing pathways.",
-    image: "/images/image.png"
+    image: "/images/founders/Dr.%20Deepa%20Seira%20Babu.png"
   },
   {
     name: "Dr. Praveena Prathapachandran",
     role: "Co-Founder",
     bio: "Career counselling, licensing roadmap planning and professional development support for healthcare candidates.",
-    image: "/images/image copy.png"
+    image: "/images/founders/Dr.%20Praveena%20Prathapachandran.png"
+  }
+];
+
+const teamMembers = [
+  {
+    name: "Ms. Kavitha R Nair",
+    role: "Academic Head",
+    image: "/images/team/Ms.%20Kavitha%20R%20Nair.png"
+  },
+  {
+    name: "Ms. Amritha Santhosh",
+    role: "Business Development Manager",
+    image: "/images/team/Ms.%20Amritha%20Santhosh.png"
+  },
+  {
+    name: "Ms. Abhirami Suresh",
+    role: "Senior Executive - Marketing & Sales",
+    image: "/images/team/Ms.%20Abhirami%20Suresh.png"
+  },
+  {
+    name: "Ms. Linu Sukumaran",
+    role: "Senior Executive - Marketing & Sales",
+    image: "/images/team/Ms.%20Linu%20Sukumaran.png"
+  },
+  {
+    name: "Ms. Linu Roy",
+    role: "Senior Executive - Operations",
+    image: "/images/team/Ms.%20Linu%20Roy.png"
+  },
+  {
+    name: "Ms. Jomol Benny",
+    role: "Senior Executive - Operations",
+    image: "/images/team/Ms.%20Jomol%20Benny.png"
+  },
+  {
+    name: "Ms. Aiswarya A",
+    role: "Junior Executive - Marketing & Sales",
+    image: "/images/team/Ms.%20Aiswarya%20A.png"
+  },
+  {
+    name: "Ms. Aiswarya Binu",
+    role: "Junior Executive - Operations",
+    image: "/images/team/Ms.%20Aiswarya%20Binu.png"
   }
 ];
 
@@ -51,17 +95,19 @@ export default function AboutPage() {
           { name: "About", href: "/about" }
         ]}
       />
+      <AboutSection3 />
+
       <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container grid gap-8 lg:grid-cols-2">
           {founders.map(({ name, role, bio, image }) => (
             <article key={name} className="surface p-6">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gradient-to-br from-primary/15 to-secondary/20">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gradient-to-br from-primary/15 to-secondary/20 sm:aspect-[4/5]">
                 <Image
                   src={image}
-                  alt={`${name} mentoring visual`}
+                  alt={`${name}, ${role} at Unique Mentors`}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/70 via-transparent to-transparent" />
                 <Icon name="Users2" className="absolute bottom-5 left-5 h-10 w-10 text-white" />
@@ -107,13 +153,31 @@ export default function AboutPage() {
       <StatsSection />
       <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container">
-          <h2 className="heading-lg text-center">Academic Mentors and Support Team</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {["Exam Faculty", "Licensing Counsellors", "Dataflow Specialists", "Student Success Team"].map((role) => (
-              <div key={role} className="surface p-5 text-center">
-                <Icon name="User" className="mx-auto h-8 w-8 text-secondary" />
-                <h3 className="mt-3 font-semibold">{role}</h3>
-              </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="section-tag mx-auto">Team</span>
+            <h2 className="heading-lg mt-4">Academic Mentors and Support Team</h2>
+            <p className="body-lead mt-5">
+              Meet the team supporting exam training, licensing guidance, documentation, operations and student success.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {teamMembers.map(({ name, role, image }) => (
+              <article key={name} className="surface overflow-hidden p-0">
+                <div className="relative aspect-square bg-gradient-to-br from-primary/10 to-secondary/10">
+                  <Image
+                    src={image}
+                    alt={`${name}, ${role} at Unique Mentors`}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-display text-lg font-bold">{name}</h3>
+                  <p className="mt-1 text-sm font-semibold text-primary">{role}</p>
+                </div>
+              </article>
             ))}
           </div>
         </div>

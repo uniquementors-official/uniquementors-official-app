@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   },
   description:
     "Expert MOH, DHA and HAAD exam coaching in Kochi. Overseas licensing, GCC Dataflow and Finishing School programs for Indian healthcare professionals.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicons.svg", type: "image/svg+xml" }
+    ],
+    shortcut: "/favicon.ico"
+  },
   alternates: {
     canonical: SITE_CONFIG.url,
     languages: {
@@ -32,7 +39,7 @@ export const metadata: Metadata = {
     title: "Unique Mentors | MOH DHA HAAD Exam Training Centre, Kochi",
     description:
       "Expert MOH, DHA and HAAD exam coaching in Kochi with overseas licensing, Dataflow and finishing school support.",
-    images: [{ url: "/images/og-image.jpg", width: 1200, height: 630, alt: "Unique Mentors training centre in Kochi" }]
+    images: [{ url: "/images/metro-pillar-candidate.png", width: 1200, height: 630, alt: "Unique Mentors training centre in Kochi" }]
   },
   twitter: {
     card: "summary_large_image",

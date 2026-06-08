@@ -26,7 +26,7 @@ function toGridPost(post: { id: string; title: string; category: string; coverIm
     id: post.id,
     title: post.title,
     category: post.category,
-    imageUrl: post.coverImage || "/images/blog/default.jpg",
+    imageUrl: post.coverImage || "/images/image.png",
     href: `/blog/${post.slug}`,
     views: [2180, 1456, 987, 824, 760][index] ?? 640,
     readTime: post.readTime,

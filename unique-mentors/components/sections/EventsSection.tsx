@@ -46,7 +46,7 @@ export function EventsSection({ events }: EventsSectionProps) {
               <article key={event.id} className="group surface flex h-full flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-glow">
                 <Link href={`/events/${event.slug}`} className="relative block aspect-[16/10] overflow-hidden">
                   <Image
-                    src={event.coverImage || "/images/blog/default.jpg"}
+                    src={event.coverImage || "/images/image.png"}
                     alt={event.title}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

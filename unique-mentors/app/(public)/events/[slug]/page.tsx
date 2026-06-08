@@ -72,7 +72,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
         <div className="container grid gap-8 lg:grid-cols-[1fr_320px]">
           <article>
             <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
-              <Image src={event.coverImage || "/images/blog/default.jpg"} alt={event.title} fill priority sizes="(min-width: 1024px) 780px, 100vw" className="object-cover" />
+              <Image src={event.coverImage || "/images/image.png"} alt={event.title} fill priority sizes="(min-width: 1024px) 780px, 100vw" className="object-cover" />
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400 font-semibold">
               <Badge variant={isUpcoming ? "default" : "secondary"}>

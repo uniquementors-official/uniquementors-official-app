@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
-import { NAV_ITEMS, PHONE_DISPLAY, SITE_CONFIG } from "@/lib/constants";
+import { APP_LINKS, NAV_ITEMS, PHONE_DISPLAY, SITE_CONFIG } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
+import { AppStoreButton } from "@/components/ui/app-store-button";
+import { PlayStoreButton } from "@/components/ui/play-store-button";
 
 type MobileMenuProps = {
   open: boolean;
@@ -40,9 +43,14 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           aria-label="Mobile navigation"
         >
           <div className="flex h-16 items-center justify-between border-b border-white/10 px-4">
-            <Link href="/" className="flex items-center gap-3 font-display text-lg font-bold">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-white text-brand-navy">UM</span>
-              Unique Mentors
+            <Link href="/" className="flex items-center rounded-md bg-white px-2 py-1 shadow-soft" aria-label="Unique Mentors home">
+              <Image
+                src="/logo.svg"
+                alt="Unique Mentors"
+                width={140}
+                height={48}
+                className="h-8 w-auto"
+              />
             </Link>
             <button
               type="button"
@@ -89,7 +97,12 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             </div>
             <div className="mt-8 grid gap-3">
               <Button asChild variant="secondary" size="lg">
-                <Link href="/apply">Enroll Now</Link>
+                <a href={APP_LINKS.login} target="_blank" rel="noopener noreferrer">
+                  Login
+                </a>
+              </Button>
+              <Button asChild variant="light" size="lg">
+                <Link href="/contact#contact-form">Sign up</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white/30 bg-transparent text-white hover:bg-white hover:text-brand-navy">
                 <a href={`tel:${SITE_CONFIG.phone}`} aria-label={`Call Unique Mentors at ${PHONE_DISPLAY}`}>
@@ -97,6 +110,10 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                   {PHONE_DISPLAY}
                 </a>
               </Button>
+              <div className="grid gap-3 pt-3 sm:grid-cols-2">
+                <AppStoreButton href={APP_LINKS.appStore} variant="light" className="w-full" />
+                <PlayStoreButton href={APP_LINKS.playStore} variant="light" className="w-full" />
+              </div>
             </div>
           </nav>
         </motion.div>

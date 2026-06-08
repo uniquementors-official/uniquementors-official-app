@@ -24,7 +24,9 @@ export default function ContactPage() {
       />
       <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container grid gap-8 lg:grid-cols-[1fr_0.8fr]">
-          <ContactForm />
+          <div id="contact-form">
+            <ContactForm />
+          </div>
           <aside className="space-y-5">
             <div className="surface p-6">
               <h2 className="font-display text-2xl font-bold">Contact Info</h2>

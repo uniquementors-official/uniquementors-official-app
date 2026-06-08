@@ -73,7 +73,7 @@ export default function EventManagerPage() {
         header: "Cover",
         render: (row) => (
           <div className="relative h-11 w-11 overflow-hidden rounded-md">
-            <Image src={row.coverImage || "/images/blog/default.jpg"} alt={row.title} fill className="object-cover" />
+            <Image src={row.coverImage || "/images/image.png"} alt={row.title} fill className="object-cover" />
           </div>
         )
       },

@@ -40,7 +40,7 @@ function mapDbBlogToBlogPost(dbBlog: {
     content: dbBlog.content,
     category: dbBlog.category,
     tags: dbBlog.tags,
-    coverImage: dbBlog.coverImage || "/images/blog/default.jpg",
+    coverImage: dbBlog.coverImage || "/images/image.png",
     imageAlt: dbBlog.title,
     author: dbBlog.author,
     readTime: dbBlog.readTime,

@@ -28,7 +28,7 @@ export default function BlogManagerPage() {
           result.data.items.map((b: any) => ({
             ...b,
             status: b.status.toLowerCase(),
-            coverImage: b.coverImage || "/images/blog/default.jpg",
+            coverImage: b.coverImage || "/images/image.png",
             imageAlt: b.title
           }))
         );

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Unique Mentors">
+  <defs>
+    <linearGradient id="um-gradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0d62ab" />
+      <stop offset="0.58" stop-color="#00a1e4" />
+      <stop offset="1" stop-color="#0f9f8f" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#um-gradient)" />
+  <path
+    d="M18 21.5v14.7c0 5.3 3.7 8.8 9 8.8s9-3.5 9-8.8V21.5h-5.2v14.8c0 2.7-1.5 4.1-3.8 4.1s-3.8-1.4-3.8-4.1V21.5H18Zm23.4 23V29.9l5.1 8.8h2.4l5.1-8.8v14.6h5V21.5h-5.7l-5.6 9.9-5.6-9.9h-5.7v23h5Z"
+    fill="#fff"
+  />
+</svg>

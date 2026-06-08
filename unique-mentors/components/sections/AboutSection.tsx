@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
 
@@ -13,12 +14,14 @@ const founders = [
   {
     name: "Dr. Deepa Seira Babu",
     role: "Co-Founder and Mentor",
-    bio: "Guides candidates with academic structure, professional clarity and compassionate mentorship."
+    bio: "Guides candidates with academic structure, professional clarity and compassionate mentorship.",
+    image: "/images/founders/Dr.%20Deepa%20Seira%20Babu.png"
   },
   {
     name: "Dr. Praveena Prathapachandran",
     role: "Co-Founder and Mentor",
-    bio: "Leads career counselling, licensing pathway planning and student success initiatives."
+    bio: "Leads career counselling, licensing pathway planning and student success initiatives.",
+    image: "/images/founders/Dr.%20Praveena%20Prathapachandran.png"
   }
 ];
 
@@ -52,13 +55,25 @@ export function AboutSection() {
         </div>
         <div className="relative grid gap-5 sm:grid-cols-2">
           {founders.map((founder) => (
-            <article key={founder.name} className="surface p-5">
-              <div className="flex aspect-square items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-secondary/20">
-                <Icon name="Users2" className="h-16 w-16 text-primary" />
+            <article key={founder.name} className="surface overflow-hidden p-0">
+              <div className="relative aspect-[4/5] bg-gradient-to-br from-primary/15 to-secondary/20">
+                <Image
+                  src={founder.image}
+                  alt={`${founder.name}, ${founder.role} at Unique Mentors`}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  className="object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/62 via-transparent to-transparent" aria-hidden="true" />
+                <span className="absolute bottom-4 left-4 rounded-md bg-white/92 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-brand-navy shadow-soft">
+                  Founder
+                </span>
               </div>
-              <h3 className="mt-5 font-display text-xl font-bold">{founder.name}</h3>
-              <p className="mt-1 text-sm font-semibold text-primary">{founder.role}</p>
-              <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{founder.bio}</p>
+              <div className="p-5">
+                <h3 className="font-display text-xl font-bold">{founder.name}</h3>
+                <p className="mt-1 text-sm font-semibold text-primary">{founder.role}</p>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{founder.bio}</p>
+              </div>
             </article>
           ))}
           <div className="sm:col-span-2 grid gap-3 rounded-lg border border-dashed border-primary/30 bg-primary/5 p-5 sm:grid-cols-2">

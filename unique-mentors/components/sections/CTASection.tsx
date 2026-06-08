@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { SITE_CONFIG } from "@/lib/constants";
+import { APP_LINKS, SITE_CONFIG } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
+import { AppStoreButton } from "@/components/ui/app-store-button";
+import { PlayStoreButton } from "@/components/ui/play-store-button";
 
 export function CTASection() {
   const message = encodeURIComponent("Hello Unique Mentors, I want to talk to an expert about overseas medical licensing.");
@@ -26,6 +28,10 @@ export function CTASection() {
               Talk to an Expert
             </a>
           </Button>
+        </div>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <AppStoreButton href={APP_LINKS.appStore} variant="light" />
+          <PlayStoreButton href={APP_LINKS.playStore} variant="light" />
         </div>
       </div>
     </section>

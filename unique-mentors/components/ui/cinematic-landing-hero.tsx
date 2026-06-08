@@ -106,7 +106,7 @@ const injectedStyles = `
     transform: rotate(-90deg);
     transform-origin: center;
     stroke-dasharray: 402;
-    stroke-dashoffset: 402;
+    stroke-dashoffset: 62;
     stroke-linecap: round;
   }
 `;
@@ -216,7 +216,6 @@ export function CinematicHero({
           0.68
         )
         .fromTo(".phone-widget", { y: 40, autoAlpha: 0, scale: 0.95 }, { y: 0, autoAlpha: 1, scale: 1, stagger: 0.15, ease: "back.out(1.2)", duration: 1.35 }, 1.02)
-        .to(".progress-ring", { strokeDashoffset: 62, duration: 1.8, ease: "power3.inOut" }, 1.08)
         .to(".counter-val", { innerHTML: metricValue, snap: { innerHTML: 1 }, duration: 1.8, ease: "expo.out" }, 1.08)
         .fromTo(".floating-badge", { y: 90, autoAlpha: 0, scale: 0.75, rotationZ: -8 }, { y: 0, autoAlpha: 1, scale: 1, rotationZ: 0, ease: "back.out(1.5)", duration: 1.35, stagger: 0.2 }, 1.2)
         .to(".main-card", { width: "100%", height: "100%", borderRadius: "0px", ease: "power3.inOut", duration: 1.35 }, 1.45)
@@ -240,7 +239,7 @@ export function CinematicHero({
   return (
     <div
       ref={containerRef}
-      className={cn("relative flex h-screen w-full items-center justify-center overflow-hidden bg-brand-navy text-white antialiased", className)}
+      className={cn("relative mt-20 flex h-screen w-full items-center justify-center overflow-hidden bg-brand-navy text-white antialiased", className)}
       style={{ perspective: "1500px" }}
       {...props}
     >
