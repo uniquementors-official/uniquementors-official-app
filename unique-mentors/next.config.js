@@ -63,7 +63,9 @@ const nextConfig = {
     ]
   },
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"]
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+    workerThreads: false,
+    cpus: 1
   },
   async headers() {
     return [
