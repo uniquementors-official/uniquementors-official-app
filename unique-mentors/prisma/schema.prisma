@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  ENROLLED
+  CLOSED
+}
+
+enum LeadSource {
+  CONTACT
+  APPLY
+  WHATSAPP
+  MANUAL
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role     @default(ADMIN)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Blog {
+  id          String        @id @default(uuid())
+  title       String
+  slug        String        @unique
+  content     String
+  excerpt     String
+  category    String
+  tags        String[]
+  coverImage  String?
+  metaTitle   String?
+  metaDesc    String?
+  status      ContentStatus @default(DRAFT)
+  featured    Boolean       @default(false)
+  author      String        @default("Unique Mentors Academic Team")
+  readTime    Int           @default(1)
+  viewCount   Int           @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Course {
+  id               String        @id @default(uuid())
+  title            String
+  slug             String        @unique
+  examType         String
+  examTypes        String[]
+  profession       String
+  country          String
+  duration         String
+  mode             String
+  fees             String?
+  nextBatch        String?
+  shortDescription String
+  description      String
+  eligibility      String[]
+  highlights       String[]
+  syllabus         String
+  faqs             Json?
+  coverImage       String?
+  metaTitle        String?
+  metaDesc         String?
+  status           ContentStatus @default(DRAFT)
+  featured         Boolean       @default(false)
+  viewCount        Int           @default(0)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model Lead {
+  id              String     @id @default(uuid())
+  referenceNumber String?    @unique
+  name            String
+  email           String?
+  phone           String
+  location        String?
+  profession      String?
+  experience      String?
+  examType        String?
+  targetCountry   String?
+  message         String?
+  source          LeadSource @default(CONTACT)
+  status          LeadStatus @default(NEW)
+  notes           String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model Newsletter {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  subscribed     Boolean   @default(true)
+  unsubscribeKey String    @unique
+  createdAt      DateTime  @default(now())
+  unsubscribedAt DateTime?
+}
+
+model Testimonial {
+  id         String   @id @default(uuid())
+  name       String
+  profession String
+  examType   String
+  country    String
+  rating     Int
+  review     String
+  avatarUrl  String?
+  visible    Boolean  @default(true)
+  featured   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model SiteSettings {
+  id              String   @id @default(uuid())
+  siteName        String
+  tagline         String
+  description     String
+  phone           String
+  whatsapp        String
+  email           String
+  address         Json
+  socialLinks     Json
+  announcement    String?
+  announcementOn  Boolean  @default(false)
+  googleAnalytics String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Event {
+  id          String        @id @default(uuid())
+  title       String
+  slug        String        @unique
+  content     String
+  excerpt     String
+  eventDate   DateTime
+  location    String        @default("Unique Mentors Kochi")
+  coverImage  String?
+  status      ContentStatus @default(DRAFT)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
