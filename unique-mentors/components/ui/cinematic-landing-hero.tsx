@@ -257,6 +257,22 @@ export function CinematicHero({
             <p className="text-track gsap-reveal max-w-2xl text-base font-medium leading-7 text-blue-100/80 md:text-xl">
               MOH, DHA, HAAD, CORU, Dataflow and overseas medical licensing support for healthcare professionals ready to move with confidence.
             </p>
+            <div className="text-track gsap-reveal mt-5 flex flex-wrap items-center gap-3 lg:hidden">
+              <Link
+                href={primaryHref}
+                data-analytics-event="cta_clicked"
+                data-analytics-label="Mobile Hero Enroll Now"
+                data-analytics-location="hero_mobile"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-extrabold text-brand-navy shadow-[0_16px_36px_rgba(0,0,0,0.3)] transition active:scale-[0.98]"
+              >
+                <Icon name="Rocket" className="h-4 w-4" />
+                Enroll Now
+              </Link>
+              <span className="inline-flex h-12 items-center gap-2 rounded-lg border border-emerald-300/20 bg-emerald-400/10 px-3 text-xs font-bold uppercase tracking-[0.12em] text-emerald-100 backdrop-blur">
+                <Icon name="GraduationCap" className="h-4 w-4" />
+                Free counselling
+              </span>
+            </div>
           </div>
           <div className="text-track gsap-reveal hidden justify-end lg:flex">
             <ShuffleGrid />
