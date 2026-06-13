@@ -17,6 +17,9 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contact Unique Mentors on WhatsApp"
+      data-analytics-event="whatsapp_clicked"
+      data-analytics-label="Floating WhatsApp"
+      data-analytics-location="floating"
       className="group fixed bottom-5 right-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-white shadow-glow"
     >
       <span className="absolute inset-0 rounded-full bg-secondary/60 animate-pulse-ring" aria-hidden="true" />

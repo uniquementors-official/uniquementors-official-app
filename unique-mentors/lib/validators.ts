@@ -31,6 +31,11 @@ export const newsletterSchema = z.object({
   email: z.string().trim().email()
 });
 
+export const newsletterCampaignSchema = z.object({
+  subject: z.string().trim().min(4).max(140),
+  content: z.string().trim().min(10).max(5000)
+});
+
 export const blogSchema = z.object({
   title: z.string().trim().min(4).max(140),
   slug: z.string().trim().max(160).optional(),

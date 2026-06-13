@@ -39,7 +39,14 @@ export function CourseCard({ course, compact = false }: CourseCardProps) {
 
   return (
     <article className="group surface flex h-full flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-glow">
-      <Link href={`/courses/${course.slug}`} className="relative block aspect-[16/10] overflow-hidden" aria-label={`View ${course.title}`}>
+      <Link
+        href={`/courses/${course.slug}`}
+        className="relative block aspect-[16/10] overflow-hidden"
+        aria-label={`View ${course.title}`}
+        data-analytics-event="course_clicked"
+        data-analytics-label={course.title}
+        data-analytics-location="course_card_image"
+      >
         <Image
           src={course.coverImage}
           alt={course.imageAlt}
@@ -59,7 +66,13 @@ export function CourseCard({ course, compact = false }: CourseCardProps) {
           <Badge variant="muted">{course.country}</Badge>
         </div>
         <h3 className="font-display text-xl font-bold leading-snug text-brand-ink dark:text-white">
-          <Link href={`/courses/${course.slug}`} className="hover:text-primary">
+          <Link
+            href={`/courses/${course.slug}`}
+            className="hover:text-primary"
+            data-analytics-event="course_clicked"
+            data-analytics-label={course.title}
+            data-analytics-location="course_card_title"
+          >
             {course.title}
           </Link>
         </h3>
@@ -75,7 +88,12 @@ export function CourseCard({ course, compact = false }: CourseCardProps) {
           </span>
         </div>
         <Button asChild variant="outline" className={cn("mt-5 w-full", compact && "mt-4")}>
-          <Link href={`/courses/${course.slug}`}>
+          <Link
+            href={`/courses/${course.slug}`}
+            data-analytics-event="course_clicked"
+            data-analytics-label={course.title}
+            data-analytics-location="course_card_button"
+          >
             View Course Details
             <Icon name="ArrowRight" className="h-4 w-4" />
           </Link>

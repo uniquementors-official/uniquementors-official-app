@@ -194,6 +194,7 @@ export const ADMIN_NAV_ITEMS = [
   { label: "Events", href: "/admin/events", icon: "Calendar" },
   { label: "Courses", href: "/admin/courses", icon: "BookOpen" },
   { label: "Leads", href: "/admin/leads", icon: "Users" },
+  { label: "Analytics", href: "/admin/analytics", icon: "BarChart3" },
   { label: "Testimonials", href: "/admin/testimonials", icon: "Star" },
   { label: "Newsletter", href: "/admin/newsletter", icon: "Mail" },
   { label: "Settings", href: "/admin/settings", icon: "Settings" }

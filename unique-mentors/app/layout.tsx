@@ -4,6 +4,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/common/ThemeProvider";
 import { SchemaMarkup } from "@/components/common/SchemaMarkup";
+import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import { LocalBusinessSchema, OrganizationSchema, WebsiteSchema } from "@/lib/seo";
 import { SITE_CONFIG } from "@/lib/constants";
 import "./globals.css";
@@ -70,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </Script>
             </>
           ) : null}
-          {children}
+          <PostHogProvider>{children}</PostHogProvider>
           <Toaster richColors closeButton position="top-right" />
         </ThemeProvider>
       </body>

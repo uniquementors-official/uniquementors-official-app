@@ -2,12 +2,15 @@ import crypto from "crypto";
 import { ZodError } from "zod";
 import { prisma } from "@/lib/db";
 import { ok, fail } from "@/lib/api";
+import { readAnalyticsContext, recordAnalyticsEvent } from "@/lib/analytics-server";
 import { sendWelcomeEmail } from "@/lib/email";
 import { newsletterSchema } from "@/lib/validators";
 
 export async function POST(request: Request) {
   try {
-    const payload = newsletterSchema.parse(await request.json());
+    const body = await request.json();
+    const payload = newsletterSchema.parse(body);
+    const analytics = readAnalyticsContext(body);
     const existing = await prisma.newsletter.findUnique({ where: { email: payload.email.toLowerCase() } });
 
     if (existing?.subscribed) {
@@ -28,6 +31,19 @@ export async function POST(request: Request) {
         });
 
     await sendWelcomeEmail(subscriber.email, "there");
+    await recordAnalyticsEvent({
+      eventName: "newsletter_subscriber_created",
+      request,
+      distinctId: analytics.distinctId,
+      sessionId: analytics.sessionId,
+      path: analytics.path,
+      referrer: analytics.referrer,
+      forwardToPostHog: true,
+      properties: {
+        source: "NEWSLETTER",
+        email: subscriber.email
+      }
+    });
     return ok({ email: subscriber.email }, "Newsletter subscription confirmed.");
   } catch (error) {
     console.error("newsletter route error", error);

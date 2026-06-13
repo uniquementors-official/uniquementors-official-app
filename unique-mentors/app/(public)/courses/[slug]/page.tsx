@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { CourseCard } from "@/components/cards/CourseCard";
+import { TrackView } from "@/components/analytics/TrackView";
 import { CourseDetailTabs } from "@/components/common/CourseDetailTabs";
 import { FAQAccordion } from "@/components/common/FAQAccordion";
 import { SchemaMarkup } from "@/components/common/SchemaMarkup";
@@ -96,6 +97,17 @@ export default async function CourseDetailPage({ params }: { params: { slug: str
 
   return (
     <>
+      <TrackView
+        eventName="course_viewed"
+        properties={{
+          courseId: mappedCourse.id,
+          slug: mappedCourse.slug,
+          title: mappedCourse.title,
+          examType: mappedCourse.examType,
+          profession: mappedCourse.profession,
+          country: mappedCourse.country
+        }}
+      />
       <SchemaMarkup schema={[CourseSchema(mappedCourse), FAQSchema(mappedCourse.faqs)]} />
       <PageHeader
         title={mappedCourse.title}
@@ -140,10 +152,24 @@ export default async function CourseDetailPage({ params }: { params: { slug: str
               </div>
               <div className="mt-6 grid gap-3">
                 <Button asChild size="lg">
-                  <Link href="/apply">Enroll Now</Link>
+                  <Link
+                    href="/apply"
+                    data-analytics-event="cta_clicked"
+                    data-analytics-label="Course Enroll Now"
+                    data-analytics-location="course_detail_sidebar"
+                  >
+                    Enroll Now
+                  </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <a href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-analytics-event="whatsapp_clicked"
+                    data-analytics-label="Course WhatsApp Enquiry"
+                    data-analytics-location="course_detail_sidebar"
+                  >
                     <Icon name="MessageCircle" className="h-4 w-4" />
                     WhatsApp Enquiry
                   </a>

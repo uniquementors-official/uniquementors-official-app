@@ -1,12 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DataTable, type Column } from "@/components/admin/DataTable";
 import { Icon } from "@/components/common/Icon";
 
-type LeadRow = {
+const leadStatuses = ["NEW", "CONTACTED", "ENROLLED", "CLOSED"] as const;
+
+export type LeadRow = {
   id: string;
   name: string;
   email: string;
@@ -20,6 +23,42 @@ type LeadRow = {
 
 export function LeadsTable({ leads }: { leads: LeadRow[] }) {
   const [rows, setRows] = useState(leads);
+  const [updatingIds, setUpdatingIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    setRows(leads);
+  }, [leads]);
+
+  const updateStatus = useCallback(async (row: LeadRow, status: LeadRow["status"]) => {
+    const previousStatus = row.status;
+    setRows((current) => current.map((item) => (item.id === row.id ? { ...item, status } : item)));
+    setUpdatingIds((current) => {
+      const next = new Set(current);
+      next.add(row.id);
+      return next;
+    });
+
+    try {
+      const response = await fetch(`/api/leads/${row.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status })
+      });
+      const result = (await response.json()) as { success: boolean; error?: string };
+      if (!result.success) throw new Error(result.error || "Unable to update lead");
+      toast.success("Lead status updated.");
+    } catch (error) {
+      setRows((current) => current.map((item) => (item.id === row.id ? { ...item, status: previousStatus } : item)));
+      toast.error(error instanceof Error ? error.message : "Unable to update lead");
+    } finally {
+      setUpdatingIds((current) => {
+        const next = new Set(current);
+        next.delete(row.id);
+        return next;
+      });
+    }
+  }, []);
+
   const columns = useMemo<Column<LeadRow>[]>(
     () => [
       {
@@ -43,10 +82,11 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
         render: (row) => (
           <select
             value={row.status}
+            disabled={updatingIds.has(row.id)}
             className="rounded-md border border-slate-200 bg-background px-2 py-1 text-sm"
-            onChange={(event) => setRows((current) => current.map((item) => (item.id === row.id ? { ...item, status: event.target.value } : item)))}
+            onChange={(event) => updateStatus(row, event.target.value as LeadRow["status"])}
           >
-            {["NEW", "CONTACTED", "ENROLLED", "CLOSED"].map((status) => (
+            {leadStatuses.map((status) => (
               <option key={status}>{status}</option>
             ))}
           </select>
@@ -54,11 +94,18 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
       },
       { key: "date", header: "Date" }
     ],
-    []
+    [updateStatus, updatingIds]
   );
 
   function exportCsv() {
-    const csv = ["Name,Email,Phone,Profession,Exam,Source,Status,Date", ...rows.map((row) => [row.name, row.email, row.phone, row.profession, row.examType, row.source, row.status, row.date].join(","))].join("\n");
+    const csv = [
+      "Name,Email,Phone,Profession,Exam,Source,Status,Date",
+      ...rows.map((row) =>
+        [row.name, row.email, row.phone, row.profession, row.examType, row.source, row.status, row.date]
+          .map((value) => `"${String(value).replace(/"/g, '""')}"`)
+          .join(",")
+      )
+    ].join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");

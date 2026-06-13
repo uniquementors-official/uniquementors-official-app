@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { applicationSchema } from "@/lib/validators";
 import { COUNTRIES_SERVED, PROFESSIONS } from "@/lib/constants";
+import { getAnalyticsContext, identifyAnalyticsUser, trackAnalyticsEvent } from "@/lib/analytics-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,20 +46,58 @@ export function ApplicationForm() {
 
   async function goNext() {
     const valid = await trigger(currentFields);
-    if (valid) setStep((current) => Math.min(current + 1, steps.length - 1));
+    if (valid) {
+      trackAnalyticsEvent("application_step_completed", {
+        step: steps[step],
+        stepIndex: step + 1,
+        examType: values.examType,
+        targetCountry: values.targetCountry,
+        profession: values.profession
+      });
+      setStep((current) => Math.min(current + 1, steps.length - 1));
+    }
   }
 
   async function onSubmit(data: ApplicationValues) {
+    trackAnalyticsEvent("application_submit_attempted", {
+      examType: data.examType,
+      targetCountry: data.targetCountry,
+      profession: data.profession
+    });
+
     const response = await fetch("/api/apply", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify({ ...data, analytics: getAnalyticsContext() })
     });
     const result = (await response.json()) as { success: boolean; data?: { referenceNumber: string }; error?: string };
     if (!result.success) {
+      trackAnalyticsEvent("application_form_error", {
+        examType: data.examType,
+        targetCountry: data.targetCountry,
+        profession: data.profession,
+        error: result.error || "Unable to submit application"
+      });
       toast.error(result.error || "Unable to submit application");
       return;
     }
+    identifyAnalyticsUser({
+      email: data.email,
+      name: data.name,
+      phone: data.phone,
+      profession: data.profession,
+      examType: data.examType,
+      source: "application_form"
+    });
+    trackAnalyticsEvent("application_submitted", {
+      examType: data.examType,
+      targetCountry: data.targetCountry,
+      profession: data.profession,
+      referenceNumber: result.data?.referenceNumber,
+      email: data.email,
+      phone: data.phone,
+      name: data.name
+    });
     setReference(result.data?.referenceNumber ?? "Submitted");
     reset();
     toast.success("Application submitted.");

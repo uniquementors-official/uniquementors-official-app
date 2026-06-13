@@ -9,7 +9,14 @@ type PlayStoreButtonProps = Omit<ButtonProps, "children" | "asChild"> & {
 export function PlayStoreButton({ className, href, ...props }: PlayStoreButtonProps) {
   return (
     <Button asChild className={cn("h-12 gap-2 px-4", className)} {...props}>
-      <a href={href} target="_blank" rel="noopener noreferrer" aria-label="Get Unique Mentors on Google Play">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Get Unique Mentors on Google Play"
+        data-analytics-event="play_store_clicked"
+        data-analytics-label="Google Play"
+      >
         <PlayStoreIcon className="h-5 w-5" />
         <span className="flex flex-col items-start justify-center pr-2 text-left">
           <span className="text-[10px] font-light leading-none tracking-normal">GET IT ON</span>

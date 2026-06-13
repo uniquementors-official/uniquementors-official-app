@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { contactSchema } from "@/lib/validators";
 import { PROFESSIONS } from "@/lib/constants";
+import { getAnalyticsContext, identifyAnalyticsUser, trackAnalyticsEvent } from "@/lib/analytics-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,16 +28,41 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: ContactFormValues) {
+    trackAnalyticsEvent("contact_form_submit_attempted", {
+      examType: values.examType,
+      profession: values.profession
+    });
+
     const response = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values)
+      body: JSON.stringify({ ...values, analytics: getAnalyticsContext() })
     });
     const result = (await response.json()) as { success: boolean; error?: string };
     if (!result.success) {
+      trackAnalyticsEvent("contact_form_error", {
+        examType: values.examType,
+        profession: values.profession,
+        error: result.error || "Unable to send enquiry"
+      });
       toast.error(result.error || "Unable to send enquiry");
       return;
     }
+    identifyAnalyticsUser({
+      email: values.email,
+      name: values.name,
+      phone: values.phone,
+      profession: values.profession,
+      examType: values.examType,
+      source: "contact_form"
+    });
+    trackAnalyticsEvent("contact_form_submitted", {
+      examType: values.examType,
+      profession: values.profession,
+      email: values.email,
+      phone: values.phone,
+      name: values.name
+    });
     setSubmitted(true);
     reset();
     toast.success("Your enquiry has been sent.");

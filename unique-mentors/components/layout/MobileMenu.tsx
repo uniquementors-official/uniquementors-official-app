@@ -97,15 +97,35 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             </div>
             <div className="mt-8 grid gap-3">
               <Button asChild variant="secondary" size="lg">
-                <a href={APP_LINKS.login} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={APP_LINKS.login}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-analytics-event="login_clicked"
+                  data-analytics-label="Admin app login"
+                  data-analytics-location="mobile_menu"
+                >
                   Login
                 </a>
               </Button>
               <Button asChild variant="light" size="lg">
-                <Link href="/contact#contact-form">Sign up</Link>
+                <Link
+                  href="/contact#contact-form"
+                  data-analytics-event="signup_clicked"
+                  data-analytics-label="Contact form signup"
+                  data-analytics-location="mobile_menu"
+                >
+                  Sign up
+                </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white/30 bg-transparent text-white hover:bg-white hover:text-brand-navy">
-                <a href={`tel:${SITE_CONFIG.phone}`} aria-label={`Call Unique Mentors at ${PHONE_DISPLAY}`}>
+                <a
+                  href={`tel:${SITE_CONFIG.phone}`}
+                  aria-label={`Call Unique Mentors at ${PHONE_DISPLAY}`}
+                  data-analytics-event="phone_clicked"
+                  data-analytics-label="Mobile menu phone"
+                  data-analytics-location="mobile_menu"
+                >
                   <Icon name="PhoneCall" className="h-4 w-4" />
                   {PHONE_DISPLAY}
                 </a>

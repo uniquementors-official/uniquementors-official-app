@@ -112,6 +112,9 @@ export function BlogPostsGrid({
                 isPrimary && "md:col-span-2 md:row-span-2 lg:col-span-1",
                 post.className
               )}
+              data-analytics-event="blog_clicked"
+              data-analytics-label={post.title}
+              data-analytics-location="blog_grid"
               onClick={() => onPostClick?.(post)}
             >
               {content}

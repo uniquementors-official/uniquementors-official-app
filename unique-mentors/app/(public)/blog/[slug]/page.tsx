@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { BlogCard } from "@/components/cards/BlogCard";
+import { TrackView } from "@/components/analytics/TrackView";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ReadingProgress } from "@/components/common/ReadingProgress";
 import { SchemaMarkup } from "@/components/common/SchemaMarkup";
@@ -89,6 +90,16 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
 
   return (
     <>
+      <TrackView
+        eventName="blog_viewed"
+        properties={{
+          blogId: mappedPost.id,
+          slug: mappedPost.slug,
+          title: mappedPost.title,
+          category: mappedPost.category,
+          readTime: mappedPost.readTime
+        }}
+      />
       <ReadingProgress />
       <SchemaMarkup schema={BlogPostSchema(mappedPost)} />
       <PageHeader
@@ -142,14 +153,26 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                 Kochi-based mentoring for MOH, DHA, HAAD, CORU, Dataflow and global healthcare career readiness.
               </p>
               <Button asChild className="mt-5 w-full">
-                <Link href="/apply">Apply Now</Link>
+                <Link
+                  href="/apply"
+                  data-analytics-event="cta_clicked"
+                  data-analytics-label="Blog Apply Now"
+                  data-analytics-location="blog_sidebar"
+                >
+                  Apply Now
+                </Link>
               </Button>
             </div>
             <div className="surface p-5">
               <h2 className="font-display text-xl font-bold">Newsletter</h2>
               <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">Get exam tips and licensing updates in your inbox.</p>
               <Button asChild variant="outline" className="mt-5 w-full">
-                <Link href="/#newsletter">
+                <Link
+                  href="/#newsletter"
+                  data-analytics-event="cta_clicked"
+                  data-analytics-label="Blog newsletter subscribe"
+                  data-analytics-location="blog_sidebar"
+                >
                   <Icon name="Mail" className="h-4 w-4" />
                   Subscribe
                 </Link>

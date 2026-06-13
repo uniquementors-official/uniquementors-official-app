@@ -20,10 +20,24 @@ export function CTASection() {
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button asChild variant="secondary" size="lg">
-            <Link href="/apply">Apply Now</Link>
+            <Link
+              href="/apply"
+              data-analytics-event="cta_clicked"
+              data-analytics-label="Apply Now"
+              data-analytics-location="cta_section"
+            >
+              Apply Now
+            </Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="border-white/30 bg-transparent text-white hover:bg-white hover:text-brand-navy">
-            <a href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, "")}?text=${message}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, "")}?text=${message}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics-event="whatsapp_clicked"
+              data-analytics-label="Talk to an Expert"
+              data-analytics-location="cta_section"
+            >
               <Icon name="MessageCircle" className="h-4 w-4" />
               Talk to an Expert
             </a>

@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
+import { getAnalyticsContext, identifyAnalyticsUser, trackAnalyticsEvent } from "@/lib/analytics-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/common/Icon";
@@ -14,18 +15,33 @@ export function NewsletterSection() {
   async function subscribe(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
+    trackAnalyticsEvent("newsletter_submit_attempted", {
+      location: "newsletter_section"
+    });
     try {
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, analytics: getAnalyticsContext() })
       });
       const result = (await response.json()) as { success: boolean; message?: string; error?: string };
       if (!result.success) throw new Error(result.error || "Unable to subscribe");
+      identifyAnalyticsUser({
+        email,
+        source: "newsletter_section"
+      });
+      trackAnalyticsEvent("newsletter_subscribed", {
+        location: "newsletter_section",
+        email
+      });
       setSuccess(true);
       setEmail("");
       toast.success(result.message || "Subscribed successfully.");
     } catch (error) {
+      trackAnalyticsEvent("newsletter_error", {
+        location: "newsletter_section",
+        error: error instanceof Error ? error.message : "Please try again."
+      });
       toast.error(error instanceof Error ? error.message : "Please try again.");
     } finally {
       setLoading(false);

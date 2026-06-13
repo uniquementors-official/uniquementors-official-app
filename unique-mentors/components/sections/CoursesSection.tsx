@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CourseCard } from "@/components/cards/CourseCard";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
+import { trackAnalyticsEvent } from "@/lib/analytics-client";
 import type { Course } from "@/types";
 
 const tabs = ["All", "MOH", "DHA", "HAAD", "CORU", "Western"];
@@ -46,7 +47,13 @@ export function CoursesSection({ initialCourses }: CoursesSectionProps) {
                 role="tab"
                 aria-selected={active === tab}
                 className={active === tab ? "rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white" : "rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"}
-                onClick={() => setActive(tab)}
+                onClick={() => {
+                  setActive(tab);
+                  trackAnalyticsEvent("course_filter_selected", {
+                    filter: tab,
+                    visibleCount: visibleCourses.length
+                  });
+                }}
               >
                 {tab}
               </button>

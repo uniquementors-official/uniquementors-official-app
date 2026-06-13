@@ -133,12 +133,26 @@ export function Navbar({ hasBanner = false }: { hasBanner?: boolean }) {
 
           <div className="hidden items-center gap-2 lg:flex">
             <Button asChild variant={isScrolled ? "outline" : "light"} size="sm">
-              <a href={APP_LINKS.login} target="_blank" rel="noopener noreferrer">
+              <a
+                href={APP_LINKS.login}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="login_clicked"
+                data-analytics-label="Admin app login"
+                data-analytics-location="navbar"
+              >
                 Login
               </a>
             </Button>
             <Button asChild size="sm">
-              <Link href="/contact#contact-form">Sign up</Link>
+              <Link
+                href="/contact#contact-form"
+                data-analytics-event="signup_clicked"
+                data-analytics-label="Contact form signup"
+                data-analytics-location="navbar"
+              >
+                Sign up
+              </Link>
             </Button>
           </div>
 

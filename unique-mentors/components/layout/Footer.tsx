@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { FOOTER_LINKS, PHONE_DISPLAY, SITE_CONFIG } from "@/lib/constants";
+import { getAnalyticsContext, identifyAnalyticsUser, trackAnalyticsEvent } from "@/lib/analytics-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/common/Icon";
@@ -25,17 +26,32 @@ export function Footer() {
   async function subscribe(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
+    trackAnalyticsEvent("newsletter_submit_attempted", {
+      location: "footer"
+    });
     try {
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, analytics: getAnalyticsContext() })
       });
       const result = (await response.json()) as { success: boolean; message?: string; error?: string };
       if (!result.success) throw new Error(result.error || "Subscription failed");
+      identifyAnalyticsUser({
+        email,
+        source: "footer_newsletter"
+      });
+      trackAnalyticsEvent("newsletter_subscribed", {
+        location: "footer",
+        email
+      });
       toast.success(result.message || "You are subscribed to Unique Mentors updates.");
       setEmail("");
     } catch (error) {
+      trackAnalyticsEvent("newsletter_error", {
+        location: "footer",
+        error: error instanceof Error ? error.message : "Please try again."
+      });
       toast.error(error instanceof Error ? error.message : "Please try again.");
     } finally {
       setLoading(false);

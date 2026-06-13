@@ -1,6 +1,7 @@
 import { ZodError } from "zod";
 import { prisma } from "@/lib/db";
 import { ok, fail } from "@/lib/api";
+import { readAnalyticsContext, recordAnalyticsEvent } from "@/lib/analytics-server";
 import { sendApplicationEmail } from "@/lib/email";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { applicationSchema } from "@/lib/validators";
@@ -12,7 +13,9 @@ export async function POST(request: Request) {
     const limited = rateLimit(`apply:${ip}`, 5, 60 * 60 * 1000);
     if (!limited.allowed) return fail("Too many applications from this connection. Please try again later.", 429);
 
-    const payload = applicationSchema.parse(await request.json());
+    const body = await request.json();
+    const payload = applicationSchema.parse(body);
+    const analytics = readAnalyticsContext(body);
     const referenceNumber = generateReferenceNumber("UMA");
     const lead = await prisma.lead.create({
       data: {
@@ -28,6 +31,27 @@ export async function POST(request: Request) {
         message: payload.message || undefined,
         source: "APPLY",
         status: "NEW"
+      }
+    });
+
+    await recordAnalyticsEvent({
+      eventName: "lead_created",
+      request,
+      distinctId: analytics.distinctId,
+      sessionId: analytics.sessionId,
+      path: analytics.path,
+      referrer: analytics.referrer,
+      forwardToPostHog: true,
+      properties: {
+        leadId: lead.id,
+        referenceNumber,
+        source: "APPLY",
+        examType: payload.examType,
+        targetCountry: payload.targetCountry,
+        profession: payload.profession,
+        email: payload.email,
+        phone: payload.phone,
+        name: payload.name
       }
     });
 

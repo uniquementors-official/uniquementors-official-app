@@ -9,7 +9,14 @@ type AppStoreButtonProps = Omit<ButtonProps, "children" | "asChild"> & {
 export function AppStoreButton({ className, href, ...props }: AppStoreButtonProps) {
   return (
     <Button asChild className={cn("h-12 gap-2 px-4", className)} {...props}>
-      <a href={href} target="_blank" rel="noopener noreferrer" aria-label="Download Unique Mentors on the App Store">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Unique Mentors on the App Store"
+        data-analytics-event="app_store_clicked"
+        data-analytics-label="App Store"
+      >
         <AppleIcon className="h-5 w-5" />
         <span className="flex flex-col items-start justify-center pr-2 text-left">
           <span className="text-[10px] leading-none tracking-normal">Download on the</span>

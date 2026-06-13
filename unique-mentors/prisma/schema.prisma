@@ -163,3 +163,21 @@ model Event {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
+
+model AnalyticsEvent {
+  id         String   @id @default(uuid())
+  eventName  String
+  distinctId String
+  sessionId  String?
+  path       String?
+  referrer   String?
+  ipHash     String?
+  userAgent  String?
+  properties Json?
+  createdAt  DateTime @default(now())
+
+  @@index([eventName, createdAt])
+  @@index([distinctId, createdAt])
+  @@index([path, createdAt])
+  @@index([createdAt])
+}

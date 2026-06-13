@@ -20,7 +20,14 @@ const categoryVariants: Record<string, "default" | "secondary" | "warning" | "su
 export function BlogCard({ post, large = false }: BlogCardProps) {
   return (
     <article className="group surface flex h-full flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-glow">
-      <Link href={`/blog/${post.slug}`} className="relative block aspect-video overflow-hidden" aria-label={`Read ${post.title}`}>
+      <Link
+        href={`/blog/${post.slug}`}
+        className="relative block aspect-video overflow-hidden"
+        aria-label={`Read ${post.title}`}
+        data-analytics-event="blog_clicked"
+        data-analytics-label={post.title}
+        data-analytics-location="blog_card_image"
+      >
         <Image
           src={post.coverImage}
           alt={post.imageAlt}
@@ -44,12 +51,24 @@ export function BlogCard({ post, large = false }: BlogCardProps) {
           <span>{post.author}</span>
         </div>
         <h3 className={large ? "font-display text-2xl font-bold leading-snug" : "font-display text-xl font-bold leading-snug"}>
-          <Link href={`/blog/${post.slug}`} className="hover:text-primary">
+          <Link
+            href={`/blog/${post.slug}`}
+            className="hover:text-primary"
+            data-analytics-event="blog_clicked"
+            data-analytics-label={post.title}
+            data-analytics-location="blog_card_title"
+          >
             {post.title}
           </Link>
         </h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{post.excerpt}</p>
-        <Link href={`/blog/${post.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-secondary">
+        <Link
+          href={`/blog/${post.slug}`}
+          className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-secondary"
+          data-analytics-event="blog_clicked"
+          data-analytics-label={post.title}
+          data-analytics-location="blog_card_button"
+        >
           Read Article
           <Icon name="ArrowRight" className="h-4 w-4" />
         </Link>
