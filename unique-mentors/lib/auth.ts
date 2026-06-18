@@ -3,22 +3,15 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
+import { authConfig } from "@/lib/auth-config";
 
 const credentialsSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8)
 });
 
-const authSecret = process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET;
-
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  secret: authSecret,
-  pages: {
-    signIn: "/admin/login"
-  },
-  session: {
-    strategy: "jwt"
-  },
+  ...authConfig,
   providers: [
     Credentials({
       name: "Admin credentials",
@@ -54,30 +47,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
       }
     })
-  ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.role = (user as { role?: string }).role ?? "ADMIN";
-        token.id = user.id;
-      }
-      return token;
-    },
-    session({ session, token }) {
-      if (session.user) {
-        session.user.id = String(token.id);
-        session.user.role = String(token.role ?? "ADMIN");
-      }
-      return session;
-    },
-    authorized({ auth: session, request }) {
-      const pathname = request.nextUrl.pathname;
-      if (pathname.startsWith("/admin/login")) return true;
-      if (pathname.startsWith("/admin")) return Boolean(session?.user && session.user.role === "ADMIN");
-      return true;
-    }
-  },
-  trustHost: true
+  ]
 });
 
 export async function requireAdmin() {
