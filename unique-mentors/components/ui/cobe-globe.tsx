@@ -119,7 +119,6 @@ export function Globe({
         markerElevation: 0.01,
         markers: markers.map((m) => ({ location: m.location, size: markerSize })),
         opacity: 0.85,
-        onRender: () => {},
       })
 
       function animate() {
@@ -149,7 +148,8 @@ export function Globe({
       init()
     } else {
       const ro = new ResizeObserver((entries) => {
-        if (entries[0]?.contentRect.width > 0) { ro.disconnect(); init() }
+        const entry = entries[0];
+        if (entry && entry.contentRect.width > 0) { ro.disconnect(); init() }
       })
       ro.observe(canvas)
       return () => ro.disconnect()

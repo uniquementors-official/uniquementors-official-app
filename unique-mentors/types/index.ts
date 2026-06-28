@@ -1,4 +1,4 @@
-export type ExamType = "MOH" | "DHA" | "HAAD" | "CORU" | "CANADA" | "AUSTRALIA" | "WESTERN";
+export type ExamType = "MOH" | "DHA" | "HAAD" | "CORU" | "CANADA" | "AUSTRALIA" | "WESTERN" | "OMSB" | "QCHP" | "SCFHS" | "NHRA" | "HCPC" | "ADC" | "APC" | "AMC" | "USMLE" | "PLAB";
 
 export type ContentStatus = "draft" | "published";
 

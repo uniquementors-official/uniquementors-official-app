@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
     // Get IP for region tracking
     const forwarded = req.headers.get("x-forwarded-for");
-    const ip = forwarded ? forwarded.split(",")[0].trim() : "Unknown";
+    const ip = forwarded ? (forwarded.split(",")[0] || "").trim() : "Unknown";
 
     // Log the download event in AnalyticsEvent table
     await prisma.analyticsEvent.create({
