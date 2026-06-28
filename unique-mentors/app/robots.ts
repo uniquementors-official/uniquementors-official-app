@@ -8,6 +8,14 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         disallow: ["/admin/", "/api/", "/_next/"]
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/"
+      },
+      {
+        userAgent: "Bingbot",
+        allow: "/"
       }
     ],
     sitemap: `${SITE_CONFIG.url}/sitemap.xml`,

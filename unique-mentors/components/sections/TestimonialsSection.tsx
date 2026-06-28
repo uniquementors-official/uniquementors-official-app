@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { TESTIMONIALS } from "@/lib/content";
 import { TestimonialsColumn, type ColumnTestimonial } from "@/components/ui/testimonials-columns-1";
 import { Icon } from "@/components/common/Icon";

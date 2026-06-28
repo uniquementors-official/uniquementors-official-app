@@ -11,10 +11,10 @@ import { FounderStoryTimeline } from "@/components/ui/polaroid-flick-through";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "About Unique Mentors | Founded by Dr. Deepa & Dr. Praveena - Kochi",
-  description:
-    "Learn about Unique Mentors, a Kochi-based overseas medical licensing exam training centre founded by Dr. Deepa Seira Babu and Dr. Praveena Prathapachandran.",
-  path: "/about"
+  title: "About Unique Mentors - Medical Licensing Exam Coaching Centre Kochi",
+  description: "Learn about Unique Mentors in Kochi, Kerala. Founded by Dr. Deepa Seira Babu & Dr. Praveena Prathapachandran. We specialize in overseas medical licensing exam coaching (MOH, DHA, HAAD, Prometric), GCC DataFlow processing, and healthcare finishing school programs.",
+  path: "/about",
+  keywords: ["about unique mentors", "medical licensing coaches kochi", "Dr. Deepa Seira Babu", "Dr. Praveena Prathapachandran"]
 });
 
 const values = [

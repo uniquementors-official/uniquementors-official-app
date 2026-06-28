@@ -13,10 +13,10 @@ import type { Course } from "@/types";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Medical Licensing Exam Training Courses - MOH DHA HAAD CORU",
-  description:
-    "Browse Unique Mentors courses for MOH, DHA, HAAD, CORU, Canada and Australia medical licensing exam training across healthcare professions.",
-  path: "/courses"
+  title: "Medical Licensing Exam Training Courses - MOH DHA HAAD OMSB | Unique Mentors",
+  description: "Browse our medical licensing exam training courses in Kochi. Expert prometric coaching for MOH, DHA, HAAD, OMSB, QCHP, SCFHS, and CORU. Flexible online & classroom batches for Lab Technicians, Pharmacists, Physiotherapists, Nurses, and Doctors.",
+  path: "/courses",
+  keywords: ["medical licensing exam training courses", "prometric coaching courses kochi", "moh exam coaching courses"]
 });
 
 type CoursesPageProps = {

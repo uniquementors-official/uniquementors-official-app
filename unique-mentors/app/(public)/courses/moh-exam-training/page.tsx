@@ -3,9 +3,10 @@ import { ExamLandingPage } from "@/components/common/ExamLandingPage";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "MOH Exam Training in Kochi | Unique Mentors",
-  description: "MOH exam training for healthcare professionals in Kochi with mock tests, eligibility guidance and UAE licensing support.",
-  path: "/courses/moh-exam-training"
+  title: "MOH Exam Training Kochi - Prometric Coaching for Lab Tech, Pharmacist, Physio | Unique Mentors",
+  description: "MOH exam training in Kochi for healthcare professionals — Lab Technicians, Pharmacists, Physiotherapists, Radiographers, Nurses, Dentists and Doctors. Mock tests, eligibility guidance, DataFlow support and UAE medical licensing pathway. Join 5000+ successful candidates.",
+  path: "/courses/moh-exam-training",
+  keywords: ["MOH exam training", "MOH exam for physiotherapist", "MOH exam for lab technician", "MOH prometric coaching Kochi", "UAE medical licensing"]
 });
 
 export default function MOHExamTrainingPage() {

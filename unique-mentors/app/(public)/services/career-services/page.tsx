@@ -5,32 +5,31 @@ import { Icon } from "@/components/common/Icon";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Finishing School for Healthcare Professionals - Kochi",
-  description: "Professional finishing school in Kochi for healthcare candidates: communication, leadership, cultural awareness, etiquette, interviews and CV preparation.",
-  path: "/services/finishing-school"
+  title: "Career Services for Healthcare Professionals - Kochi",
+  description: "Comprehensive career services in Kochi for healthcare candidates: Resume Building, CV Creation, LinkedIn Profile Assistance, Career Guidance, and Interview Preparation.",
+  path: "/services/career-services"
 });
 
 const modules = [
-  { title: "Communication Skills", icon: "MessageCircle" },
-  { title: "Leadership Development", icon: "Trophy" },
-  { title: "Cultural Awareness", icon: "Globe2" },
-  { title: "Professional Etiquette", icon: "BadgeCheck" },
-  { title: "Interview Preparation", icon: "Users" },
-  { title: "CV & Portfolio Building", icon: "FileText" }
+  { title: "Resume Building", icon: "FileText" },
+  { title: "CV Creation", icon: "FileEdit" },
+  { title: "LinkedIn Profile Assistance", icon: "Linkedin" },
+  { title: "Career Guidance", icon: "Compass" },
+  { title: "Interview Preparation", icon: "MessageCircle" }
 ];
 
-export default function FinishingSchoolPage() {
+export default function CareerServicesPage() {
   return (
     <>
       <PageHeader
-        title="Finishing School for Healthcare Professionals - Kochi"
-        subtitle="Build the communication, confidence and workplace readiness needed for a successful global healthcare career."
+        title="Career Services for Healthcare Professionals - Kochi"
+        subtitle="Build a strong professional profile and gain the confidence needed for a successful global healthcare career."
         breadcrumbs={[
           { name: "Home", href: "/" },
           { name: "Services", href: "/services" },
-          { name: "Finishing School", href: "/services/finishing-school" }
+          { name: "Career Services", href: "/services/career-services" }
         ]}
-        primaryCta={{ label: "Apply Now", href: "/apply" }}
+        primaryCta={{ label: "Book Free Counselling", href: "/contact" }}
       />
       <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container">
@@ -40,7 +39,7 @@ export default function FinishingSchoolPage() {
                 <Icon name={icon} className="h-8 w-8 text-primary" />
                 <h2 className="mt-5 font-display text-xl font-bold">{title}</h2>
                 <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">
-                  Practical sessions, mentoring and exercises that help healthcare professionals present themselves with clarity and confidence.
+                  Practical mentoring and exercises that help healthcare professionals present themselves with clarity and confidence.
                 </p>
               </article>
             ))}

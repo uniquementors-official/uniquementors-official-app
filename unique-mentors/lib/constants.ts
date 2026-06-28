@@ -40,19 +40,31 @@ export const EXAM_TYPES = [
   { label: "HAAD", value: "HAAD", description: "Abu Dhabi healthcare licensing exam preparation" },
   { label: "CORU", value: "CORU", description: "Ireland health and social care registration guidance" },
   { label: "CANADA", value: "CANADA", description: "Canadian healthcare licensing support" },
-  { label: "AUSTRALIA", value: "AUSTRALIA", description: "Australian healthcare registration support" }
+  { label: "AUSTRALIA", value: "AUSTRALIA", description: "Australian healthcare registration support" },
+  { label: "OMSB", value: "OMSB", description: "Oman Medical Specialty Board exam" },
+  { label: "QCHP", value: "QCHP", description: "Qatar Council for Healthcare Practitioners exam" },
+  { label: "SCFHS", value: "SCFHS", description: "Saudi Commission for Health Specialties exam" },
+  { label: "NHRA", value: "NHRA", description: "National Health Regulatory Authority Bahrain exam" },
+  { label: "HCPC", value: "HCPC", description: "UK Health and Care Professions Council registration" },
+  { label: "ADC", value: "ADC", description: "Australian Dental Council exam" },
+  { label: "APC", value: "APC", description: "Australian Physiotherapy Council exam" },
+  { label: "AMC", value: "AMC", description: "Australian Medical Council exam" },
+  { label: "USMLE", value: "USMLE", description: "US Medical Licensure Examination" },
+  { label: "PLAB", value: "PLAB", description: "Professional and Linguistic Assessments Board UK exam" }
 ] as const;
 
 export const PROFESSIONS = [
+  { label: "General Practitioners", icon: "Stethoscope" },
+  { label: "General Dentist", icon: "Smile" },
+  { label: "Ayurveda / Homeo / Unani / Naturopathy Physicians", icon: "Leaf" },
+  { label: "Physiotherapists", icon: "Activity" },
   { label: "Lab Technician / Technologist", icon: "Microscope" },
   { label: "Microbiologist", icon: "FlaskConical" },
   { label: "Radiographer", icon: "Scan" },
   { label: "Pharmacist", icon: "Pill" },
-  { label: "General Practitioner", icon: "Stethoscope" },
-  { label: "General Dentist", icon: "Smile" },
-  { label: "Ayush Physician", icon: "Leaf" },
-  { label: "Physiotherapist", icon: "Activity" },
-  { label: "Nurse", icon: "HeartPulse" }
+  { label: "Anesthesia Technicians and Technologists", icon: "Syringe" },
+  { label: "Optometrist", icon: "Eye" },
+  { label: "Nurses", icon: "HeartPulse" }
 ] as const;
 
 export const NAV_ITEMS: NavItem[] = [
@@ -63,19 +75,39 @@ export const NAV_ITEMS: NavItem[] = [
     href: "/services",
     items: [
       {
-        label: "Overseas Licensing Exam",
+        label: "Overseas Licensing Exam Training",
         href: "/services/overseas-licensing-exam",
-        description: "MOH, DHA, HAAD and CORU exam preparation"
+        description: "MOH, DHA, HAAD, CORU and international exam preparation"
       },
       {
-        label: "Finishing School",
-        href: "/services/finishing-school",
-        description: "Communication, leadership and global career readiness"
+        label: "GCC DataFlow & Exam Registration",
+        href: "/services/gcc-dataflow",
+        description: "End-to-end Dataflow, documentation and licensing registration"
       },
       {
-        label: "GCC & Western License Processing",
-        href: "/services/gcc-western-license-processing",
-        description: "Dataflow, documentation and licensing support"
+        label: "Western Licensing",
+        href: "/services/western-licensing",
+        description: "USA, UK, Australia and Canada healthcare licensing"
+      },
+      {
+        label: "English Language Training",
+        href: "/services/english-training",
+        description: "IELTS, OET and PTE preparation"
+      },
+      {
+        label: "Medical Council Registration",
+        href: "/services/council-registration",
+        description: "Medical council and regulatory body registration support"
+      },
+      {
+        label: "BLS & ACLS Training",
+        href: "/services/bls-acls",
+        description: "Certified Basic and Advanced Life Support courses"
+      },
+      {
+        label: "Career Services",
+        href: "/services/career-services",
+        description: "Resume, CV, LinkedIn, career guidance and interview prep"
       }
     ]
   },
@@ -87,13 +119,24 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "DHA Exam Training", href: "/courses/dha-exam-training", group: "By Exam" },
       { label: "HAAD Exam Training", href: "/courses/haad-exam-training", group: "By Exam" },
       { label: "CORU Registration", href: "/courses/coru-registration", group: "By Exam" },
+      { label: "USMLE Training", href: "/courses/usmle-exam-training", group: "By Exam" },
+      { label: "PLAB Training", href: "/courses/plab-exam-training", group: "By Exam" },
+      { label: "AMC Training", href: "/courses/amc-exam-training", group: "By Exam" },
       { label: "UAE Licensing", href: "/courses?country=UAE", group: "By Country" },
       { label: "Ireland Registration", href: "/courses?country=Ireland", group: "By Country" },
       { label: "Canada Licensing", href: "/courses?country=Canada", group: "By Country" },
       { label: "Australia Licensing", href: "/courses?country=Australia", group: "By Country" },
-      { label: "Lab Technicians", href: "/courses?profession=Lab%20Technician", group: "By Profession" },
-      { label: "Pharmacists", href: "/courses?profession=Pharmacist", group: "By Profession" },
-      { label: "Radiographers", href: "/courses?profession=Radiographer", group: "By Profession" }
+      { label: "General Practitioners", href: "/courses?profession=General%20Practitioner", group: "By Profession" },
+      { label: "General Dentist", href: "/courses?profession=Dentist", group: "By Profession" },
+      { label: "Ayurveda / Homeo / Unani", href: "/courses?profession=Ayush%20Physician", group: "By Profession" },
+      { label: "Physiotherapists", href: "/courses?profession=Physiotherapist", group: "By Profession" },
+      { label: "Lab Technician / Technologist", href: "/courses?profession=Lab%20Technician", group: "By Profession" },
+      { label: "Microbiologist", href: "/courses?profession=Microbiologist", group: "By Profession" },
+      { label: "Radiographer", href: "/courses?profession=Radiographer", group: "By Profession" },
+      { label: "Pharmacist", href: "/courses?profession=Pharmacist", group: "By Profession" },
+      { label: "Anesthesia Technicians", href: "/courses?profession=Anesthesia%20Technician", group: "By Profession" },
+      { label: "Optometrist", href: "/courses?profession=Optometrist", group: "By Profession" },
+      { label: "Nurses", href: "/courses?profession=Nurse", group: "By Profession" }
     ]
   },
   { label: "Blog", href: "/blog" },
@@ -113,13 +156,14 @@ export const FOOTER_LINKS = {
     { label: "Apply Now", href: "/apply" }
   ],
   services: [
-    { label: "Overseas Licensing Exam", href: "/services/overseas-licensing-exam" },
-    { label: "MOH Training", href: "/courses/moh-exam-training" },
-    { label: "DHA Training", href: "/courses/dha-exam-training" },
-    { label: "HAAD Training", href: "/courses/haad-exam-training" },
-    { label: "CORU Registration", href: "/courses/coru-registration" },
-    { label: "Finishing School", href: "/services/finishing-school" },
-    { label: "GCC License Processing", href: "/services/gcc-western-license-processing" }
+    { label: "Overseas Licensing Exam Training", href: "/services/overseas-licensing-exam" },
+    { label: "GCC DataFlow & Exam Registration", href: "/services/gcc-dataflow" },
+    { label: "Western Licensing", href: "/services/western-licensing" },
+    { label: "English Language Training", href: "/services/english-training" },
+    { label: "Medical Council Registration", href: "/services/council-registration" },
+    { label: "BLS & ACLS Training", href: "/services/bls-acls" },
+    { label: "Career Services", href: "/services/career-services" },
+    { label: "Google Reviews", href: "https://www.google.com/search?q=uniquementors#lrd=0x3b0872b056b763a7:0xc8f58c36b4233897,1,,,," }
   ],
   policies: [
     { label: "Privacy Policy", href: "/privacy" },
@@ -128,49 +172,69 @@ export const FOOTER_LINKS = {
 };
 
 export const STATS: StatItem[] = [
-  { value: 5000, suffix: "+", label: "Healthcare Professionals Trained", icon: "Users" },
+  { value: 5000, suffix: "+", label: "Students Trained", icon: "Users" },
   { value: 95, suffix: "%", label: "Exam Pass Rate", icon: "Percent" },
   { value: 11, suffix: "+", label: "Countries Served", icon: "Globe2" },
-  { value: 8, suffix: "+", label: "Exam Types Covered", icon: "FileCheck" },
-  { value: 5, suffix: "★", label: "Student Rating", icon: "Star" }
+  { value: 500, suffix: "+", label: "Google Reviews", icon: "Star" },
+  { value: 100, suffix: "+", label: "Video Testimonials", icon: "Video" }
 ];
 
 export const SERVICES: ServiceItem[] = [
   {
-    title: "Overseas Medical Licensure Exam Training",
+    title: "Overseas Licensing Exam Training",
     slug: "overseas-licensing-exam",
     icon: "GraduationCap",
-    description:
-      "Structured coaching for MOH, DHA, HAAD, CORU and Western licensing exams with profession-specific mentoring and exam strategy.",
-    features: ["MOH", "DHA", "HAAD", "CORU"],
+    description: "Structured coaching for global licensing exams with profession-specific mentoring and exam strategy.",
+    features: ["Training", "Mock Exams", "Study Materials"],
     href: "/services/overseas-licensing-exam"
   },
   {
-    title: "GCC & Western Medical License Processing",
-    slug: "gcc-western-license-processing",
+    title: "GCC DataFlow & Exam Registration",
+    slug: "gcc-dataflow",
     icon: "FileCheck",
-    description:
-      "End-to-end Dataflow, documentation, eligibility review and licensing support for GCC and Western healthcare destinations.",
-    features: ["UAE", "Saudi", "Ireland", "Canada"],
-    href: "/services/gcc-western-license-processing"
+    description: "End-to-end Dataflow, documentation, eligibility review and licensing application support for GCC countries.",
+    features: ["Dataflow", "Registration", "Eligibility"],
+    href: "/services/gcc-dataflow"
   },
   {
-    title: "Finishing School Program",
-    slug: "finishing-school",
-    icon: "Star",
-    description:
-      "Communication, leadership, cultural awareness, interview preparation and professional etiquette for global healthcare workplaces.",
-    features: ["Communication", "Leadership", "Etiquette", "Interviews"],
-    href: "/services/finishing-school"
+    title: "Western Licensing",
+    slug: "western-licensing",
+    icon: "Globe2",
+    description: "Comprehensive guidance and processing for healthcare licensing in Western destinations.",
+    features: ["USA", "UK", "Australia", "Canada"],
+    href: "/services/western-licensing"
   },
   {
-    title: "Career Mentorship & Counselling",
-    slug: "career-mentorship",
-    icon: "Users",
-    description:
-      "One-on-one guidance to choose the right exam, country, documentation path and career roadmap with transparent next steps.",
-    features: ["Career Roadmap", "CV Review", "1-on-1", "Interview Prep"],
-    href: "/contact"
+    title: "English Language Training",
+    slug: "english-training",
+    icon: "MessageSquare",
+    description: "Focused preparation for IELTS, OET and other essential language proficiency requirements.",
+    features: ["IELTS", "OET", "PTE"],
+    href: "/services/english-training"
+  },
+  {
+    title: "Medical Council Registration",
+    slug: "council-registration",
+    icon: "BadgeCheck",
+    description: "Expert assistance with respective medical councils and regulatory body registrations.",
+    features: ["Verification", "Support"],
+    href: "/services/council-registration"
+  },
+  {
+    title: "BLS & ACLS Training",
+    slug: "bls-acls",
+    icon: "HeartPulse",
+    description: "Certified Basic Life Support (BLS) and Advanced Cardiovascular Life Support (ACLS) courses.",
+    features: ["Certification", "Practical Skills"],
+    href: "/services/bls-acls"
+  },
+  {
+    title: "Career Services",
+    slug: "career-services",
+    icon: "Briefcase",
+    description: "Comprehensive career support including resume building, LinkedIn profile assistance, and interview preparation.",
+    features: ["CV Creation", "LinkedIn", "Interviews"],
+    href: "/services/career-services"
   }
 ];
 

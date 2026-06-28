@@ -27,8 +27,8 @@ export function StatsSection() {
   return (
     <section className="bg-gradient-to-b from-white to-slate-50 py-10 dark:from-slate-950 dark:to-slate-900" aria-label="Unique Mentors achievements">
       <div className="container">
-        <div className="surface grid divide-y divide-slate-200 overflow-hidden sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-          {STATS.slice(0, 4).map((stat) => (
+        <div className="surface grid divide-y divide-slate-200 overflow-hidden sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
+          {STATS.map((stat) => (
             <StatCard key={stat.label} {...stat} />
           ))}
         </div>

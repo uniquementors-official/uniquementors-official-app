@@ -123,6 +123,8 @@ export interface CinematicHeroProps extends React.HTMLAttributes<HTMLDivElement>
   ctaDescription?: string;
   primaryHref?: string;
   secondaryHref?: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
 }
 
 export function CinematicHero({
@@ -142,6 +144,8 @@ export function CinematicHero({
   ctaDescription = "Get expert counselling for your exam, country, profession and licensing timeline.",
   primaryHref = "/apply",
   secondaryHref = "/courses",
+  primaryLabel = "Enquire Now",
+  secondaryLabel = "Attend Mock Exam",
   className,
   ...props
 }: CinematicHeroProps) {
@@ -266,7 +270,7 @@ export function CinematicHero({
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-extrabold text-brand-navy shadow-[0_16px_36px_rgba(0,0,0,0.3)] transition active:scale-[0.98]"
               >
                 <Icon name="Rocket" className="h-4 w-4" />
-                Enroll Now
+                {primaryLabel}
               </Link>
               <span className="inline-flex h-12 items-center gap-2 rounded-lg border border-emerald-300/20 bg-emerald-400/10 px-3 text-xs font-bold uppercase tracking-[0.12em] text-emerald-100 backdrop-blur">
                 <Icon name="GraduationCap" className="h-4 w-4" />
@@ -286,11 +290,11 @@ export function CinematicHero({
         <div className="flex flex-col gap-4 sm:flex-row">
           <Link href={primaryHref} className="btn-modern-light flex items-center justify-center gap-3 rounded-lg px-8 py-4 font-bold">
             <Icon name="Rocket" className="h-5 w-5" />
-            Apply Now
+            {primaryLabel}
           </Link>
           <Link href={secondaryHref} className="btn-modern-dark flex items-center justify-center gap-3 rounded-lg px-8 py-4 font-bold">
             <Icon name="BookOpen" className="h-5 w-5" />
-            Explore Courses
+            {secondaryLabel}
           </Link>
         </div>
       </div>

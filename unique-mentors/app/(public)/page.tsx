@@ -11,16 +11,26 @@ import { NewsletterSection } from "@/components/sections/NewsletterSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { VideoSection } from "@/components/sections/VideoSection";
+import { ScrollableVideoSection } from "@/components/sections/ScrollableVideoSection";
+import { GlobeSection } from "@/components/sections/GlobeSection";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import type { Course, BlogPost } from "@/types";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Unique Mentors | MOH DHA HAAD Exam Training & Finishing School - Kochi",
+  title: "Unique Mentors - Overseas Medical Licensing Exam Training Centre | MOH | DHA | HAAD | OMSB | QCHP | SCFHS | Kochi",
   description:
-    "India's premier overseas medical licensing exam training centre in Kochi, Kerala. Expert coaching for MOH, DHA, HAAD, CORU exams for Lab Technicians, Pharmacists, Radiographers and more. GCC and Western country medical license processing. 5000+ successful candidates. Enroll today!",
-  path: "/"
+    "Prepare for MOH, DHA, HAAD, OMSB, QCHP, SCFHS, USMLE, PLAB and AMC exams with Unique Mentors' expert training in Kochi, Kerala. 5000+ successful candidates trained across 11+ countries. GCC DataFlow, medical license processing, career services and interview preparation. Enroll today!",
+  path: "/",
+  keywords: [
+    "overseas medical licensing exam training centre",
+    "prometric coaching centre Kochi", "prometric exam for physiotherapist",
+    "prometric exam for lab technician", "dha coaching centre in Kerala",
+    "moh exam for physiotherapist", "haad exam for lab technician",
+    "GCC medical license processing", "finishing school Kochi Kerala"
+  ]
 });
 
 function mapDbCourseToCourse(dbCourse: any): Course {
@@ -122,6 +132,9 @@ export default async function HomePage() {
       <StatsSection />
       <ServicesSection />
       <CoursesSection initialCourses={courses} />
+      <ScrollableVideoSection />
+      <VideoSection />
+      <GlobeSection />
       <AboutSection />
       <EventsSection events={events} />
       <TestimonialsSection />

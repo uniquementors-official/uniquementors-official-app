@@ -46,7 +46,7 @@ export default function OverseasLicensingPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                  {EXAM_TYPES.slice(0, 4).map((exam) => (
+                  {EXAM_TYPES.map((exam) => (
                     <tr key={exam.value}>
                       <td className="p-4 font-semibold">{exam.label}</td>
                       <td className="p-4 text-slate-600 dark:text-slate-300">{exam.description}</td>

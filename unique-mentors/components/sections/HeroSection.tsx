@@ -18,7 +18,7 @@ export function HeroSection() {
         metricLabel="Professionals Trained"
         ctaHeading="Ready to start your global healthcare journey?"
         ctaDescription="Get expert guidance for your profession, target country, exam plan and licensing timeline."
-        primaryHref="/apply"
+        primaryHref="/contact"
         secondaryHref="/courses"
       />
     </section>

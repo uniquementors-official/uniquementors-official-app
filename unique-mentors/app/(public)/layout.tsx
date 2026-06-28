@@ -6,6 +6,7 @@ import { PageTransition } from "@/components/common/PageTransition";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { WhatsAppButton } from "@/components/common/WhatsAppButton";
 import { AnnouncementBanner } from "@/components/layout/AnnouncementBanner";
+import { CTAPopup } from "@/components/sections/CTAPopup";
 
 export default async function PublicLayout({ children }: { children: ReactNode }) {
   const settings = await prisma.siteSettings.findFirst();
@@ -20,6 +21,7 @@ export default async function PublicLayout({ children }: { children: ReactNode }
       </PageTransition>
       <Footer />
       <WhatsAppButton />
+      <CTAPopup />
       <ScrollToTop />
     </>
   );

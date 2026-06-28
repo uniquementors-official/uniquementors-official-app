@@ -6,9 +6,10 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Contact Unique Mentors - Kochi, Kerala",
-  description: "Contact Unique Mentors for MOH, DHA, HAAD, CORU exam training, overseas licensing support and free counselling in Kochi, Kerala.",
-  path: "/contact"
+  title: "Contact Unique Mentors - Free Counselling & Eligibility Check Kochi",
+  description: "Get in touch with Unique Mentors in Kochi, Kerala. Book a free counselling session, request an eligibility check, or ask about our MOH, DHA, HAAD, Prometric training & DataFlow support services.",
+  path: "/contact",
+  keywords: ["contact unique mentors", "medical licensing counselling kochi", "prometric eligibility check"]
 });
 
 export default function ContactPage() {

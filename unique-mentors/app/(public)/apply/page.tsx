@@ -4,9 +4,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Apply for Medical Licensing Exam Training - Unique Mentors",
-  description: "Apply for MOH, DHA, HAAD, CORU and overseas medical licensing exam training at Unique Mentors Kochi.",
-  path: "/apply"
+  title: "Apply for Medical Licensing Exam Training & DataFlow - Unique Mentors Kochi",
+  description: "Ready to transition your healthcare career overseas? Apply online for MOH, DHA, HAAD, Prometric training or DataFlow documentation support at Unique Mentors Kochi.",
+  path: "/apply",
+  keywords: ["apply medical exam coaching", "prometric training online application", "dataflow verification application"]
 });
 
 export default function ApplyPage() {

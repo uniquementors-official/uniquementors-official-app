@@ -7,17 +7,26 @@ const staticRoutes = [
   { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/services", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/services/overseas-licensing-exam", priority: 0.9, changeFrequency: "monthly" as const },
-  { path: "/services/finishing-school", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/services/gcc-western-license-processing", priority: 0.85, changeFrequency: "monthly" as const },
+  { path: "/services/gcc-dataflow", priority: 0.85, changeFrequency: "monthly" as const },
+  { path: "/services/western-licensing", priority: 0.85, changeFrequency: "monthly" as const },
+  { path: "/services/english-training", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/services/council-registration", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/services/bls-acls", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/services/career-services", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/courses", priority: 0.95, changeFrequency: "weekly" as const },
   { path: "/courses/moh-exam-training", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/courses/dha-exam-training", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/courses/haad-exam-training", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/courses/coru-registration", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/courses/usmle-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
+  { path: "/courses/plab-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
+  { path: "/courses/amc-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/events", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/contact", priority: 0.75, changeFrequency: "monthly" as const },
-  { path: "/apply", priority: 0.85, changeFrequency: "monthly" as const }
+  { path: "/apply", priority: 0.85, changeFrequency: "monthly" as const },
+  { path: "/gallery", priority: 0.7, changeFrequency: "monthly" as const }
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

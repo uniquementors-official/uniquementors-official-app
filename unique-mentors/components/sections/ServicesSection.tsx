@@ -7,23 +7,24 @@ import { Icon } from "@/components/common/Icon";
 import { Marquee } from "@/components/ui/3d-testimonails";
 
 const offerImages = [
-  "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=900&q=80", // Overseas Licensing: Indian doctor with tablet
-  "https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=900&q=80", // GCC & Western: Flat-lay desk with stethoscope, papers, and travel feel
-  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80", // Finishing School: Professional development
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80", // Career Mentorship: Guidance & counselling
-  "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80", // Dataflow: Documentation flat-lay
-  "https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=900&q=80", // Mock Test: Online study and preparation
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80", // Interview Readiness: Smiling professional
-  "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=900&q=80"  // Eligibility Roadmap: Global career planning
+  "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=900&q=80"
 ];
 
 const extraOffers = [
   {
-    title: "Dataflow Documentation",
-    icon: "FileCheck2",
-    description: "Document review, verification sequencing and licensing application support.",
-    href: "/services/gcc-western-license-processing",
-    features: ["Dataflow", "Documents"]
+    title: "Eligibility Roadmap",
+    icon: "Workflow",
+    description: "Country, profession and timeline planning before the candidate starts applying.",
+    href: "/contact",
+    features: ["Counselling", "Roadmap"]
   },
   {
     title: "Mock Test Practice",
@@ -31,20 +32,6 @@ const extraOffers = [
     description: "Timed practice, score review and exam strategy before the final test.",
     href: "/courses",
     features: ["Mocks", "Review"]
-  },
-  {
-    title: "Interview Readiness",
-    icon: "MessageCircle",
-    description: "Communication, workplace etiquette and professional confidence for global roles.",
-    href: "/services/finishing-school",
-    features: ["Interview", "Workplace"]
-  },
-  {
-    title: "Eligibility Roadmap",
-    icon: "Workflow",
-    description: "Country, profession and timeline planning before the candidate starts applying.",
-    href: "/contact",
-    features: ["Counselling", "Roadmap"]
   }
 ];
 

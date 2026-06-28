@@ -15,11 +15,18 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap", variabl
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
-    default: "Unique Mentors | MOH DHA HAAD Exam Training Centre, Kochi",
+    default: "Unique Mentors - Overseas Medical Licensing Exam Training Centre | MOH | DHA | HAAD | Kochi",
     template: "%s | Unique Mentors"
   },
   description:
-    "Expert MOH, DHA and HAAD exam coaching in Kochi. Overseas licensing, GCC Dataflow and Finishing School programs for Indian healthcare professionals.",
+    "Prepare for MOH, DHA, HAAD, OMSB, QCHP, SCFHS, USMLE, PLAB and AMC exams with Unique Mentors' expert training in Kochi, Kerala. 5000+ successful candidates. GCC DataFlow, medical license processing, career services and finishing school programs. Enroll today!",
+  keywords: [
+    "MOH exam training Kochi", "DHA exam coaching Kerala", "HAAD exam preparation",
+    "prometric coaching centre Kerala", "overseas medical licensing exam",
+    "unique mentors", "uniquementors", "GCC Dataflow support",
+    "finishing school Kochi", "medical licensing exam training",
+    "dha coaching centre near me", "best prometric coaching center in Kerala"
+  ],
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -33,19 +40,27 @@ export const metadata: Metadata = {
       "en-IN": SITE_CONFIG.url
     }
   },
+  robots: {
+    index: true,
+    follow: true,
+    "max-snippet": -1 as any,
+    "max-video-preview": -1 as any,
+    "max-image-preview": "large" as any
+  },
   openGraph: {
     type: "website",
     url: SITE_CONFIG.url,
     siteName: SITE_CONFIG.name,
-    title: "Unique Mentors | MOH DHA HAAD Exam Training Centre, Kochi",
+    title: "Unique Mentors - Overseas Medical Licensing Exam Training Centre | MOH | DHA | HAAD",
     description:
-      "Expert MOH, DHA and HAAD exam coaching in Kochi with overseas licensing, Dataflow and finishing school support.",
-    images: [{ url: "/images/metro-pillar-candidate.png", width: 1200, height: 630, alt: "Unique Mentors training centre in Kochi" }]
+      "Prepare for MOH, DHA, HAAD, OMSB, QCHP, SCFHS exams with Unique Mentors' expert training in Kochi, Kerala. GCC DataFlow, medical license processing and career services.",
+    images: [{ url: "/images/metro-pillar-candidate.png", width: 1200, height: 630, alt: "Unique Mentors - Overseas Medical Licensing Exam Training Centre Kochi" }],
+    locale: "en_IN"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Unique Mentors | MOH DHA HAAD Exam Training Centre, Kochi",
-    description: "Overseas medical licensing exam training and career mentorship in Kochi."
+    title: "Unique Mentors - Overseas Medical Licensing Exam Training Centre | MOH | DHA | HAAD",
+    description: "Overseas medical licensing exam training in Kochi. MOH, DHA, HAAD, USMLE, PLAB, AMC coaching. 5000+ successful candidates."
   }
 };
 

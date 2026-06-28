@@ -3,9 +3,10 @@ import { ExamLandingPage } from "@/components/common/ExamLandingPage";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "HAAD Exam Training in Kochi | Unique Mentors",
-  description: "HAAD exam preparation for Abu Dhabi healthcare licensing with structured coaching and eligibility guidance from Unique Mentors.",
-  path: "/courses/haad-exam-training"
+  title: "HAAD Exam Preparation Kochi - Abu Dhabi Healthcare Licensing | Unique Mentors",
+  description: "HAAD exam preparation in Kochi for Abu Dhabi healthcare licensing — Lab Technicians, Pharmacists, Physiotherapists, Radiographers and Nurses. Structured coaching, mock tests, eligibility guidance and DataFlow support.",
+  path: "/courses/haad-exam-training",
+  keywords: ["HAAD exam preparation", "HAAD exam for lab technician", "Abu Dhabi healthcare licensing", "HAAD prometric coaching Kochi"]
 });
 
 export default function HAADEexamTrainingPage() {

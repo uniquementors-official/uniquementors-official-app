@@ -77,6 +77,40 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Old profession pages → new courses page with profession filter
+      { source: "/services/general-practitioner", destination: "/courses?profession=General%20Practitioner", permanent: true },
+      { source: "/services/general-practitioner/", destination: "/courses?profession=General%20Practitioner", permanent: true },
+      { source: "/services/general-dentist", destination: "/courses?profession=Dentist", permanent: true },
+      { source: "/services/general-dentist/", destination: "/courses?profession=Dentist", permanent: true },
+      { source: "/services/physiotherapists", destination: "/courses?profession=Physiotherapist", permanent: true },
+      { source: "/services/physiotherapists/", destination: "/courses?profession=Physiotherapist", permanent: true },
+      { source: "/services/lab-technician-technologist", destination: "/courses?profession=Lab%20Technician", permanent: true },
+      { source: "/services/lab-technician-technologist/", destination: "/courses?profession=Lab%20Technician", permanent: true },
+      { source: "/services/microbiologist", destination: "/courses?profession=Microbiologist", permanent: true },
+      { source: "/services/microbiologist/", destination: "/courses?profession=Microbiologist", permanent: true },
+      { source: "/services/radiographer", destination: "/courses?profession=Radiographer", permanent: true },
+      { source: "/services/radiographer/", destination: "/courses?profession=Radiographer", permanent: true },
+      { source: "/services/pharmacist", destination: "/courses?profession=Pharmacist", permanent: true },
+      { source: "/services/pharmacist/", destination: "/courses?profession=Pharmacist", permanent: true },
+      { source: "/services/anesthesia-technicians-technologists", destination: "/courses?profession=Anesthesia%20Technician", permanent: true },
+      { source: "/services/anesthesia-technicians-technologists/", destination: "/courses?profession=Anesthesia%20Technician", permanent: true },
+      { source: "/services/optometrist", destination: "/courses?profession=Optometrist", permanent: true },
+      { source: "/services/optometrist/", destination: "/courses?profession=Optometrist", permanent: true },
+      { source: "/services/nurses", destination: "/courses?profession=Nurse", permanent: true },
+      { source: "/services/nurses/", destination: "/courses?profession=Nurse", permanent: true },
+      { source: "/services/ayurveda-homeo-unani-naturopathy-physicians", destination: "/courses?profession=Ayush%20Physician", permanent: true },
+      { source: "/services/ayurveda-homeo-unani-naturopathy-physicians/", destination: "/courses?profession=Ayush%20Physician", permanent: true },
+
+      // Old service pages
+      { source: "/services/exam-preparation", destination: "/services/overseas-licensing-exam", permanent: true },
+      { source: "/services/exam-preparation/", destination: "/services/overseas-licensing-exam", permanent: true },
+      { source: "/services/finishing-school", destination: "/services/career-services", permanent: true },
+      { source: "/services/finishing-school/", destination: "/services/career-services", permanent: true },
+      { source: "/services/professional-resume-making", destination: "/services/career-services", permanent: true },
+      { source: "/services/professional-resume-making/", destination: "/services/career-services", permanent: true },
+      { source: "/services/coru-registration", destination: "/courses/coru-registration", permanent: true },
+      { source: "/services/coru-registration/", destination: "/courses/coru-registration", permanent: true },
+
       {
         source: "/article.php",
         has: [{ type: "query", key: "slug", value: "(?<slug>.*)" }],
