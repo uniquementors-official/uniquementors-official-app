@@ -73,7 +73,7 @@ export function CTAPopup() {
 
   return (
     <div
-      className="fixed bottom-6 right-4 z-50 max-w-sm w-[calc(100vw-2rem)] sm:w-96 animate-in slide-in-from-bottom-8 fade-in duration-500"
+      className="fixed bottom-24 right-4 z-50 max-w-sm w-[calc(100vw-2rem)] animate-in slide-in-from-bottom-8 fade-in duration-500 sm:bottom-6 sm:w-96"
       role="dialog"
       aria-label="Book free counselling"
     >

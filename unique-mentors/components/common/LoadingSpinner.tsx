@@ -1,5 +1,5 @@
 import { Icon } from "@/components/common/Icon";
-import { OrbitalLoader } from "@/components/ui/orbital-loader";
+import { PageLoadingSkeleton } from "@/components/common/PageLoadingSkeleton";
 import { cn } from "@/lib/utils";
 
 type LoadingSpinnerProps = {
@@ -23,11 +23,7 @@ export function LoadingSpinner({ variant = "spinner", className }: LoadingSpinne
   }
 
   if (variant === "page") {
-    return (
-      <div className={cn("flex min-h-[50vh] items-center justify-center text-primary", className)}>
-        <OrbitalLoader message="Loading Unique Mentors" />
-      </div>
-    );
+    return <PageLoadingSkeleton className={cn("min-h-[50vh] py-16", className)} />;
   }
 
   return <Icon name="Loader2" className={cn("animate-spin text-primary", className)} />;

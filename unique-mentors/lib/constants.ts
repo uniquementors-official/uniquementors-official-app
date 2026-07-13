@@ -69,7 +69,7 @@ export const PROFESSIONS = [
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+  { label: "Who We Are", href: "/about" },
   {
     label: "Services",
     href: "/services",

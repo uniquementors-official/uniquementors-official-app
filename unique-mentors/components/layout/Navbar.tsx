@@ -36,21 +36,34 @@ export function Navbar({ hasBanner = false }: { hasBanner?: boolean }) {
         className={cn(
           "fixed inset-x-0 z-50 transition-all duration-300",
           hasBanner ? (isScrolled ? "top-0" : "top-10") : "top-0",
-          isScrolled ? "border-b border-slate-200/80 bg-white/90 shadow-soft backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/85" : "bg-transparent"
+          isScrolled
+            ? "bg-white/92 shadow-soft backdrop-blur-xl dark:bg-slate-950/85"
+            : "bg-brand-navy/82 shadow-[0_16px_50px_rgba(2,6,23,0.28)] backdrop-blur-xl"
         )}
       >
-        <div className="container flex h-20 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center" aria-label="Unique Mentors home">
-            <span className="flex h-12 items-center rounded-md  transition">
+        <div className="container flex h-16 items-center justify-between gap-4">
+          <Link href="/" className="group flex items-center" aria-label="Unique Mentors home">
+            <motion.span
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className={cn(
+                "relative flex h-10 items-center overflow-hidden rounded-xl bg-white px-3 transition duration-300 sm:h-11",
+                isScrolled
+                  ? "shadow-sm ring-1 ring-slate-200 dark:bg-white dark:ring-white/10"
+                  : "shadow-[0_12px_34px_rgba(2,6,23,0.26)] ring-1 ring-white/70"
+              )}
+            >
+              <span className="absolute -left-1/3 top-0 h-full w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 transition-all duration-700 group-hover:left-full group-hover:opacity-100" aria-hidden="true" />
               <Image
                 src="/logo.svg"
                 alt="Unique Mentors"
-                width={156}
-                height={54}
+                width={150}
+                height={52}
                 priority
-                className="h-9 w-auto"
+                className="relative h-7 w-auto sm:h-8 md:h-9"
               />
-            </span>
+            </motion.span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">

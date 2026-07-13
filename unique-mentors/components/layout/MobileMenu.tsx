@@ -43,14 +43,9 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           aria-label="Mobile navigation"
         >
           <div className="flex h-16 items-center justify-between border-b border-white/10 px-4">
-            <Link href="/" className="flex items-center rounded-md bg-white px-2 py-1 shadow-soft" aria-label="Unique Mentors home">
-              <Image
-                src="/logo.svg"
-                alt="Unique Mentors"
-                width={140}
-                height={48}
-                className="h-8 w-auto"
-              />
+            <Link href="/" className="group relative flex h-10 items-center overflow-hidden rounded-xl bg-white px-3 shadow-[0_14px_38px_rgba(0,0,0,0.28)] ring-1 ring-white/70" aria-label="Unique Mentors home">
+              <span className="absolute -left-1/3 top-0 h-full w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 transition-all duration-700 group-hover:left-full group-hover:opacity-100" aria-hidden="true" />
+              <Image src="/logo.svg" alt="Unique Mentors" width={150} height={52} className="relative h-7 w-auto" />
             </Link>
             <button
               type="button"

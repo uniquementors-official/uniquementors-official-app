@@ -28,6 +28,14 @@ type CoursesPageProps = {
   };
 };
 
+const westernExamTypes = new Set(["WESTERN", "CANADA", "AUSTRALIA", "APC", "AMC", "USMLE", "PLAB", "ADC", "HCPC"]);
+
+function matchesExamFilter(course: Course, examType: string) {
+  if (!examType) return true;
+  if (examType === "WESTERN") return westernExamTypes.has(course.examType);
+  return course.examType === examType;
+}
+
 function mapDbCourseToCourse(dbCourse: {
   id: string;
   title: string;
@@ -88,7 +96,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
   const courses = dbCourses.map(mapDbCourseToCourse);
 
   const filtered = courses.filter((course) => {
-    const matchesExam = !examType || course.examTypes.includes(examType as any) || course.examType === examType;
+    const matchesExam = matchesExamFilter(course, examType);
     const matchesProfession = !profession || course.profession.toLowerCase().includes(profession.toLowerCase());
     const matchesCountry = !country || course.country.toLowerCase().includes(country.toLowerCase());
     const matchesSearch = !search || `${course.title} ${course.excerpt} ${course.profession}`.toLowerCase().includes(search);

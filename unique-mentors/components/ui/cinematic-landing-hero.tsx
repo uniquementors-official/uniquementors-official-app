@@ -1,16 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/common/Icon";
 import { ShuffleGrid } from "@/components/ui/shuffle-grid";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const injectedStyles = `
   .gsap-reveal { visibility: hidden; }
@@ -106,7 +101,7 @@ const injectedStyles = `
     transform: rotate(-90deg);
     transform-origin: center;
     stroke-dasharray: 402;
-    stroke-dashoffset: 62;
+    stroke-dashoffset: 402;
     stroke-linecap: round;
   }
 `;
@@ -144,8 +139,8 @@ export function CinematicHero({
   ctaDescription = "Get expert counselling for your exam, country, profession and licensing timeline.",
   primaryHref = "/apply",
   secondaryHref = "/courses",
-  primaryLabel = "Enquire Now",
-  secondaryLabel = "Attend Mock Exam",
+  primaryLabel = "Apply Now",
+  secondaryLabel = "Explore Courses",
   className,
   ...props
 }: CinematicHeroProps) {
@@ -153,14 +148,40 @@ export function CinematicHero({
   const mainCardRef = useRef<HTMLDivElement>(null);
   const mockupRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef<number>(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+    const updateDesktopState = () => setIsDesktop(media.matches);
+
+    updateDesktopState();
+    media.addEventListener("change", updateDesktopState);
+
+    return () => media.removeEventListener("change", updateDesktopState);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    let isActive = true;
+    let animateTo: ((target: Element, vars: Record<string, unknown>) => void) | null = null;
+
+    import("gsap").then(({ gsap }) => {
+      if (isActive) {
+        animateTo = (target, vars) => {
+          gsap.to(target, vars);
+        };
+      }
+    });
+
     const handleMouseMove = (event: MouseEvent) => {
       if (window.scrollY > window.innerHeight * 2) return;
 
       cancelAnimationFrame(requestRef.current);
       requestRef.current = requestAnimationFrame(() => {
-        if (!mainCardRef.current || !mockupRef.current) return;
+        if (!mainCardRef.current || !mockupRef.current || !animateTo) return;
 
         const rect = mainCardRef.current.getBoundingClientRect();
         mainCardRef.current.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);
@@ -168,82 +189,109 @@ export function CinematicHero({
 
         const xVal = (event.clientX / window.innerWidth - 0.5) * 2;
         const yVal = (event.clientY / window.innerHeight - 0.5) * 2;
-        gsap.to(mockupRef.current, {
-          rotationY: xVal * 10,
-          rotationX: -yVal * 10,
+        animateTo(mockupRef.current, {
+          rotationY: xVal * 4,
+          rotationX: -yVal * 4,
           ease: "power3.out",
-          duration: 1.1
+          duration: 0.45
         });
       });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
+      isActive = false;
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(requestRef.current);
     };
-  }, []);
+  }, [isDesktop]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set(".text-track", { autoAlpha: 0, y: 60, scale: 0.85, filter: "blur(20px)", rotationX: -20 });
-      gsap.set(".text-days", { autoAlpha: 1, clipPath: "inset(0 100% 0 0)" });
-      gsap.set(".main-card", { y: window.innerHeight + 160, autoAlpha: 1 });
-      gsap.set([".card-left-text", ".card-right-text", ".mockup-scroll-wrapper", ".floating-badge", ".phone-widget"], { autoAlpha: 0 });
-      gsap.set(".cta-wrapper", { autoAlpha: 0, scale: 0.86, filter: "blur(28px)" });
-
-      const introTl = gsap.timeline({ delay: 0.25 });
-      introTl
-        .to(".text-track", { duration: 1.5, autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", rotationX: 0, ease: "expo.out" })
-        .to(".text-days", { duration: 1.25, clipPath: "inset(0 0% 0 0)", ease: "power4.inOut" }, "-=0.85");
-
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=2200",
-          pin: true,
-          scrub: 0.7,
-          anticipatePin: 1
-        }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      containerRef.current?.querySelectorAll<HTMLElement>(".gsap-reveal").forEach((element) => {
+        element.style.visibility = "visible";
+        element.style.opacity = "1";
       });
+      return;
+    }
 
-      scrollTl
-        .to([".hero-text-wrapper", ".bg-grid-theme"], { scale: 1.08, filter: "blur(16px)", opacity: 0.2, ease: "power2.inOut", duration: 1.7 }, 0)
-        .to(".main-card", { y: 0, ease: "power3.inOut", duration: 1.65 }, 0)
-        .fromTo(".card-right-text", { x: 46, autoAlpha: 0, scale: 0.88 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.25 }, 0.55)
-        .fromTo(".card-left-text", { x: -46, autoAlpha: 0 }, { x: 0, autoAlpha: 1, ease: "power4.out", duration: 1.2 }, 0.65)
-        .fromTo(
-          ".mockup-scroll-wrapper",
-          { y: 220, z: -380, rotationX: 36, rotationY: -20, autoAlpha: 0, scale: 0.66 },
-          { y: 0, z: 0, rotationX: 0, rotationY: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 2.3 },
-          0.68
-        )
-        .fromTo(".phone-widget", { y: 40, autoAlpha: 0, scale: 0.95 }, { y: 0, autoAlpha: 1, scale: 1, stagger: 0.15, ease: "back.out(1.2)", duration: 1.35 }, 1.02)
-        .to(".counter-val", { innerHTML: metricValue, snap: { innerHTML: 1 }, duration: 1.8, ease: "expo.out" }, 1.08)
-        .fromTo(".floating-badge", { y: 90, autoAlpha: 0, scale: 0.75, rotationZ: -8 }, { y: 0, autoAlpha: 1, scale: 1, rotationZ: 0, ease: "back.out(1.5)", duration: 1.35, stagger: 0.2 }, 1.2)
-        .to(".main-card", { width: "100%", height: "100%", borderRadius: "0px", ease: "power3.inOut", duration: 1.35 }, 1.45)
-        .to({}, { duration: 0.25 })
-        .set(".hero-text-wrapper", { autoAlpha: 0 })
-        .to([".mockup-scroll-wrapper", ".floating-badge", ".card-left-text", ".card-right-text"], {
-          scale: 0.96,
-          y: -18,
-          z: -80,
-          autoAlpha: 0.8,
-          ease: "power3.in",
-          duration: 0.45,
-          stagger: 0.05
-        })
-        .to(".main-card", { y: -window.innerHeight - 260, ease: "power3.in", duration: 0.85 }, "-=0.15");
-    }, containerRef);
+    let isActive = true;
+    let ctx: { revert: () => void } | undefined;
 
-    return () => ctx.revert();
+    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ gsap }, { ScrollTrigger }]) => {
+      if (!isActive) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+        gsap.set(".text-track", {
+          autoAlpha: 0,
+          y: isMobile ? 24 : 42,
+          scale: isMobile ? 0.96 : 0.92,
+          rotationX: isMobile ? 0 : -10
+        });
+        gsap.set(".text-days", { autoAlpha: 1, clipPath: "inset(0 100% 0 0)" });
+        gsap.set(".main-card", { y: window.innerHeight + 160, autoAlpha: 1 });
+        gsap.set([".card-left-text", ".card-right-text", ".mockup-scroll-wrapper", ".floating-badge", ".phone-widget"], { autoAlpha: 0 });
+        gsap.set(".cta-wrapper", { autoAlpha: 0, scale: 0.92 });
+
+        const introTl = gsap.timeline({ delay: 0.25 });
+        introTl
+          .to(".text-track", { duration: 1.1, autoAlpha: 1, y: 0, scale: 1, rotationX: 0, ease: "expo.out" })
+          .to(".text-days", { duration: 1.25, clipPath: "inset(0 0% 0 0)", ease: "power4.inOut" }, "-=0.85");
+
+        const scrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: isMobile ? "+=1450" : "+=1150",
+            pin: true,
+            scrub: isMobile ? 0.25 : 0.35,
+            anticipatePin: 0.5
+          }
+        });
+
+        scrollTl
+          .to([".hero-text-wrapper", ".bg-grid-theme"], { scale: 1.03, opacity: 0.16, ease: "power2.inOut", duration: 1.05 }, 0)
+          .to(".main-card", { y: 0, ease: "power3.inOut", duration: 1.15 }, 0)
+          .fromTo(".card-right-text", { x: 34, autoAlpha: 0, scale: 0.92 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 0.9 }, 0.42)
+          .fromTo(".card-left-text", { x: -34, autoAlpha: 0 }, { x: 0, autoAlpha: 1, ease: "power4.out", duration: 0.9 }, 0.5)
+          .fromTo(
+            ".mockup-scroll-wrapper",
+            { y: isMobile ? 120 : 150, rotationX: isMobile ? 10 : 18, rotationY: isMobile ? -6 : -10, autoAlpha: 0, scale: isMobile ? 0.82 : 0.78 },
+            { y: 0, rotationX: 0, rotationY: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.35 },
+            0.55
+          )
+          .fromTo(".phone-widget", { y: 28, autoAlpha: 0, scale: 0.96 }, { y: 0, autoAlpha: 1, scale: 1, stagger: 0.1, ease: "power3.out", duration: 0.8 }, 0.85)
+          .to(".progress-ring", { strokeDashoffset: 62, duration: 1.1, ease: "power3.inOut" }, 0.92)
+          .to(".counter-val", { innerHTML: metricValue, snap: { innerHTML: 1 }, duration: 1.1, ease: "expo.out" }, 0.92)
+          .fromTo(".floating-badge", { y: 54, autoAlpha: 0, scale: 0.84, rotationZ: -4 }, { y: 0, autoAlpha: 1, scale: 1, rotationZ: 0, ease: "back.out(1.25)", duration: 0.9, stagger: 0.15 }, 1.02)
+          .to(".main-card", { width: "100%", height: "100%", borderRadius: "0px", ease: "power3.inOut", duration: 0.9 }, 1.18)
+          .to({}, { duration: 0.25 })
+          .set(".hero-text-wrapper", { autoAlpha: 0 })
+          .to([".mockup-scroll-wrapper", ".floating-badge", ".card-left-text", ".card-right-text"], {
+            scale: 0.97,
+            y: -10,
+            autoAlpha: 0.82,
+            ease: "power3.in",
+            duration: 0.32,
+            stagger: 0.04
+          })
+          .to(".main-card", { y: -window.innerHeight - 180, ease: "power3.in", duration: 0.6 }, "-=0.12");
+      }, containerRef);
+    });
+
+    return () => {
+      isActive = false;
+      ctx?.revert();
+    };
   }, [metricValue]);
 
   return (
     <div
       ref={containerRef}
-      className={cn("relative mt-20 flex h-screen w-full items-center justify-center overflow-hidden bg-brand-navy text-white antialiased", className)}
+      className={cn("relative flex h-screen w-full items-center justify-center overflow-hidden bg-brand-navy text-white antialiased", className)}
       style={{ perspective: "1500px" }}
       {...props}
     >
@@ -251,7 +299,7 @@ export function CinematicHero({
       <div className="film-grain" aria-hidden="true" />
       <div className="bg-grid-theme pointer-events-none absolute inset-0 z-0 opacity-70" aria-hidden="true" />
 
-      <div className="hero-text-wrapper transform-style-3d absolute z-10 flex w-full items-center justify-center px-4 will-change-transform">
+      <div className="hero-text-wrapper transform-style-3d absolute z-10 flex w-full items-center justify-center px-4 pt-24 will-change-transform md:pt-20 lg:pt-16">
         <div className="container grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
           <div className="text-left">
             <h1 className="text-track gsap-reveal text-3d-matte mb-4 font-display text-5xl font-bold tracking-normal md:text-7xl lg:text-[5.8rem]">
@@ -261,22 +309,6 @@ export function CinematicHero({
             <p className="text-track gsap-reveal max-w-2xl text-base font-medium leading-7 text-blue-100/80 md:text-xl">
               MOH, DHA, HAAD, CORU, Dataflow and overseas medical licensing support for healthcare professionals ready to move with confidence.
             </p>
-            <div className="text-track gsap-reveal mt-5 flex flex-wrap items-center gap-3 lg:hidden">
-              <Link
-                href={primaryHref}
-                data-analytics-event="cta_clicked"
-                data-analytics-label="Mobile Hero Enroll Now"
-                data-analytics-location="hero_mobile"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-extrabold text-brand-navy shadow-[0_16px_36px_rgba(0,0,0,0.3)] transition active:scale-[0.98]"
-              >
-                <Icon name="Rocket" className="h-4 w-4" />
-                {primaryLabel}
-              </Link>
-              <span className="inline-flex h-12 items-center gap-2 rounded-lg border border-emerald-300/20 bg-emerald-400/10 px-3 text-xs font-bold uppercase tracking-[0.12em] text-emerald-100 backdrop-blur">
-                <Icon name="GraduationCap" className="h-4 w-4" />
-                Free counselling
-              </span>
-            </div>
           </div>
           <div className="text-track gsap-reveal hidden justify-end lg:flex">
             <ShuffleGrid />
@@ -308,7 +340,7 @@ export function CinematicHero({
 
           <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
             <div className="card-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
-              <h2 className="text-card-silver-matte font-display text-5xl font-black uppercase tracking-normal md:text-[5.5rem] lg:text-[7rem]">
+              <h2 className="text-card-silver-matte max-w-[18rem] text-center font-display text-4xl font-black uppercase leading-[0.9] tracking-normal md:max-w-[26rem] md:text-[4.5rem] lg:max-w-[34rem] lg:text-right lg:text-[5.75rem]">
                 {brandName}
               </h2>
             </div>
@@ -335,6 +367,20 @@ export function CinematicHero({
                         </div>
                         <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-neutral-200 shadow-lg shadow-black/50">
                           UM
+                        </div>
+                      </div>
+
+                      <div className="phone-widget absolute right-5 top-[98px] z-20 overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-1.5 shadow-2xl backdrop-blur-md">
+                        <div className="relative h-28 w-20 overflow-hidden rounded-xl bg-slate-100">
+                          <Image
+                            src="/images/herocarousel/image copy 19.png"
+                            alt="Smiling doctor preparing for a global healthcare career"
+                            fill
+                            sizes="80px"
+                            className="object-cover object-[50%_24%]"
+                            loading="lazy"
+                            quality={82}
+                          />
                         </div>
                       </div>
 

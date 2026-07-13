@@ -134,7 +134,7 @@ export default async function HomePage() {
       <CoursesSection initialCourses={courses} />
       <ScrollableVideoSection />
       <VideoSection />
-      <GlobeSection />
+      {/* <GlobeSection /> */}
       <AboutSection />
       <EventsSection events={events} />
       <TestimonialsSection />

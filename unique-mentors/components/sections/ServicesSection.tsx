@@ -2,52 +2,82 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { SERVICES } from "@/lib/constants";
 import { Icon } from "@/components/common/Icon";
 import { Marquee } from "@/components/ui/3d-testimonails";
 
-const offerImages = [
-  "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=900&q=80"
-];
-
-const extraOffers = [
+const appScreenCards = [
   {
-    title: "Eligibility Roadmap",
-    icon: "Workflow",
-    description: "Country, profession and timeline planning before the candidate starts applying.",
+    title: "Student Dashboard",
+    icon: "LayoutDashboard",
+    description: "Live class count, enquiries, payments and quick actions in one calm student view.",
     href: "/contact",
-    features: ["Counselling", "Roadmap"]
+    image: "/images/app screenshots/image copy 8.png",
+    features: ["Dashboard", "Updates"]
   },
   {
-    title: "Mock Test Practice",
-    icon: "ClipboardList",
-    description: "Timed practice, score review and exam strategy before the final test.",
+    title: "Live Class Library",
+    icon: "Monitor",
+    description: "Recorded classes and batch videos stay organised for revision before exams.",
     href: "/courses",
-    features: ["Mocks", "Review"]
+    image: "/images/app screenshots/image copy 10.png",
+    features: ["Classes", "Revision"]
+  },
+  {
+    title: "Mock Test Results",
+    icon: "BarChart3",
+    description: "Score, duration, accuracy and detailed question review after every practice test.",
+    href: "/courses",
+    image: "/images/app screenshots/image copy 2.png",
+    features: ["Scores", "Analysis"]
+  },
+  {
+    title: "Study Materials",
+    icon: "FileText",
+    description: "Course PDFs, downloads and material previews available inside the app.",
+    href: "/courses",
+    image: "/images/app screenshots/image copy 12.png",
+    features: ["PDF", "Preview"]
+  },
+  {
+    title: "Student Profile",
+    icon: "User",
+    description: "Students can keep their learning profile and contact details updated.",
+    href: "/contact",
+    image: "/images/app screenshots/image copy 13.png",
+    features: ["Profile", "Support"]
+  },
+  {
+    title: "Ask a Question",
+    icon: "MessageCircle",
+    description: "Support, enquiries and doubt clarification remain easy to access.",
+    href: "/contact",
+    image: "/images/app screenshots/image copy 15.png",
+    features: ["Support", "Enquiry"]
+  },
+  {
+    title: "App Access",
+    icon: "Lock",
+    description: "Secure app sign-in for enrolled students and active batches.",
+    href: "/contact",
+    image: "/images/app screenshots/image.png",
+    features: ["Login", "Students"]
+  },
+  {
+    title: "Healthcare Learning",
+    icon: "Stethoscope",
+    description: "A mobile learning experience built for healthcare exam preparation.",
+    href: "/services/overseas-licensing-exam",
+    image: "/images/app screenshots/image copy 14.png",
+    features: ["Healthcare", "Career"]
   }
 ];
 
-const offerCards = [
-  ...SERVICES.map((service) => ({
-    title: service.title,
-    icon: service.icon,
-    description: service.description,
-    href: service.href,
-    features: service.features
-  })),
-  ...extraOffers
-].map((offer, index) => ({
-  ...offer,
-  image: offerImages[index] ?? "/images/image.png"
-}));
+const journeySteps = [
+  { label: "Counselling", icon: "MessageCircle" },
+  { label: "Training", icon: "BookOpen" },
+  { label: "Mock Prep", icon: "ClipboardList" },
+  { label: "License", icon: "BadgeCheck" }
+];
 
 function LicensingRoadmapSvg() {
   return (
@@ -74,20 +104,10 @@ function LicensingRoadmapSvg() {
       <rect x="0" y="0" width="560" height="420" rx="28" fill="url(#roadmap-bg)" />
       <g opacity="0.22">
         {Array.from({ length: 10 }).map((_, index) => (
-          <path
-            key={`grid-x-${index}`}
-            d={`M ${20 + index * 56} 0 V 420`}
-            stroke="#ffffff"
-            strokeWidth="1"
-          />
+          <path key={`grid-x-${index}`} d={`M ${20 + index * 56} 0 V 420`} stroke="#ffffff" strokeWidth="1" />
         ))}
         {Array.from({ length: 7 }).map((_, index) => (
-          <path
-            key={`grid-y-${index}`}
-            d={`M 0 ${30 + index * 58} H 560`}
-            stroke="#ffffff"
-            strokeWidth="1"
-          />
+          <path key={`grid-y-${index}`} d={`M 0 ${30 + index * 58} H 560`} stroke="#ffffff" strokeWidth="1" />
         ))}
       </g>
       <path
@@ -102,7 +122,7 @@ function LicensingRoadmapSvg() {
         ["Eligibility", 84, 300, "#60a5fa"],
         ["Training", 220, 210, "#10b981"],
         ["Mock Tests", 340, 290, "#38bdf8"],
-        ["License", 430, 152, "#f59e0b"]
+        ["License", 406, 152, "#f59e0b"]
       ].map(([label, x, y, color]) => (
         <g key={label}>
           <circle cx={Number(x)} cy={Number(y)} r="30" fill="#020617" stroke={String(color)} strokeWidth="4" />
@@ -114,65 +134,135 @@ function LicensingRoadmapSvg() {
       ))}
       <g transform="translate(54 48)">
         <text fill="#dbeafe" fontSize="18" fontWeight="700" letterSpacing="3">
-          UNIQUE MENTORS
+          Your
         </text>
         <text y="42" fill="#ffffff" fontSize="40" fontWeight="800">
           Licensing Pathway
         </text>
         <text y="76" fill="#bfdbfe" fontSize="18">
-          One roadmap from documents to global healthcare readiness.
-        </text>
-      </g>
-      <g transform="translate(392 318)">
-        <rect width="112" height="44" rx="14" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.22)" />
-        <text x="56" y="28" fill="#ffffff" textAnchor="middle" fontSize="16" fontWeight="700">
-          5000+ trained
+          One roadmap from documents to license readiness.
         </text>
       </g>
     </svg>
   );
 }
 
-function ServiceCard({ offer, index }: { offer: typeof offerCards[number]; index: number }) {
+function LicensingRoadmapVisual() {
   return (
-    <div
-      className="group flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-glow dark:border-slate-800 dark:bg-slate-900 w-[260px] shrink-0"
-    >
-      <div className="relative aspect-square overflow-hidden bg-slate-100 dark:bg-slate-800">
-        <Image
-          src={offer.image}
-          alt={offer.title}
-          fill
-          sizes="260px"
-          className="object-cover transition duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/86 via-brand-navy/24 to-transparent pointer-events-none" />
-        <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
-          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/15 backdrop-blur">
-            <Icon name={offer.icon} className="h-5 w-5" />
+    <div className="relative h-full w-full overflow-hidden rounded-lg bg-brand-navy">
+      <LicensingRoadmapSvg />
+      <div className="pointer-events-none absolute inset-x-4 bottom-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {journeySteps.map((step) => (
+          <div key={step.label} className="flex items-center gap-2 rounded-lg border border-white/15 bg-white/12 px-2 py-2 text-white backdrop-blur">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/15">
+              <Icon name={step.icon} className="h-3.5 w-3.5" />
+            </span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.08em]">{step.label}</span>
           </div>
-          <h3 className="font-display text-lg font-bold leading-tight tracking-normal">{offer.title}</h3>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AppScreenCard({ screen }: { screen: typeof appScreenCards[number] }) {
+  return (
+    <Link
+      href={screen.href}
+      className="group flex w-[250px] shrink-0 flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-glow dark:border-slate-800 dark:bg-slate-900"
+    >
+      <div className="relative h-[350px] overflow-hidden bg-gradient-to-br from-slate-100 to-blue-50 p-4 dark:from-slate-900 dark:to-brand-navy">
+        <div className="relative mx-auto h-full w-[154px] overflow-hidden rounded-[1.45rem] border-[5px] border-slate-950 bg-white shadow-2xl">
+          <Image
+            src={screen.image}
+            alt={screen.title}
+            fill
+            sizes="154px"
+            className="object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+            loading="lazy"
+            quality={82}
+          />
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-navy/92 via-brand-navy/45 to-transparent" />
+        <div className="pointer-events-none absolute bottom-4 left-4 right-4 text-white">
+          <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-white/15 backdrop-blur">
+            <Icon name={screen.icon} className="h-4 w-4" />
+          </div>
+          <h3 className="font-display text-lg font-bold leading-tight tracking-normal">{screen.title}</h3>
         </div>
       </div>
-      <Link href={offer.href} className="flex flex-1 flex-col justify-between p-4">
-        <div>
-          <p className="line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{offer.description}</p>
-        </div>
+      <div className="flex flex-1 flex-col justify-between p-4">
+        <p className="line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{screen.description}</p>
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          {offer.features.slice(0, 2).map((feature) => (
-            <span
-              key={feature}
-              className="rounded-md bg-primary/10 px-2 py-1 text-xs font-semibold text-primary dark:bg-primary/15"
-            >
+          {screen.features.map((feature) => (
+            <span key={feature} className="rounded-md bg-primary/10 px-2 py-1 text-xs font-semibold text-primary dark:bg-primary/15">
               {feature}
             </span>
           ))}
-          <span className="ml-auto text-xs font-semibold text-primary group-hover:text-secondary group-hover:underline flex items-center gap-1">
+          <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-primary group-hover:text-secondary group-hover:underline">
             Learn More <Icon name="ArrowRight" className="h-3 w-3" />
           </span>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
+  );
+}
+
+function AppScreensShowcase() {
+  return (
+    <>
+      <div className="mt-12 rounded-lg border border-slate-200 bg-slate-50 p-4 shadow-inner dark:border-slate-800 dark:bg-slate-950 md:hidden">
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <div>
+            <span className="section-tag">Student app</span>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              Real app screens for classes, mock tests, materials and student support.
+            </p>
+          </div>
+        </div>
+        <div className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none]">
+          {appScreenCards.slice(0, 6).map((screen) => (
+            <div key={screen.title} className="snap-start">
+              <AppScreenCard screen={screen} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative mt-12 hidden h-[650px] w-full items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-inner [perspective:1200px] dark:border-slate-800 dark:bg-slate-950 md:flex">
+        <div
+          className="flex flex-row items-center gap-4"
+          style={{
+            transform: "translateX(-40px) translateY(-20px) translateZ(-100px) rotateX(15deg) rotateY(-10deg) rotateZ(10deg)"
+          }}
+        >
+          <Marquee vertical pauseOnHover repeat={3} className="[--duration:38s]">
+            {appScreenCards.map((screen) => (
+              <AppScreenCard key={`app-col1-${screen.title}`} screen={screen} />
+            ))}
+          </Marquee>
+          <Marquee vertical pauseOnHover reverse repeat={3} className="[--duration:42s]">
+            {appScreenCards.map((screen) => (
+              <AppScreenCard key={`app-col2-${screen.title}`} screen={screen} />
+            ))}
+          </Marquee>
+          <Marquee vertical pauseOnHover repeat={3} className="[--duration:34s]">
+            {appScreenCards.map((screen) => (
+              <AppScreenCard key={`app-col3-${screen.title}`} screen={screen} />
+            ))}
+          </Marquee>
+          <Marquee vertical pauseOnHover reverse repeat={3} className="[--duration:46s]">
+            {appScreenCards.map((screen) => (
+              <AppScreenCard key={`app-col4-${screen.title}`} screen={screen} />
+            ))}
+          </Marquee>
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-white dark:from-slate-950" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white dark:from-slate-950" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-white dark:from-slate-950" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-white dark:from-slate-950" />
+      </div>
+    </>
   );
 }
 
@@ -180,8 +270,8 @@ export function ServicesSection() {
   return (
     <section className="section-padding overflow-hidden bg-white dark:bg-slate-950">
       <div className="container">
-        <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
-          <div>
+        <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+          <div className="lg:self-center">
             <span className="section-tag">What we offer</span>
             <h2 className="heading-lg mt-4">Our Core Medical Training Services</h2>
             <p className="body-lead mt-4">
@@ -189,49 +279,11 @@ export function ServicesSection() {
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-glow">
-            <LicensingRoadmapSvg />
+            <LicensingRoadmapVisual />
           </div>
         </div>
 
-        <div className="border border-slate-200 dark:border-slate-800 rounded-2xl relative flex h-[650px] w-full items-center justify-center overflow-hidden gap-1.5 [perspective:1200px] bg-slate-50 dark:bg-slate-950 p-6 mt-12 shadow-inner">
-          <div
-            className="flex flex-row items-center gap-4"
-            style={{
-              transform:
-                'translateX(-40px) translateY(-20px) translateZ(-100px) rotateX(15deg) rotateY(-10deg) rotateZ(10deg)',
-            }}
-          >
-            {/* Column 1 (downwards) */}
-            <Marquee vertical pauseOnHover repeat={3} className="[--duration:35s]">
-              {offerCards.map((offer, idx) => (
-                <ServiceCard key={`col1-${offer.title}-${idx}`} offer={offer} index={idx} />
-              ))}
-            </Marquee>
-            {/* Column 2 (upwards) */}
-            <Marquee vertical pauseOnHover reverse repeat={3} className="[--duration:40s]">
-              {offerCards.map((offer, idx) => (
-                <ServiceCard key={`col2-${offer.title}-${idx}`} offer={offer} index={idx} />
-              ))}
-            </Marquee>
-            {/* Column 3 (downwards) */}
-            <Marquee vertical pauseOnHover repeat={3} className="[--duration:30s]">
-              {offerCards.map((offer, idx) => (
-                <ServiceCard key={`col3-${offer.title}-${idx}`} offer={offer} index={idx} />
-              ))}
-            </Marquee>
-            {/* Column 4 (upwards) */}
-            <Marquee vertical pauseOnHover reverse repeat={3} className="[--duration:45s]">
-              {offerCards.map((offer, idx) => (
-                <ServiceCard key={`col4-${offer.title}-${idx}`} offer={offer} index={idx} />
-              ))}
-            </Marquee>
-          </div>
-          {/* Gradient overlays for vertical marquee */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-white dark:from-slate-950"></div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white dark:from-slate-950"></div>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-white dark:from-slate-950"></div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-white dark:from-slate-950"></div>
-        </div>
+        <AppScreensShowcase />
       </div>
     </section>
   );

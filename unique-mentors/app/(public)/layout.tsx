@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { WhatsAppButton } from "@/components/common/WhatsAppButton";
 import { AnnouncementBanner } from "@/components/layout/AnnouncementBanner";
 import { CTAPopup } from "@/components/sections/CTAPopup";
+import Image from "next/image";
 
 export default async function PublicLayout({ children }: { children: ReactNode }) {
   const settings = await prisma.siteSettings.findFirst();
@@ -17,7 +18,7 @@ export default async function PublicLayout({ children }: { children: ReactNode }
       {showBanner ? <AnnouncementBanner text={settings.announcement || ""} /> : null}
       <Navbar hasBanner={Boolean(showBanner)} />
       <PageTransition>
-        <main>{children}</main>
+        <main className="pb-20 lg:pb-0">{children}</main>
       </PageTransition>
       <Footer />
       <WhatsAppButton />
