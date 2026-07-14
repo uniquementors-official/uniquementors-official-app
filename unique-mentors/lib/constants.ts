@@ -147,11 +147,13 @@ export const NAV_ITEMS: NavItem[] = [
 export const FOOTER_LINKS = {
   explore: [
     { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
+    { label: "Who We Are", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
     { label: "Events", href: "/events" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Instructors", href: "/instructor" },
     { label: "Contact", href: "/contact" },
     { label: "Apply Now", href: "/apply" }
   ],
@@ -166,7 +168,7 @@ export const FOOTER_LINKS = {
     { label: "Google Reviews", href: "https://www.google.com/search?q=uniquementors#lrd=0x3b0872b056b763a7:0xc8f58c36b4233897,1,,,," }
   ],
   policies: [
-    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms", href: "/terms" }
   ]
 };
@@ -257,6 +259,8 @@ export const ADMIN_NAV_ITEMS = [
   { label: "Blog Posts", href: "/admin/blogs", icon: "FileText" },
   { label: "Events", href: "/admin/events", icon: "Calendar" },
   { label: "Courses", href: "/admin/courses", icon: "BookOpen" },
+  { label: "Gallery", href: "/admin/gallery", icon: "Images" },
+  { label: "Instructors", href: "/admin/instructors", icon: "GraduationCap" },
   { label: "Leads", href: "/admin/leads", icon: "Users" },
   { label: "Analytics", href: "/admin/analytics", icon: "BarChart3" },
   { label: "Testimonials", href: "/admin/testimonials", icon: "Star" },

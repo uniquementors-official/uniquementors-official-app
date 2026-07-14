@@ -9,6 +9,7 @@ import { Icon } from "@/components/common/Icon";
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const currentPath = pathname ?? "/admin";
 
   return (
     <aside className="sticky top-0 hidden h-screen bg-brand-navy p-4 text-white lg:block">
@@ -21,7 +22,7 @@ export function AdminSidebar() {
       </Link>
       <nav className="mt-8 space-y-1" aria-label="Admin navigation">
         {ADMIN_NAV_ITEMS.map((item) => {
-          const active = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+          const active = currentPath === item.href || (item.href !== "/admin" && currentPath.startsWith(item.href));
           return (
             <Link
               key={item.href}

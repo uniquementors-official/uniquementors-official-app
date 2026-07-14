@@ -26,7 +26,10 @@ const staticRoutes = [
   { path: "/events", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/contact", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/apply", priority: 0.85, changeFrequency: "monthly" as const },
-  { path: "/gallery", priority: 0.7, changeFrequency: "monthly" as const }
+  { path: "/gallery", priority: 0.7, changeFrequency: "monthly" as const },
+  { path: "/instructor", priority: 0.65, changeFrequency: "monthly" as const },
+  { path: "/privacy-policy", priority: 0.4, changeFrequency: "yearly" as const },
+  { path: "/terms", priority: 0.4, changeFrequency: "yearly" as const }
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

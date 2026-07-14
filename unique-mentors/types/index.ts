@@ -114,3 +114,29 @@ export type EventItem = {
   status: ContentStatus;
   createdAt?: string;
 };
+
+export type GalleryItem = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt?: string | null;
+  sortOrder: number;
+  status: "DRAFT" | "PUBLISHED";
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+
+export type Instructor = {
+  id: string;
+  name: string;
+  slug: string;
+  designation?: string | null;
+  bio?: string | null;
+  image?: string | null;
+  imageAlt?: string | null;
+  sortOrder: number;
+  status: "DRAFT" | "PUBLISHED";
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};

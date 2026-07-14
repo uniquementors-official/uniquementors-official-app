@@ -17,7 +17,7 @@ function titleFromPath(pathname: string) {
 
 export function AdminHeader() {
   const pathname = usePathname();
-  const title = titleFromPath(pathname);
+  const title = titleFromPath(pathname ?? "/admin");
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">

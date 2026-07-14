@@ -6,6 +6,14 @@ const indianPhone = z
   .min(10, "Enter a valid phone number")
   .regex(/^(\+?91[\s-]?)?[6-9]\d{9}$/, "Enter a valid Indian phone number");
 
+const imagePathOrUrl = z
+  .string()
+  .trim()
+  .max(500)
+  .refine((value) => value === "" || value.startsWith("/") || /^https?:\/\//i.test(value), {
+    message: "Use a public image path or a valid image URL"
+  });
+
 export const contactSchema = z.object({
   name: z.string().trim().min(2).max(80),
   email: z.string().trim().email().optional().or(z.literal("")),
@@ -96,4 +104,24 @@ export const eventSchema = z.object({
   location: z.string().trim().min(2).max(140).default("Unique Mentors Kochi"),
   coverImage: z.string().url().optional().or(z.literal("")),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT")
+});
+
+export const galleryItemSchema = z.object({
+  title: z.string().trim().min(2).max(120),
+  description: z.string().trim().min(2).max(260),
+  image: imagePathOrUrl.refine((value) => value.length > 0, "Gallery image is required"),
+  imageAlt: z.string().trim().max(180).optional().or(z.literal("")),
+  sortOrder: z.number().int().min(0).max(9999).default(0),
+  status: z.enum(["DRAFT", "PUBLISHED"]).default("PUBLISHED")
+});
+
+export const instructorSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  slug: z.string().trim().max(140).optional().or(z.literal("")),
+  designation: z.string().trim().max(120).optional().or(z.literal("")),
+  bio: z.string().trim().max(500).optional().or(z.literal("")),
+  image: imagePathOrUrl.optional().or(z.literal("")),
+  imageAlt: z.string().trim().max(180).optional().or(z.literal("")),
+  sortOrder: z.number().int().min(0).max(9999).default(0),
+  status: z.enum(["DRAFT", "PUBLISHED"]).default("PUBLISHED")
 });

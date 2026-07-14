@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { prisma } from "../lib/db";
 import { SITE_CONFIG } from "../lib/constants";
 import { BLOG_POSTS, COURSES, TESTIMONIALS } from "../lib/content";
+import { ensureLifeContent } from "../lib/life-content";
 import { calculateReadTime, slugify } from "../lib/utils";
 
 async function main() {
@@ -166,6 +167,8 @@ async function main() {
       });
     }
   }
+
+  await ensureLifeContent();
 
   const sampleLeads = [
     ["Asha Kumar", "asha@example.com", "+919876543210", "Lab Technician", "HAAD", "APPLY", "NEW"],

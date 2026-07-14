@@ -27,7 +27,6 @@ async function trackAndDownloadBrochure(): Promise<void> {
     alert("Brochure not available right now. Please contact us.");
   }
 }
-
 export function CTASection() {
   const [downloading, setDownloading] = useState(false);
   const message = encodeURIComponent("Hello Unique Mentors, I want to talk to an expert about overseas medical licensing.");
@@ -114,4 +113,3 @@ export function CTASection() {
     </section>
   );
 }
-
