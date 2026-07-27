@@ -5,20 +5,30 @@ import { TESTIMONIALS } from "@/lib/content";
 import { TestimonialsColumn, type ColumnTestimonial } from "@/components/ui/testimonials-columns-1";
 import { Icon } from "@/components/common/Icon";
 
-const portraitImages = [
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80",
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=160&q=80"
-];
+const getAvatarUrl = (name: string, index: number) => {
+  const realPhotos = [
+    "https://images.unsplash.com/photo-1615813967515-e1838c1c56dc?auto=format&fit=crop&w=160&q=80",
+    "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=160&q=80",
+    null,
+    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=160&q=80",
+    null,
+    "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=160&q=80",
+    null,
+    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=160&q=80"
+  ];
+  
+  const colors = ["1e88e5", "e53935", "43a047", "fb8c00", "8e24aa", "f4511e", "3949ab"];
+  
+  const photo = realPhotos[index % realPhotos.length];
+  if (photo) return photo;
+  
+  const bgColor = colors[index % colors.length];
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${bgColor}&color=fff&size=160&font-size=0.5`;
+};
 
 const testimonials: ColumnTestimonial[] = TESTIMONIALS.map((testimonial, index) => ({
   text: testimonial.review,
-  image: portraitImages[index % portraitImages.length] ?? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80",
+  image: getAvatarUrl(testimonial.name, index),
   name: testimonial.name,
   role: `${testimonial.profession} · ${testimonial.examType} · ${testimonial.country}`
 }));

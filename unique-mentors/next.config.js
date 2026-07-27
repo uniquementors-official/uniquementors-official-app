@@ -13,7 +13,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.tiny.cloud",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tiny.cloud",
-      "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://img.youtube.com https://www.google-analytics.com https://*.supabase.co",
+      "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://ui-avatars.com https://img.youtube.com https://www.google-analytics.com https://*.supabase.co",
       "font-src 'self' data: https://fonts.gstatic.com",
       "connect-src 'self' https://api.resend.com https://res.cloudinary.com https://www.google-analytics.com https://vitals.vercel-insights.com https://*.supabase.co",
       "frame-src 'self' https://www.google.com https://www.youtube.com",
@@ -58,6 +58,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "*.supabase.co",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
         pathname: "/**"
       }
     ]

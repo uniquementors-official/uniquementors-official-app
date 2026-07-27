@@ -14,6 +14,7 @@ import { MobileMenu } from "@/components/layout/MobileMenu";
 
 export function Navbar({ hasBanner = false }: { hasBanner?: boolean }) {
   const pathname = usePathname();
+  const currentPath = pathname ?? "/";
   const scrollY = useScrollPosition();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -68,7 +69,7 @@ export function Navbar({ hasBanner = false }: { hasBanner?: boolean }) {
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
             {NAV_ITEMS.map((item) => {
-              const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              const active = currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href));
               if (!item.items?.length) {
                 return (
                   <Link

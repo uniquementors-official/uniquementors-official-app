@@ -52,23 +52,23 @@ class SeededRandom {
 }
 
 const defaultImages: ImageData[] = [
-  { id: "founder-1", src: "/images/image.png", alt: "Unique Mentors founder story visual", caption: "Founder-led mentoring" },
-  { id: "founder-2", src: "/images/image copy.png", alt: "Unique Mentors classroom and campaign visual", caption: "Kochi to global careers" },
+  { id: "founder-1", src: "/images/samples/WhatsApp_Image_2026-07-21_at_14.45.40.jpeg", alt: "Unique Mentors founder story visual", caption: "Founder-led mentoring" },
+  { id: "founder-2", src: "/images/samples/WhatsApp_Image_2026-07-21_at_14.45.47.jpeg", alt: "Unique Mentors classroom and campaign visual", caption: "Kochi to global careers" },
   {
     id: "founder-3",
-    src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80",
+    src: "/images/samples/WhatsApp_Image_2026-07-21_at_14.45.57.jpeg",
     alt: "Healthcare mentoring session",
     caption: "Student-first counselling"
   },
   {
     id: "founder-4",
-    src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+    src: "/images/samples/WhatsApp_Image_2026-07-21_at_14.46.05.jpeg",
     alt: "Medical professional preparing a licensing roadmap",
     caption: "Structured exam preparation"
   },
   {
     id: "founder-5",
-    src: "https://images.unsplash.com/photo-1588011930968-eadac80e6a5a?auto=format&fit=crop&w=900&q=80",
+    src: "/images/samples/WhatsApp_Image_2026-07-21_at_14.46.10.jpeg",
     alt: "Laboratory professional training for licensing",
     caption: "Profession-specific support"
   }
@@ -228,24 +228,54 @@ ImageStack.displayName = "ImageStack";
 
 const founderStory = [
   {
+    year: "2015",
+    title: "Unique Mentors Sharpening Skills!!",
+    text: "Debuts with GCC Exam Training for Allied Health Sciences"
+  },
+  {
+    year: "2016",
+    title: "STRETCHING BOUNDARIES:",
+    text: "PSC & Govt. Exam Training Expands Opportunities"
+  },
+  {
+    year: "2017",
+    title: "EXPERTISE ELEVATED:",
+    text: "Physician Category Training Sets New Standards"
+  },
+  {
+    year: "2018",
+    title: "A CENTURY OF EXCELLENCE:",
+    text: "100 Batches of Unparalleled Success"
+  },
+  {
+    year: "2019",
+    title: "GLOBAL IMPACT:",
+    text: "+2000 Students Placed Worldwide, Dreams Realized"
+  },
+  {
     year: "2020",
-    title: "A founder-led start in Kochi",
-    text: "Unique Mentors began as a one-of-a-kind initiative by Dr. Deepa Seira Babu and Dr. Praveena Prathapachandran to make overseas licensing clearer for Indian healthcare professionals."
+    title: "LEARNING REVOLUTIONIZED:",
+    text: "Online Trainings and Western Licensure Unlocked"
   },
   {
     year: "2021",
-    title: "Exam pathways became structured",
-    text: "The team expanded MOH, DHA and HAAD coaching with profession-specific study plans, eligibility counselling and mock-led preparation."
+    title: "CULTURAL CONNECTIONS:",
+    text: "Language Trainings Bridge Global Gaps"
   },
   {
     year: "2023",
-    title: "Documentation joined the classroom",
-    text: "Dataflow guidance, application sequencing and licensing support became part of the mentoring experience so candidates could move with confidence."
+    title: "INTERNATIONAL ACCREDITATION:",
+    text: "HCPC, CORU Western Processing Achieved"
+  },
+  {
+    year: "2024",
+    title: "INNOVATION UNLEASHED:",
+    text: "Mobile App, Office, and Advanced LMS Transform Learning"
   },
   {
     year: "2026",
-    title: "A wider global healthcare community",
-    text: "More than 5000 healthcare professionals have been trained across GCC and Western licensing routes, with communication and workplace readiness built into the journey."
+    title: "Australian Licensure - ADC. APC",
+    text: "Exam trainings and Assessment"
   }
 ];
 
@@ -263,11 +293,10 @@ export function FounderStoryTimeline() {
           </p>
           <Button
             type="button"
-            variant="outline"
-            className="mt-6 bg-white/80 dark:bg-slate-950/60"
+            className="mt-6 bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-600 text-slate-900 shadow-[0_4px_14px_0_rgba(245,158,11,0.39)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.23)] hover:-translate-y-0.5 transition duration-200 border-0 rounded-full px-6 font-semibold"
             onClick={() => stackRef.current?.reshuffle()}
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="h-4 w-4 mr-2" />
             Shuffle story cards
           </Button>
         </div>

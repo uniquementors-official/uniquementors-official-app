@@ -617,8 +617,8 @@ export const BLOG_POSTS: BlogPost[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: "testimonial-1",
-    name: "Anjali Menon",
-    initials: "AM",
+    name: "Amrutha K",
+    initials: "AK",
     profession: "Lab Technician",
     examType: "HAAD",
     country: "Abu Dhabi",
@@ -630,8 +630,8 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "testimonial-2",
-    name: "Rahul Varghese",
-    initials: "RV",
+    name: "Sharada",
+    initials: "S",
     profession: "Pharmacist",
     examType: "DHA",
     country: "Dubai",

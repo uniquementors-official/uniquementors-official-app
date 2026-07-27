@@ -7,7 +7,8 @@ import { Icon } from "@/components/common/Icon";
 
 export function WhatsAppButton() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin")) return null;
+  const currentPath = pathname ?? "";
+  if (currentPath.startsWith("/admin")) return null;
 
   const message = encodeURIComponent("Hello Unique Mentors, I would like free counselling for overseas medical licensing exam training.");
   const phone = SITE_CONFIG.whatsapp.replace(/\D/g, "");

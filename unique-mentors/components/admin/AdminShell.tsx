@@ -7,7 +7,8 @@ import { AdminSidebar } from "@/components/admin/AdminSidebar";
 
 export function AdminShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/admin/login") return <>{children}</>;
+  const currentPath = pathname ?? "";
+  if (currentPath === "/admin/login") return <>{children}</>;
 
   return (
     <div className="admin-shell grid lg:grid-cols-[280px_1fr]">
