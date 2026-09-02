@@ -8,9 +8,17 @@ import { getAnalyticsContext, identifyAnalyticsUser, trackAnalyticsEvent } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/common/Icon";
-import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon } from "@/components/common/SocialIcons";
+import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon, XIcon } from "@/components/common/SocialIcons";
 import { SchemaMarkup } from "@/components/common/SchemaMarkup";
 import { LocalBusinessSchema } from "@/lib/seo";
+
+type SocialLinksData = {
+  facebook?: string;
+  instagram?: string;
+  youtube?: string;
+  linkedin?: string;
+  x?: string;
+};
 
 const socialLinks = [
   { label: "Follow Unique Mentors on Facebook", href: SITE_CONFIG.social.facebook, icon: FacebookIcon },
@@ -19,9 +27,28 @@ const socialLinks = [
   { label: "Connect with Unique Mentors on LinkedIn", href: SITE_CONFIG.social.linkedin, icon: LinkedinIcon }
 ];
 
-export function Footer() {
+export function Footer({ customSocialLinks }: { customSocialLinks?: SocialLinksData }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Generate the list of social links to display
+  const activeSocialLinks = [];
+  
+  if (customSocialLinks?.facebook || SITE_CONFIG.social.facebook) {
+    activeSocialLinks.push({ label: "Follow Unique Mentors on Facebook", href: customSocialLinks?.facebook || SITE_CONFIG.social.facebook, icon: FacebookIcon });
+  }
+  if (customSocialLinks?.instagram || SITE_CONFIG.social.instagram) {
+    activeSocialLinks.push({ label: "Follow Unique Mentors on Instagram", href: customSocialLinks?.instagram || SITE_CONFIG.social.instagram, icon: InstagramIcon });
+  }
+  if (customSocialLinks?.youtube || SITE_CONFIG.social.youtube) {
+    activeSocialLinks.push({ label: "Subscribe to Unique Mentors on YouTube", href: customSocialLinks?.youtube || SITE_CONFIG.social.youtube, icon: YoutubeIcon });
+  }
+  if (customSocialLinks?.linkedin || SITE_CONFIG.social.linkedin) {
+    activeSocialLinks.push({ label: "Connect with Unique Mentors on LinkedIn", href: customSocialLinks?.linkedin || SITE_CONFIG.social.linkedin, icon: LinkedinIcon });
+  }
+  if (customSocialLinks?.x) {
+    activeSocialLinks.push({ label: "Follow Unique Mentors on X", href: customSocialLinks.x, icon: XIcon });
+  }
 
   async function subscribe(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -69,7 +96,7 @@ export function Footer() {
           </Link>
           <p className="mt-4 text-sm leading-6 text-slate-300">{SITE_CONFIG.description}</p>
           <div className="mt-5 flex gap-2">
-            {socialLinks.map(({ label, href, icon: SocialIcon }) => (
+            {activeSocialLinks.map(({ label, href, icon: SocialIcon }) => (
               <a
                 key={label}
                 href={href}

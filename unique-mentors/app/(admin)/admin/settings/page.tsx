@@ -24,6 +24,7 @@ export default function SettingsPage() {
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [xLink, setXLink] = useState("");
 
   // Announcement Banner
   const [announcement, setAnnouncement] = useState("");
@@ -65,6 +66,7 @@ export default function SettingsPage() {
             setInstagram(settings.socialLinks.instagram || "");
             setYoutube(settings.socialLinks.youtube || "");
             setLinkedin(settings.socialLinks.linkedin || "");
+            setXLink(settings.socialLinks.x || "");
           }
 
           setAnnouncement(settings.announcement || "");
@@ -106,7 +108,8 @@ export default function SettingsPage() {
             facebook,
             instagram,
             youtube,
-            linkedin
+            linkedin,
+            x: xLink
           },
           announcement,
           announcementOn
@@ -244,6 +247,10 @@ export default function SettingsPage() {
               <div>
                 <Label htmlFor="link-linkedin">LinkedIn</Label>
                 <Input id="link-linkedin" className="mt-2" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
+              </div>
+              <div>
+                <Label htmlFor="link-x">X (Twitter)</Label>
+                <Input id="link-x" className="mt-2" value={xLink} onChange={(e) => setXLink(e.target.value)} />
               </div>
             </div>
           </div>

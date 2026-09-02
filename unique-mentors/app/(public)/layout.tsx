@@ -20,7 +20,7 @@ export default async function PublicLayout({ children }: { children: ReactNode }
       <PageTransition>
         <main className="pb-20 lg:pb-0">{children}</main>
       </PageTransition>
-      <Footer />
+      <Footer customSocialLinks={settings?.socialLinks as any} />
       <WhatsAppButton />
       <CTAPopup />
       <ScrollToTop />
