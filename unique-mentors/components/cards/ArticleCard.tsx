@@ -21,7 +21,7 @@ export function ArticleCard({ post, large = false }: ArticleCardProps) {
   return (
     <article className="group surface flex h-full flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-glow">
       <Link
-        href={`/article/${post.slug}`}
+        href={`/articles/${post.slug}`}
         className="relative block aspect-video overflow-hidden"
         aria-label={`Read ${post.title}`}
         data-analytics-event="article_clicked"
@@ -52,7 +52,7 @@ export function ArticleCard({ post, large = false }: ArticleCardProps) {
         </div>
         <h3 className={large ? "font-display text-2xl font-bold leading-snug" : "font-display text-xl font-bold leading-snug"}>
           <Link
-            href={`/article/${post.slug}`}
+            href={`/articles/${post.slug}`}
             className="hover:text-primary"
             data-analytics-event="article_clicked"
             data-analytics-label={post.title}
@@ -63,7 +63,7 @@ export function ArticleCard({ post, large = false }: ArticleCardProps) {
         </h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{post.excerpt}</p>
         <Link
-          href={`/article/${post.slug}`}
+          href={`/articles/${post.slug}`}
           className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-secondary"
           data-analytics-event="article_clicked"
           data-analytics-label={post.title}

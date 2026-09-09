@@ -109,7 +109,7 @@ export default function ArticleManagerPage() {
             <Link href={`/admin/articles/${row.id}`} aria-label={`Edit ${row.title}`}>
               <Icon name="Edit" className="h-4 w-4 text-primary" />
             </Link>
-            <Link href={`/article/${row.slug}`} target="_blank" aria-label={`View ${row.title}`}>
+            <Link href={`/articles/${row.slug}`} target="_blank" aria-label={`View ${row.title}`}>
               <Icon name="Eye" className="h-4 w-4 text-secondary" />
             </Link>
             <button type="button" aria-label={`Delete ${row.title}`} onClick={() => handleDelete(row.id, row.title)}>

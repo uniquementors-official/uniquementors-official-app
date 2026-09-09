@@ -108,7 +108,7 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
         breadcrumbs={[
           { name: "Home", href: "/" },
           { name: "Article", href: "/article" },
-          { name: mappedPost.title, href: `/article/${mappedPost.slug}` }
+          { name: mappedPost.title, href: `/articles/${mappedPost.slug}` }
         ]}
       />
       <section className="section-padding bg-white dark:bg-slate-950">
