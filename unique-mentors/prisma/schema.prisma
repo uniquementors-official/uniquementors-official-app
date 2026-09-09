@@ -211,3 +211,38 @@ model AnalyticsEvent {
   @@index([path, createdAt])
   @@index([createdAt])
 }
+
+
+// --- Exam / Quiz Flow ---
+model ExamLead {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  whatsapp  String?
+  examType  String?
+  score     Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Article {
+  id          String        @id @default(uuid())
+  title       String
+  slug        String        @unique
+  content     String
+  excerpt     String
+  category    String
+  tags        String[]
+  coverImage  String?
+  metaTitle   String?
+  metaDesc    String?
+  status      ContentStatus @default(DRAFT)
+  featured    Boolean       @default(false)
+  author      String        @default("Unique Mentors Academic Team")
+  readTime    Int           @default(1)
+  viewCount   Int           @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}

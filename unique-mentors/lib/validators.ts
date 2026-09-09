@@ -59,6 +59,22 @@ export const blogSchema = z.object({
   publishedAt: z.string().datetime().optional()
 });
 
+
+export const articleSchema = z.object({
+  title: z.string().trim().min(4).max(140),
+  slug: z.string().trim().max(160).optional(),
+  content: z.string().min(20),
+  excerpt: z.string().trim().max(300).optional(),
+  category: z.string().trim().min(2).max(60),
+  tags: z.array(z.string().trim().min(1)).default([]),
+  coverImage: z.string().url().optional().or(z.literal("")),
+  metaTitle: z.string().trim().max(70).optional().or(z.literal("")),
+  metaDesc: z.string().trim().max(170).optional().or(z.literal("")),
+  status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT"),
+  featured: z.boolean().default(false),
+  publishedAt: z.string().datetime().optional()
+});
+
 export const courseSchema = z.object({
   title: z.string().trim().min(4).max(140),
   slug: z.string().trim().max(160).optional(),

@@ -371,3 +371,38 @@ export function VideoObjectSchema(video: {
     }
   };
 }
+
+export function generateArticleMetadata(article: any): any {
+  return generateMetadata({
+    title: `${article.title} | Unique Mentors Articles`,
+    description: article.excerpt,
+    path: `/articles/${article.slug}`,
+    image: article.coverImage,
+    keywords: article.tags
+  });
+}
+
+export function ArticlePostSchema(article: any) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    image: article.coverImage,
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      "@type": "Organization",
+      name: article.author
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/logo.svg`
+      }
+    },
+    mainEntityOfPage: `${SITE_CONFIG.url}/articles/${article.slug}`
+  };
+}

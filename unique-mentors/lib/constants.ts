@@ -257,6 +257,7 @@ export const COUNTRIES_SERVED = [
 export const ADMIN_NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: "LayoutDashboard" },
   { label: "Blog Posts", href: "/admin/blogs", icon: "FileText" },
+  { label: "Articles", href: "/admin/articles", icon: "Newspaper" },
   { label: "Events", href: "/admin/events", icon: "Calendar" },
   { label: "Courses", href: "/admin/courses", icon: "BookOpen" },
   { label: "Gallery", href: "/admin/gallery", icon: "Images" },

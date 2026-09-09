@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { BlogCard } from "@/components/cards/BlogCard";
+import { ArticleCard } from "@/components/cards/ArticleCard";
 import { TrackView } from "@/components/analytics/TrackView";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ReadingProgress } from "@/components/common/ReadingProgress";
@@ -13,12 +13,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
 import { SITE_CONFIG } from "@/lib/constants";
-import { BlogPostSchema, generateBlogMetadata } from "@/lib/seo";
+import { ArticlePostSchema, generateArticleMetadata } from "@/lib/seo";
 import { formatDate, slugify, stripHtml } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-function mapDbBlogToBlogPost(dbBlog: {
+function mapDbArticleToArticlePost(dbArticle: {
   id: string;
   title: string;
   slug: string;
@@ -34,41 +34,41 @@ function mapDbBlogToBlogPost(dbBlog: {
   status: any;
 }) {
   return {
-    id: dbBlog.id,
-    title: dbBlog.title,
-    slug: dbBlog.slug,
-    excerpt: dbBlog.excerpt,
-    content: dbBlog.content,
-    category: dbBlog.category,
-    tags: dbBlog.tags,
-    coverImage: dbBlog.coverImage || "/images/image.png",
-    imageAlt: dbBlog.title,
-    author: dbBlog.author,
-    readTime: dbBlog.readTime,
-    publishedAt: dbBlog.publishedAt ? dbBlog.publishedAt.toISOString() : new Date().toISOString(),
-    featured: dbBlog.featured,
-    status: dbBlog.status.toLowerCase() as any
+    id: dbArticle.id,
+    title: dbArticle.title,
+    slug: dbArticle.slug,
+    excerpt: dbArticle.excerpt,
+    content: dbArticle.content,
+    category: dbArticle.category,
+    tags: dbArticle.tags,
+    coverImage: dbArticle.coverImage || "/images/image.png",
+    imageAlt: dbArticle.title,
+    author: dbArticle.author,
+    readTime: dbArticle.readTime,
+    publishedAt: dbArticle.publishedAt ? dbArticle.publishedAt.toISOString() : new Date().toISOString(),
+    featured: dbArticle.featured,
+    status: dbArticle.status.toLowerCase() as any
   };
 }
 
 
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await prisma.blog.findUnique({
+  const post = await prisma.article.findUnique({
     where: { slug: params.slug }
   });
-  if (!post) return { title: "Blog | Unique Mentors" };
-  return generateBlogMetadata(mapDbBlogToBlogPost(post));
+  if (!post) return { title: "Article | Unique Mentors" };
+  return generateArticleMetadata(mapDbArticleToArticlePost(post));
 }
 
-export default async function BlogDetailPage({ params }: { params: { slug: string } }) {
-  const post = await prisma.blog.findUnique({
+export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
+  const post = await prisma.article.findUnique({
     where: { slug: params.slug }
   });
   if (!post) notFound();
 
-  const mappedPost = mapDbBlogToBlogPost(post);
-  const articleUrl = `${SITE_CONFIG.url}/blog/${mappedPost.slug}`;
+  const mappedPost = mapDbArticleToArticlePost(post);
+  const articleUrl = `${SITE_CONFIG.url}/article/${mappedPost.slug}`;
   const headings = Array.from(mappedPost.content.matchAll(/<h([23])>(.*?)<\/h\1>/g)).map((match) => {
     const text = stripHtml(match[2] ?? "");
     return { text, id: slugify(text) };
@@ -78,7 +78,7 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
     return `<h${level} id="${id}">${text}</h${level}>`;
   });
 
-  const dbRelated = await prisma.blog.findMany({
+  const dbRelated = await prisma.article.findMany({
     where: {
       category: mappedPost.category,
       status: "PUBLISHED",
@@ -86,14 +86,14 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
     },
     take: 3
   });
-  const related = dbRelated.map((b) => mapDbBlogToBlogPost(b));
+  const related = dbRelated.map((b) => mapDbArticleToArticlePost(b));
 
   return (
     <>
       <TrackView
-        eventName="blog_viewed"
+        eventName="article_viewed"
         properties={{
-          blogId: mappedPost.id,
+          articleId: mappedPost.id,
           slug: mappedPost.slug,
           title: mappedPost.title,
           category: mappedPost.category,
@@ -101,14 +101,14 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
         }}
       />
       <ReadingProgress />
-      <SchemaMarkup schema={BlogPostSchema(mappedPost)} />
+      <SchemaMarkup schema={ArticlePostSchema(mappedPost)} />
       <PageHeader
         title={mappedPost.title}
         subtitle={mappedPost.excerpt}
         breadcrumbs={[
           { name: "Home", href: "/" },
-          { name: "Blog", href: "/blog" },
-          { name: mappedPost.title, href: `/blog/${mappedPost.slug}` }
+          { name: "Article", href: "/article" },
+          { name: mappedPost.title, href: `/article/${mappedPost.slug}` }
         ]}
       />
       <section className="section-padding bg-white dark:bg-slate-950">
@@ -156,8 +156,8 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                 <Link
                   href="/apply"
                   data-analytics-event="cta_clicked"
-                  data-analytics-label="Blog Apply Now"
-                  data-analytics-location="blog_sidebar"
+                  data-analytics-label="Article Apply Now"
+                  data-analytics-location="article_sidebar"
                 >
                   Apply Now
                 </Link>
@@ -170,8 +170,8 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                 <Link
                   href="/#newsletter"
                   data-analytics-event="cta_clicked"
-                  data-analytics-label="Blog newsletter subscribe"
-                  data-analytics-location="blog_sidebar"
+                  data-analytics-label="Article newsletter subscribe"
+                  data-analytics-location="article_sidebar"
                 >
                   <Icon name="Mail" className="h-4 w-4" />
                   Subscribe
@@ -182,7 +182,7 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
               <div className="space-y-4">
                 <h2 className="font-display text-xl font-bold">Related Posts</h2>
                 {related.map((item) => (
-                  <BlogCard key={item.slug} post={item} />
+                  <ArticleCard key={item.slug} post={item} />
                 ))}
               </div>
             ) : null}

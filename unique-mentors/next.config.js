@@ -74,6 +74,7 @@ const nextConfig = {
   },
   async headers() {
     return [
+
       {
         source: "/(.*)",
         headers: securityHeaders
@@ -81,7 +82,13 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    return [
+    return [      { source: '/apply-for-admission', destination: '/contact', permanent: true },
+      { source: '/apply-for-admission/', destination: '/contact', permanent: true },
+      { source: '/become-an-instructor', destination: '/contact', permanent: true },
+      { source: '/become-an-instructor/', destination: '/contact', permanent: true },
+      { source: '/newsroom', destination: '/articles', permanent: true },
+      { source: '/newsroom/', destination: '/articles', permanent: true },
+
       // Old profession pages → new courses page with profession filter
       { source: "/services/general-practitioner", destination: "/courses?profession=General%20Practitioner", permanent: true },
       { source: "/services/general-practitioner/", destination: "/courses?profession=General%20Practitioner", permanent: true },
