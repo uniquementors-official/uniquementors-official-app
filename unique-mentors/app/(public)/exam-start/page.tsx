@@ -29,7 +29,7 @@ export default function ExamStartPage() {
   }, [router]);
 
   const handleNext = () => {
-    if (selected === MOCK_QUESTIONS[currentQ].answer) {
+    if (selected === MOCK_QUESTIONS[currentQ]?.answer) {
       setScore(s => s + 1);
     }
     
@@ -38,7 +38,7 @@ export default function ExamStartPage() {
       setSelected(null);
     } else {
       // Calculate final score including this answer
-      const finalScore = selected === MOCK_QUESTIONS[currentQ].answer ? score + 1 : score;
+      const finalScore = selected === MOCK_QUESTIONS[currentQ]?.answer ? score + 1 : score;
       localStorage.setItem("examScore", finalScore.toString());
       router.push(`/exam-result?score=${finalScore}`);
     }
@@ -55,10 +55,10 @@ export default function ExamStartPage() {
         </div>
         
         <div className="mb-8">
-          <h3 className="text-2xl font-medium mb-6">{MOCK_QUESTIONS[currentQ].q}</h3>
+          <h3 className="text-2xl font-medium mb-6">{MOCK_QUESTIONS[currentQ]?.q}</h3>
           
           <div className="space-y-3">
-            {MOCK_QUESTIONS[currentQ].options.map((opt, i) => (
+            {MOCK_QUESTIONS[currentQ]?.options.map((opt, i) => (
               <div 
                 key={i} 
                 onClick={() => setSelected(i)}
