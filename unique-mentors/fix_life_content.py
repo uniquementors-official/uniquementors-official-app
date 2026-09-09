@@ -1,4 +1,12 @@
-import { prisma } from "@/lib/db";
+import re
+
+with open("lib/life-content.ts", "r") as f:
+    content = f.read()
+
+# We need to completely rewrite getInstructors, getGalleryItems, etc to use prisma.
+# Actually, since ensureLifeContent is crashing on Vercel, we can just remove ensureLifeContent calls and rewrite the functions.
+
+new_content = """import { prisma } from "@/lib/db";
 import { randomUUID } from "crypto";
 
 type Status = "DRAFT" | "PUBLISHED";
@@ -139,3 +147,8 @@ export async function updateInstructor(id: string, data: InstructorInput) {
 export async function deleteInstructor(id: string) {
   return prisma.instructor.delete({ where: { id } });
 }
+"""
+
+with open("lib/life-content.ts", "w") as f:
+    f.write(new_content)
+
