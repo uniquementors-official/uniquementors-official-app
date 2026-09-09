@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return generateSEOMetadata({
     title: `${event.title} | Unique Mentors Events`,
     description: event.excerpt,
-    path: `/events/${event.slug}`,
+    path: `/event/${event.slug}`,
     image: event.coverImage || undefined
   });
 }
@@ -35,7 +35,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
   });
   if (!event) notFound();
 
-  const eventUrl = `${SITE_CONFIG.url}/events/${event.slug}`;
+  const eventUrl = `${SITE_CONFIG.url}/event/${event.slug}`;
   const headings = Array.from(event.content.matchAll(/<h([23])>(.*?)<\/h\1>/g)).map((match) => {
     const text = stripHtml(match[2] ?? "");
     return { text, id: slugify(text) };
@@ -64,8 +64,8 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
         subtitle={event.excerpt}
         breadcrumbs={[
           { name: "Home", href: "/" },
-          { name: "Events", href: "/events" },
-          { name: event.title, href: `/events/${event.slug}` }
+          { name: "Events", href: "/event" },
+          { name: event.title, href: `/event/${event.slug}` }
         ]}
       />
       <section className="section-padding bg-white dark:bg-slate-950">
@@ -119,7 +119,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
               <div className="space-y-4">
                 <h2 className="font-display text-xl font-bold">Other Events</h2>
                 {dbRelated.map((item) => (
-                  <Link key={item.slug} href={`/events/${item.slug}`} className="surface p-4 block hover:shadow-soft transition group">
+                  <Link key={item.slug} href={`/event/${item.slug}`} className="surface p-4 block hover:shadow-soft transition group">
                     <p className="text-xs font-semibold text-primary">{formatDate(item.eventDate.toISOString())}</p>
                     <h3 className="mt-1 font-bold text-slate-900 group-hover:text-primary dark:text-white line-clamp-2">{item.title}</h3>
                   </Link>

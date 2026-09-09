@@ -111,7 +111,7 @@ export default function EventManagerPage() {
             <Link href={`/admin/events/${row.id}`} aria-label={`Edit ${row.title}`}>
               <Icon name="Edit" className="h-4 w-4 text-primary" />
             </Link>
-            <Link href={`/events/${row.slug}`} target="_blank" aria-label={`View ${row.title}`}>
+            <Link href={`/event/${row.slug}`} target="_blank" aria-label={`View ${row.title}`}>
               <Icon name="Eye" className="h-4 w-4 text-secondary" />
             </Link>
             <button type="button" aria-label={`Delete ${row.title}`} onClick={() => handleDelete(row.id, row.title)}>

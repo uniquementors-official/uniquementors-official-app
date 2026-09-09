@@ -7,7 +7,7 @@ export interface GalleryItemInput {
   title: string;
   description: string;
   image: string;
-  imageAlt?: string;
+  imageAlt?: string | null;
   sortOrder?: number;
   status?: Status;
 }
@@ -15,10 +15,10 @@ export interface GalleryItemInput {
 export interface InstructorInput {
   name: string;
   slug?: string;
-  designation?: string;
-  bio?: string;
-  image?: string;
-  imageAlt?: string;
+  designation?: string | null;
+  bio?: string | null;
+  image?: string | null;
+  imageAlt?: string | null;
   sortOrder?: number;
   status?: Status;
 }

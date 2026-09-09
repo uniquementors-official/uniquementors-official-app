@@ -23,7 +23,7 @@ const staticRoutes = [
   { path: "/courses/plab-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
   { path: "/courses/amc-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
-  { path: "/events", priority: 0.8, changeFrequency: "weekly" as const },
+  { path: "/event", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/contact", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/apply", priority: 0.85, changeFrequency: "monthly" as const },
   { path: "/gallery", priority: 0.7, changeFrequency: "monthly" as const },
@@ -69,7 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       select: { slug: true, updatedAt: true }
     });
     const eventRoutes = dbEvents.map((event) => ({
-      url: `${SITE_CONFIG.url}/events/${event.slug}`,
+      url: `${SITE_CONFIG.url}/event/${event.slug}`,
       lastModified: event.updatedAt,
       changeFrequency: "weekly" as const,
       priority: 0.75

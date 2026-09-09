@@ -123,6 +123,18 @@ const nextConfig = {
       { source: "/services/coru-registration", destination: "/courses/coru-registration", permanent: true },
       { source: "/services/coru-registration/", destination: "/courses/coru-registration", permanent: true },
 
+
+      // Old single root pages
+      { source: "/prometric-exam-for-physiotherapist", destination: "/courses?profession=Physiotherapist", permanent: true },
+      { source: "/prometric-exam-for-physiotherapist/", destination: "/courses?profession=Physiotherapist", permanent: true },
+      { source: "/dha-coaching-centre", destination: "/courses/dha-exam-training", permanent: true },
+      { source: "/dha-coaching-centre/", destination: "/courses/dha-exam-training", permanent: true },
+      { source: "/prometric-exam-for-lab-technician", destination: "/courses?profession=Lab%20Technician", permanent: true },
+      { source: "/prometric-exam-for-lab-technician/", destination: "/courses?profession=Lab%20Technician", permanent: true },
+      { source: "/haad-exam-for-lab-technician", destination: "/courses/haad-exam-training", permanent: true },
+      { source: "/haad-exam-for-lab-technician/", destination: "/courses/haad-exam-training", permanent: true },
+      { source: "/moh-exam-for-physiotherapist", destination: "/courses/moh-exam-training", permanent: true },
+      { source: "/moh-exam-for-physiotherapist/", destination: "/courses/moh-exam-training", permanent: true },
       {
         source: "/article.php",
         has: [{ type: "query", key: "slug", value: "(?<slug>.*)" }],

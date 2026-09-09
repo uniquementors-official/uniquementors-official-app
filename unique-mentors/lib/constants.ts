@@ -140,7 +140,7 @@ export const NAV_ITEMS: NavItem[] = [
     ]
   },
   { label: "Blog", href: "/blog" },
-  { label: "Events", href: "/events" },
+  { label: "Events", href: "/event" },
   { label: "Contact", href: "/contact" }
 ];
 
@@ -151,7 +151,7 @@ export const FOOTER_LINKS = {
     { label: "Services", href: "/services" },
     { label: "Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
-    { label: "Events", href: "/events" },
+    { label: "Events", href: "/event" },
     { label: "Gallery", href: "/gallery" },
     { label: "Instructors", href: "/instructor" },
     { label: "Contact", href: "/contact" },

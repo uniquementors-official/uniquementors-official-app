@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = generateSEOMetadata({
   title: "Unique Mentors Events - Quizzes, Seminars & Finishing School News",
   description: "Explore the latest event updates, collaborative quiz competitions with The Hindu, finishing school seminars, and news from Unique Mentors.",
-  path: "/events"
+  path: "/event"
 });
 
 export default async function EventsPage() {
@@ -34,7 +34,7 @@ export default async function EventsPage() {
         subtitle="Stay updated with our seminars, quizzes, finishing school activities, and institutional collaborations."
         breadcrumbs={[
           { name: "Home", href: "/" },
-          { name: "Events", href: "/events" }
+          { name: "Events", href: "/event" }
         ]}
       />
       <section className="section-padding bg-slate-50 dark:bg-slate-950">
@@ -80,7 +80,7 @@ export default async function EventsPage() {
 function EventCard({ event, isUpcoming }: { event: any; isUpcoming: boolean }) {
   return (
     <article className="group surface flex h-full flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-glow">
-      <Link href={`/events/${event.slug}`} className="relative block aspect-[16/10] overflow-hidden" aria-label={`View ${event.title}`}>
+      <Link href={`/event/${event.slug}`} className="relative block aspect-[16/10] overflow-hidden" aria-label={`View ${event.title}`}>
         <Image
           src={event.coverImage || "/images/image.png"}
           alt={event.title}
@@ -104,13 +104,13 @@ function EventCard({ event, isUpcoming }: { event: any; isUpcoming: boolean }) {
           </span>
         </div>
         <h3 className="font-display text-lg font-bold leading-snug text-brand-ink dark:text-white">
-          <Link href={`/events/${event.slug}`} className="hover:text-primary">
+          <Link href={`/event/${event.slug}`} className="hover:text-primary">
             {event.title}
           </Link>
         </h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{event.excerpt}</p>
         <Button asChild variant="outline" size="sm" className="mt-5 w-full">
-          <Link href={`/events/${event.slug}`}>
+          <Link href={`/event/${event.slug}`}>
             Read More
             <Icon name="ArrowRight" className="h-4 w-4" />
           </Link>

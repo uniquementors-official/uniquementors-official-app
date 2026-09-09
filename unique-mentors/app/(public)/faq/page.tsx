@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { FAQAccordion } from "@/components/common/FAQAccordion";
 import { generateMetadata as generateSEOMetadata, FAQSchema, BreadcrumbSchema } from "@/lib/seo";
-import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
+import { SchemaMarkup } from "@/components/common/SchemaMarkup";
 import type { FaqItem } from "@/types";
 
 export const metadata: Metadata = generateSEOMetadata({
