@@ -140,3 +140,5 @@ export type Instructor = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
+
+export type ArticlePost = BlogPost;

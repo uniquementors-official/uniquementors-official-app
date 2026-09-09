@@ -10,7 +10,7 @@ export default function ExamResultPage() {
   const [lead, setLead] = useState<any>(null);
 
   useEffect(() => {
-    const savedScore = searchParams.get("score") || localStorage.getItem("examScore");
+    const savedScore = (searchParams || {}).get("score") || localStorage.getItem("examScore");
     const savedLead = localStorage.getItem("examLead");
     
     if (!savedScore || !savedLead) {

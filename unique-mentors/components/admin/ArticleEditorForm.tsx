@@ -42,7 +42,7 @@ export function ArticleEditorForm({ post }: { post?: ArticlePost }) {
           content,
           excerpt,
           category,
-          tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean),
+          tags: tags.split(",").map((tag: string) => tag.trim()).filter(Boolean),
           coverImage,
           metaTitle,
           metaDesc,
