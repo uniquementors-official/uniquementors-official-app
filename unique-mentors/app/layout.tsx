@@ -61,6 +61,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Unique Mentors - Overseas Medical Licensing Exam Training Centre | MOH | DHA | HAAD",
     description: "Overseas medical licensing exam training in Kochi. MOH, DHA, HAAD, USMLE, PLAB, AMC coaching. 5000+ successful candidates."
+  },
+  verification: {
+    google: "mNJ-g9k4h53sor_5I2G4vzgKXh4onWMYBLNrTpoRTso"
   }
 };
 
