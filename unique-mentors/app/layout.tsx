@@ -78,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
@@ -88,8 +88,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })(window,document,"script","dataLayer","GTM-PFFR89LZ");
           `}
         </Script>
-      </head>
-      <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PFFR89LZ" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
         </noscript>
