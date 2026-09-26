@@ -74,6 +74,9 @@ const nextConfig = {
   },
   async headers() {
     return [
+      { source: '/events', destination: '/event', permanent: true },
+      { source: '/events/:slug*', destination: '/event/:slug*', permanent: true },
+
 
       {
         source: "/(.*)",
@@ -82,12 +85,15 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    return [      { source: '/apply-for-admission', destination: '/contact', permanent: true },
+    return [
+      { source: '/events', destination: '/event', permanent: true },
+      { source: '/events/:slug*', destination: '/event/:slug*', permanent: true },
+      { source: '/apply-for-admission', destination: '/contact', permanent: true },
       { source: '/apply-for-admission/', destination: '/contact', permanent: true },
       { source: '/become-an-instructor', destination: '/contact', permanent: true },
       { source: '/become-an-instructor/', destination: '/contact', permanent: true },
-      { source: '/newsroom', destination: '/articles', permanent: true },
-      { source: '/newsroom/', destination: '/articles', permanent: true },
+      { source: '/newsroom', destination: '/blog', permanent: true },
+      { source: '/newsroom/', destination: '/blog', permanent: true },
 
       // Old profession pages → new courses page with profession filter
       { source: "/services/general-practitioner", destination: "/courses?profession=General%20Practitioner", permanent: true },

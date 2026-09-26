@@ -8,3 +8,4 @@ unique-mentors/.env.*
 unique-mentors/node_modules/
 unique-mentors/.next/
 .vercel
+.env*

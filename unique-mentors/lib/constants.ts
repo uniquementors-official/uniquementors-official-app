@@ -139,7 +139,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Nurses", href: "/courses?profession=Nurse", group: "By Profession" }
     ]
   },
-  { label: "Blog", href: "/articles" },
+  { label: "Blog", href: "/blog" },
   { label: "Events", href: "/event" },
   { label: "Contact", href: "/contact" }
 ];
@@ -150,7 +150,7 @@ export const FOOTER_LINKS = {
     { label: "Who We Are", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Courses", href: "/courses" },
-    { label: "Blog", href: "/articles" },
+    { label: "Blog", href: "/blog" },
     { label: "Events", href: "/event" },
     { label: "Gallery", href: "/gallery" },
     { label: "Instructors", href: "/instructor" },

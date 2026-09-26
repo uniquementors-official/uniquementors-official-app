@@ -1,27 +1,20 @@
-import re
+import os
 
-with open("next.config.js", "r") as f:
+path = "next.config.js"
+with open(path, "r") as f:
     content = f.read()
 
-new_redirects = """
-      // Old single root pages
-      { source: "/prometric-exam-for-physiotherapist", destination: "/courses?profession=Physiotherapist", permanent: true },
-      { source: "/prometric-exam-for-physiotherapist/", destination: "/courses?profession=Physiotherapist", permanent: true },
-      { source: "/dha-coaching-centre", destination: "/courses/dha-exam-training", permanent: true },
-      { source: "/dha-coaching-centre/", destination: "/courses/dha-exam-training", permanent: true },
-      { source: "/prometric-exam-for-lab-technician", destination: "/courses?profession=Lab%20Technician", permanent: true },
-      { source: "/prometric-exam-for-lab-technician/", destination: "/courses?profession=Lab%20Technician", permanent: true },
-      { source: "/haad-exam-for-lab-technician", destination: "/courses/haad-exam-training", permanent: true },
-      { source: "/haad-exam-for-lab-technician/", destination: "/courses/haad-exam-training", permanent: true },
-      { source: "/moh-exam-for-physiotherapist", destination: "/courses/moh-exam-training", permanent: true },
-      { source: "/moh-exam-for-physiotherapist/", destination: "/courses/moh-exam-training", permanent: true },
+# Add redirect for /events to /event
+redirects_insertion = """      { source: '/events', destination: '/event', permanent: true },
+      { source: '/events/:slug*', destination: '/event/:slug*', permanent: true },
 """
 
-# Insert before the catch-all dynamic redirects at the end
-content = content.replace(
-    '      {\n        source: "/article.php",',
-    new_redirects + '      {\n        source: "/article.php",'
-)
+# Insert right after `return [`
+target = "return ["
+if redirects_insertion not in content:
+    content = content.replace(target, target + "\n" + redirects_insertion)
 
-with open("next.config.js", "w") as f:
+with open(path, "w") as f:
     f.write(content)
+
+print("Updated next.config.js")

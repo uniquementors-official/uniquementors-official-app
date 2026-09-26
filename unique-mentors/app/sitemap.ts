@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.82
     }));
 
-    const dbBlogs = await prisma.blog.findMany({
+    const dbBlogs = await prisma.article.findMany({
       where: { status: "PUBLISHED" },
       select: { slug: true, publishedAt: true }
     });
