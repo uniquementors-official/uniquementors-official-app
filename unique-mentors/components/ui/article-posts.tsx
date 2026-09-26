@@ -57,7 +57,7 @@ export function ArticlePostsGrid({
         {description}
       </p>
 
-      <div className="grid h-auto grid-cols-1 gap-5 md:h-[650px] md:grid-cols-2 lg:grid-cols-[1fr_0.5fr]">
+      <div className="grid h-auto grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post, index) => {
           const isPrimary = index === 0;
           const rating = post.rating ?? 4;
@@ -109,7 +109,7 @@ export function ArticlePostsGrid({
               }}
               className={cn(
                 "group relative flex min-h-[300px] cursor-pointer flex-col justify-end overflow-hidden rounded-lg bg-cover bg-center bg-no-repeat p-5 text-white shadow-[0_24px_70px_rgba(15,23,42,0.14)] transition-all duration-300 hover:scale-[0.985] hover:rotate-[0.25deg] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-                isPrimary && "md:col-span-2 md:row-span-2 lg:col-span-1",
+                
                 post.className
               )}
               data-analytics-event="article_clicked"
