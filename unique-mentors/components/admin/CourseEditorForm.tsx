@@ -28,7 +28,7 @@ export function CourseEditorForm({ course }: { course?: Course }) {
   const [description, setDescription] = useState(course?.description ?? "<p></p>");
   const [eligibility, setEligibility] = useState((course?.eligibility ?? [""]).join("\n"));
   const [highlights, setHighlights] = useState((course?.highlights ?? [""]).join("\n"));
-  const [syllabus, setSyllabus] = useState((course?.syllabus ?? []).join("\n"));
+  const [syllabus, setSyllabus] = useState(course?.syllabus ?? "");
   const [coverImage, setCoverImage] = useState(course?.coverImage ?? "");
   const [status, setStatus] = useState<"DRAFT" | "PUBLISHED">(course?.status === "published" ? "PUBLISHED" : "DRAFT");
   const [featured, setFeatured] = useState(Boolean(course?.featured));
