@@ -74,8 +74,6 @@ const nextConfig = {
   },
   async headers() {
     return [
-      { source: '/events', destination: '/event', permanent: true },
-      { source: '/events/:slug*', destination: '/event/:slug*', permanent: true },
 
 
       {
