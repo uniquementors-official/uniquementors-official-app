@@ -11,11 +11,11 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.tiny.cloud",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.tiny.cloud https://us-assets.i.posthog.com https://us.i.posthog.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tiny.cloud",
       "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://ui-avatars.com https://img.youtube.com https://www.google-analytics.com https://*.supabase.co",
       "font-src 'self' data: https://fonts.gstatic.com",
-      "connect-src 'self' https://api.resend.com https://res.cloudinary.com https://www.google-analytics.com https://vitals.vercel-insights.com https://*.supabase.co",
+      "connect-src 'self' https://api.resend.com https://res.cloudinary.com https://www.google-analytics.com https://vitals.vercel-insights.com https://*.supabase.co https://us-assets.i.posthog.com https://us.i.posthog.com",
       "frame-src 'self' https://www.google.com https://www.youtube.com",
       "media-src 'self' https://res.cloudinary.com",
       "object-src 'none'",
