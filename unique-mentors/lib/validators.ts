@@ -51,7 +51,7 @@ export const blogSchema = z.object({
   excerpt: z.string().trim().max(300).optional(),
   category: z.string().trim().min(2).max(60),
   tags: z.array(z.string().trim().min(1)).default([]),
-  coverImage: z.string().url().optional().or(z.literal("")),
+  coverImage: imagePathOrUrl.optional().or(z.literal("")),
   metaTitle: z.string().trim().max(70).optional().or(z.literal("")),
   metaDesc: z.string().trim().max(170).optional().or(z.literal("")),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT"),
@@ -67,7 +67,7 @@ export const articleSchema = z.object({
   excerpt: z.string().trim().max(300).optional(),
   category: z.string().trim().min(2).max(60),
   tags: z.array(z.string().trim().min(1)).default([]),
-  coverImage: z.string().url().optional().or(z.literal("")),
+  coverImage: imagePathOrUrl.optional().or(z.literal("")),
   metaTitle: z.string().trim().max(70).optional().or(z.literal("")),
   metaDesc: z.string().trim().max(170).optional().or(z.literal("")),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT"),
@@ -91,7 +91,7 @@ export const courseSchema = z.object({
   syllabus: z.string().optional().or(z.literal("")),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT"),
   featured: z.boolean().default(false),
-  coverImage: z.string().url().optional().or(z.literal(""))
+  coverImage: imagePathOrUrl.optional().or(z.literal(""))
 });
 
 export const testimonialSchema = z.object({
@@ -101,7 +101,7 @@ export const testimonialSchema = z.object({
   country: z.string().trim().min(2).max(80),
   rating: z.number().int().min(1).max(5),
   review: z.string().trim().min(20).max(600),
-  avatarUrl: z.string().url().optional().or(z.literal("")),
+  avatarUrl: imagePathOrUrl.optional().or(z.literal("")),
   visible: z.boolean().default(true),
   featured: z.boolean().default(false)
 });
@@ -118,7 +118,7 @@ export const eventSchema = z.object({
   excerpt: z.string().trim().max(300).optional(),
   eventDate: z.string(),
   location: z.string().trim().min(2).max(140).default("Unique Mentors Kochi"),
-  coverImage: z.string().url().optional().or(z.literal("")),
+  coverImage: imagePathOrUrl.optional().or(z.literal("")),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT")
 });
 
