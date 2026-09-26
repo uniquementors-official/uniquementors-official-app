@@ -54,7 +54,7 @@ function mapDbArticleToArticlePost(dbArticle: {
 
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await prisma.article.findUnique({
+  const post = await prisma.blog.findUnique({
     where: { slug: params.slug }
   });
   if (!post) return { title: "Blog | Unique Mentors" };
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
-  const post = await prisma.article.findUnique({
+  const post = await prisma.blog.findUnique({
     where: { slug: params.slug }
   });
   if (!post) notFound();
@@ -78,7 +78,7 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
     return `<h${level} id="${id}">${text}</h${level}>`;
   });
 
-  const dbRelated = await prisma.article.findMany({
+  const dbRelated = await prisma.blog.findMany({
     where: {
       category: mappedPost.category,
       status: "PUBLISHED",

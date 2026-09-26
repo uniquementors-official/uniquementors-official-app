@@ -53,12 +53,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.82
     }));
 
-    const dbBlogs = await prisma.article.findMany({
+    const dbBlogs = await prisma.blog.findMany({
       where: { status: "PUBLISHED" },
       select: { slug: true, publishedAt: true }
     });
     const blogRoutes = dbBlogs.map((post) => ({
       url: `${SITE_CONFIG.url}/blog/${post.slug}`,
+      lastModified: post.publishedAt || now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7
+    }));
+
+    
+    const dbArticles = await prisma.article.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true, publishedAt: true }
+    });
+    const articleRoutes = dbArticles.map((post) => ({
+      url: `${SITE_CONFIG.url}/articles/${post.slug}`,
       lastModified: post.publishedAt || now,
       changeFrequency: "monthly" as const,
       priority: 0.7
@@ -75,7 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.75
     }));
 
-    return [...routes, ...courseRoutes, ...blogRoutes, ...eventRoutes];
+    return [...routes, ...courseRoutes, ...blogRoutes, ...articleRoutes, ...eventRoutes];
   } catch (error) {
     console.warn("Sitemap generated with static routes only:", error);
     return routes;

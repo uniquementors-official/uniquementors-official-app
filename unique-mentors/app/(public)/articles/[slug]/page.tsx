@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const post = await prisma.article.findUnique({
     where: { slug: params.slug }
   });
-  if (!post) return { title: "Blog | Unique Mentors" };
+  if (!post) return { title: "Article | Unique Mentors" };
   return generateArticleMetadata(mapDbArticleToArticlePost(post));
 }
 
@@ -68,7 +68,7 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
   if (!post) notFound();
 
   const mappedPost = mapDbArticleToArticlePost(post);
-  const articleUrl = `${SITE_CONFIG.url}/blog/${mappedPost.slug}`;
+  const articleUrl = `${SITE_CONFIG.url}/articles/${mappedPost.slug}`;
   const headings = Array.from(mappedPost.content.matchAll(/<h([23])>(.*?)<\/h\1>/g)).map((match) => {
     const text = stripHtml(match[2] ?? "");
     return { text, id: slugify(text) };
@@ -107,8 +107,8 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
         subtitle={mappedPost.excerpt}
         breadcrumbs={[
           { name: "Home", href: "/" },
-          { name: "Blog", href: "/blog" },
-          { name: mappedPost.title, href: `/blog/${mappedPost.slug}` }
+          { name: "Article", href: "/articles" },
+          { name: mappedPost.title, href: `/articles/${mappedPost.slug}` }
         ]}
       />
       <section className="section-padding bg-white dark:bg-slate-950">

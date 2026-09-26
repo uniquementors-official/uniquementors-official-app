@@ -39,7 +39,7 @@ export default async function ArticlePage({ searchParams }: ArticlePageProps) {
   const search = searchParams?.search?.toLowerCase() ?? "";
 
   // 1. Fetch all distinct categories for published posts (for filters)
-  const distinctCategories = await prisma.article.findMany({
+  const distinctCategories = await prisma.blog.findMany({
     where: { status: "PUBLISHED" },
     select: { category: true },
     distinct: ["category"]
@@ -47,7 +47,7 @@ export default async function ArticlePage({ searchParams }: ArticlePageProps) {
   const categories = distinctCategories.map((c) => c.category);
 
   // 2. Fetch the filtered posts
-  const posts = await prisma.article.findMany({
+  const posts = await prisma.blog.findMany({
     where: {
       status: "PUBLISHED",
       ...(category ? { category } : {}),

@@ -9,9 +9,9 @@ import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Medical Licensing Exam Blog - Tips, News & Career Guides",
+  title: "Medical Licensing Exam Article - Tips, News & Career Guides",
   description: "Read MOH, DHA, HAAD, CORU and overseas medical licensing exam tips, eligibility guides and career insights from Unique Mentors.",
-  path: "/blog"
+  path: "/articles"
 });
 
 type ArticlePageProps = {
@@ -27,7 +27,7 @@ function toGridPost(post: { id: string; title: string; category: string; coverIm
     title: post.title,
     category: post.category,
     imageUrl: post.coverImage || "/images/image.png",
-    href: `/blog/${post.slug}`,
+    href: `/articles/${post.slug}`,
     views: [2180, 1456, 987, 824, 760][index] ?? 640,
     readTime: post.readTime,
     rating: index === 0 ? 5 : 4
@@ -73,17 +73,17 @@ export default async function ArticlePage({ searchParams }: ArticlePageProps) {
         subtitle="Eligibility updates, application explainers, exam preparation tips and event updates for healthcare professionals."
         breadcrumbs={[
           { name: "Home", href: "/" },
-          { name: "Blog", href: "/blog" }
+          { name: "Article", href: "/articles" }
         ]}
       />
       <section className="section-padding bg-white dark:bg-slate-950">
         <div className="container">
           <div className="mb-8 flex flex-wrap gap-2">
-            <Link href="/blog">
+            <Link href="/articles">
               <Badge variant={!category ? "default" : "outline"}>All</Badge>
             </Link>
             {categories.map((item) => (
-              <Link key={item} href={`/blog?category=${encodeURIComponent(item)}`}>
+              <Link key={item} href={`/articles?category=${encodeURIComponent(item)}`}>
                 <Badge variant={category === item ? "default" : "outline"}>{item}</Badge>
               </Link>
             ))}
