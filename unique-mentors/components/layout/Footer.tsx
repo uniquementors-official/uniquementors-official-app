@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { FOOTER_LINKS, PHONE_DISPLAY, SITE_CONFIG } from "@/lib/constants";
@@ -90,8 +91,16 @@ export function Footer({ customSocialLinks }: { customSocialLinks?: SocialLinksD
       <SchemaMarkup schema={LocalBusinessSchema()} />
       <div className="container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Link href="/" className="flex items-center gap-3" aria-label="Unique Mentors home">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white font-display text-sm font-bold text-brand-navy">UM</span>
+          <Link href="/" className="group flex items-center gap-3" aria-label="Unique Mentors home">
+            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-white/10 transition group-hover:scale-105">
+              <Image
+                src="/images/logos/logo-icon.png"
+                alt="Unique Mentors Logo"
+                width={40}
+                height={40}
+                className="h-full w-full object-contain rounded-md"
+              />
+            </div>
             <span className="font-display text-xl font-bold">{SITE_CONFIG.name}</span>
           </Link>
           <p className="mt-4 text-sm leading-6 text-slate-300">{SITE_CONFIG.description}</p>

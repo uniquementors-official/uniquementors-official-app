@@ -365,8 +365,14 @@ export function CinematicHero({
                           <span className="mb-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400">Today</span>
                           <span className="text-xl font-bold tracking-normal text-white drop-shadow-md">Licensing Plan</span>
                         </div>
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-neutral-200 shadow-lg shadow-black/50">
-                          UM
+                        <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-white shadow-lg shadow-black/50">
+                          <Image
+                            src="/images/logos/logo-icon.png"
+                            alt="Unique Mentors"
+                            width={36}
+                            height={36}
+                            className="h-full w-full object-cover"
+                          />
                         </div>
                       </div>
 

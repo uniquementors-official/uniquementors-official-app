@@ -1,0 +1,24 @@
+{
+  "name": "Unique Mentors",
+  "short_name": "Unique Mentors",
+  "icons": [
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0a2540",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

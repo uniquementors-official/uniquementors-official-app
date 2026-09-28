@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { ADMIN_NAV_ITEMS } from "@/lib/constants";
@@ -14,7 +15,15 @@ export function AdminSidebar() {
   return (
     <aside className="sticky top-0 hidden h-screen bg-brand-navy p-4 text-white lg:block">
       <Link href="/admin" className="flex items-center gap-3 rounded-md px-3 py-4">
-        <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white font-display text-sm font-bold text-brand-navy">UM</span>
+        <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-white/10">
+          <Image
+            src="/images/logos/logo-icon.png"
+            alt="Unique Mentors"
+            width={40}
+            height={40}
+            className="h-full w-full object-contain rounded-md"
+          />
+        </div>
         <span>
           <span className="block font-display text-lg font-bold">Unique Mentors</span>
           <span className="text-xs text-slate-300">Admin Panel</span>
