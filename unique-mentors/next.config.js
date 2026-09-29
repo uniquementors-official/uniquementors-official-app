@@ -1,7 +1,7 @@
 const cloudinaryCloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "**";
 
 const securityHeaders = [
-  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Robots-Tag", value: "index, follow" },
@@ -11,17 +11,18 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.tiny.cloud https://us-assets.i.posthog.com https://us.i.posthog.com",
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tiny.cloud",
-      "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://ui-avatars.com https://img.youtube.com https://www.google-analytics.com https://*.supabase.co",
-      "font-src 'self' data: https://fonts.gstatic.com",
-      "connect-src 'self' https://api.resend.com https://res.cloudinary.com https://www.google-analytics.com https://vitals.vercel-insights.com https://*.supabase.co https://us-assets.i.posthog.com https://us.i.posthog.com",
-      "frame-src 'self' https://www.google.com https://www.youtube.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.googletagmanager.com https://tagassistant.google.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.google.co.in https://*.googlesyndication.com https://*.googleadservices.com https://cdn.tiny.cloud https://us-assets.i.posthog.com https://us.i.posthog.com",
+      "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.googletagmanager.com https://tagassistant.google.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.google.co.in https://*.googlesyndication.com https://*.googleadservices.com https://cdn.tiny.cloud https://us-assets.i.posthog.com https://us.i.posthog.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tiny.cloud https://tagassistant.google.com",
+      "img-src 'self' data: blob: https://www.googletagmanager.com https://*.googletagmanager.com https://tagassistant.google.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.google.co.in https://*.g.doubleclick.net https://*.googleadservices.com https://googleads.g.doubleclick.net https://res.cloudinary.com https://images.unsplash.com https://ui-avatars.com https://img.youtube.com https://*.supabase.co",
+      "font-src 'self' data: https://fonts.gstatic.com https://fonts.googleapis.com",
+      "connect-src 'self' https://www.googletagmanager.com https://*.googletagmanager.com https://tagassistant.google.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.google.com https://*.google.co.in https://*.g.doubleclick.net https://*.googleadservices.com https://stats.g.doubleclick.net https://api.resend.com https://res.cloudinary.com https://vitals.vercel-insights.com https://*.supabase.co https://us-assets.i.posthog.com https://us.i.posthog.com",
+      "frame-src 'self' https://www.googletagmanager.com https://*.googletagmanager.com https://tagassistant.google.com https://www.google.com https://*.google.com https://td.doubleclick.net https://*.doubleclick.net https://www.youtube.com",
       "media-src 'self' https://res.cloudinary.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
-      "frame-ancestors 'none'"
+      "frame-ancestors 'self' https://tagassistant.google.com https://www.googletagmanager.com"
     ].join("; ")
   }
 ];
