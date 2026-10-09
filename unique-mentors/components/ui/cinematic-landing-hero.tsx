@@ -8,7 +8,7 @@ import { Icon } from "@/components/common/Icon";
 import { ShuffleGrid } from "@/components/ui/shuffle-grid";
 
 const injectedStyles = `
-  .gsap-reveal { visibility: hidden; }
+  /* .gsap-reveal is visible by default to prevent blank loading flash */
   .transform-style-3d { transform-style: preserve-3d; }
   .film-grain {
     position: absolute; inset: 0; width: 100%; height: 100%;
@@ -225,21 +225,11 @@ export function CinematicHero({
       ctx = gsap.context(() => {
         const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
-        gsap.set(".text-track", {
-          autoAlpha: 0,
-          y: isMobile ? 24 : 42,
-          scale: isMobile ? 0.96 : 0.92,
-          rotationX: isMobile ? 0 : -10
-        });
-        gsap.set(".text-days", { autoAlpha: 1, clipPath: "inset(0 100% 0 0)" });
+        gsap.set(".text-track", { autoAlpha: 1, y: 0, scale: 1, rotationX: 0 });
+        gsap.set(".text-days", { autoAlpha: 1, clipPath: "inset(0 0% 0 0)" });
         gsap.set(".main-card", { y: window.innerHeight + 160, autoAlpha: 1 });
         gsap.set([".card-left-text", ".card-right-text", ".mockup-scroll-wrapper", ".floating-badge", ".phone-widget"], { autoAlpha: 0 });
         gsap.set(".cta-wrapper", { autoAlpha: 0, scale: 0.92 });
-
-        const introTl = gsap.timeline({ delay: 0.25 });
-        introTl
-          .to(".text-track", { duration: 1.1, autoAlpha: 1, y: 0, scale: 1, rotationX: 0, ease: "expo.out" })
-          .to(".text-days", { duration: 1.25, clipPath: "inset(0 0% 0 0)", ease: "power4.inOut" }, "-=0.85");
 
         const scrollTl = gsap.timeline({
           scrollTrigger: {

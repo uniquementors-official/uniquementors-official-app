@@ -186,7 +186,7 @@ export function ShuffleGrid({ className }: { className?: string }) {
             quality={62}
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             style={{ objectPosition: square.objectPosition ?? "center" }}
-            loading={index < 4 ? "eager" : "lazy"}
+            loading="eager" priority={index < 4}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/20 to-transparent" />
         </motion.div>
