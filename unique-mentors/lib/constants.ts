@@ -139,6 +139,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Nurses", href: "/courses?profession=Nurse", group: "By Profession" }
     ]
   },
+  { label: "Study Abroad", href: "/study-abroad" },
   { label: "Blog", href: "/blog" },
   { label: "Events", href: "/event" },
   { label: "Contact", href: "/contact" }
@@ -150,6 +151,7 @@ export const FOOTER_LINKS = {
     { label: "Who We Are", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Courses", href: "/courses" },
+    { label: "Study Abroad", href: "/study-abroad" },
     { label: "Blog", href: "/blog" },
     { label: "Events", href: "/event" },
     { label: "Gallery", href: "/gallery" },
@@ -257,6 +259,7 @@ export const COUNTRIES_SERVED = [
 export const ADMIN_NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: "LayoutDashboard" },
   { label: "Blog Posts", href: "/admin/blogs", icon: "FileText" },
+  { label: "Study Abroad", href: "/admin/study-abroad", icon: "PlaneTakeoff" },
   { label: "Articles", href: "/admin/articles", icon: "Newspaper" },
   { label: "Events", href: "/admin/events", icon: "Calendar" },
   { label: "Courses", href: "/admin/courses", icon: "BookOpen" },

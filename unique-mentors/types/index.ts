@@ -45,6 +45,29 @@ export type BlogPost = {
   tags: string[];
   coverImage: string;
   imageAlt: string;
+  metaTitle?: string | null;
+  metaDesc?: string | null;
+  author: string;
+  readTime: number;
+  publishedAt: string;
+  featured: boolean;
+  status: ContentStatus;
+};
+
+export type StudyAbroadPost = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  country: string;
+  service: string;
+  intake: string;
+  tags: string[];
+  coverImage: string;
+  imageAlt: string;
+  metaTitle?: string | null;
+  metaDesc?: string | null;
   author: string;
   readTime: number;
   publishedAt: string;

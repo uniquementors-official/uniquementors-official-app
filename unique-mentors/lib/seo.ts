@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_CONFIG } from "@/lib/constants";
-import type { BlogPost, Course, FaqItem } from "@/types";
+import type { BlogPost, Course, FaqItem, StudyAbroadPost } from "@/types";
 
 /* ────────────────────────────────────────────────────────────────────────────
  * DEFAULT KEYWORDS — high-value, long-tail terms from old WordPress site
@@ -129,6 +129,16 @@ export function generateCourseMetadata(course: Course): Metadata {
       `${course.examType} exam for ${course.profession}`,
       `${course.examType} coaching centre Kochi`
     ]
+  });
+}
+
+export function generateStudyAbroadMetadata(post: StudyAbroadPost): Metadata {
+  return generateMetadata({
+    title: post.metaTitle || post.title,
+    description: post.metaDesc || post.excerpt,
+    path: `/study-abroad/${post.slug}`,
+    image: post.coverImage,
+    keywords: [post.country, post.service, post.intake, "study abroad counselling", "overseas education", ...post.tags]
   });
 }
 
@@ -278,6 +288,26 @@ export function BlogPostSchema(blog: BlogPost) {
       }
     },
     mainEntityOfPage: `${SITE_CONFIG.url}/blog/${blog.slug}`
+  };
+}
+
+export function StudyAbroadPostSchema(post: StudyAbroadPost) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.coverImage,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: { "@type": "Organization", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      logo: { "@type": "ImageObject", url: `${SITE_CONFIG.url}/logo.svg` }
+    },
+    about: [post.country, post.service, post.intake].filter(Boolean),
+    mainEntityOfPage: `${SITE_CONFIG.url}/study-abroad/${post.slug}`
   };
 }
 

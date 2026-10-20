@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { BlogSection } from "@/components/sections/BlogSection";
+import { StudyAbroadSection } from "@/components/sections/StudyAbroadSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { CoursesSection } from "@/components/sections/CoursesSection";
 import { EventsSection } from "@/components/sections/EventsSection";
@@ -15,7 +16,7 @@ import { VideoSection } from "@/components/sections/VideoSection";
 import { ScrollableVideoSection } from "@/components/sections/ScrollableVideoSection";
 import { GlobeSection } from "@/components/sections/GlobeSection";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
-import type { Course, BlogPost } from "@/types";
+import type { Course, BlogPost, StudyAbroadPost } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -78,6 +79,16 @@ function mapDbBlogToBlogPost(dbBlog: any): BlogPost {
   };
 }
 
+function mapDbStudyAbroadPost(dbPost: any): StudyAbroadPost {
+  return {
+    id: dbPost.id, title: dbPost.title, slug: dbPost.slug, excerpt: dbPost.excerpt, content: dbPost.content,
+    country: dbPost.country, service: dbPost.service, intake: dbPost.intake || "", tags: dbPost.tags,
+    coverImage: dbPost.coverImage || "/images/metro-pillar-candidate.png", imageAlt: dbPost.title, metaTitle: dbPost.metaTitle || "", metaDesc: dbPost.metaDesc || "",
+    author: dbPost.author, readTime: dbPost.readTime, publishedAt: dbPost.publishedAt ? dbPost.publishedAt.toISOString() : new Date().toISOString(),
+    featured: dbPost.featured, status: dbPost.status.toLowerCase() as "draft" | "published"
+  };
+}
+
 export default async function HomePage() {
   // 1. Fetch published courses
   const dbCourses = await prisma.course.findMany({
@@ -93,7 +104,15 @@ export default async function HomePage() {
   });
   const blogs = dbBlogs.map(mapDbBlogToBlogPost);
 
-  // 3. Fetch latest 3 published events
+  // 3. Fetch the latest study abroad guides
+  const dbStudyAbroadPosts = await prisma.studyAbroad.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
+    take: 3
+  });
+  const studyAbroadPosts = dbStudyAbroadPosts.map(mapDbStudyAbroadPost);
+
+  // 4. Fetch latest 3 published events
   const dbEvents = await prisma.event.findMany({
     where: { status: "PUBLISHED" },
     orderBy: { eventDate: "desc" },
@@ -132,6 +151,7 @@ export default async function HomePage() {
       <StatsSection />
       <ServicesSection />
       <CoursesSection initialCourses={courses} />
+      <StudyAbroadSection posts={studyAbroadPosts} />
       <ScrollableVideoSection />
       <VideoSection />
       {/* <GlobeSection /> */}

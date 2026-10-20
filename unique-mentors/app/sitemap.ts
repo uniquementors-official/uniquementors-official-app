@@ -22,6 +22,7 @@ const staticRoutes = [
   { path: "/courses/usmle-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
   { path: "/courses/plab-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
   { path: "/courses/amc-exam-training", priority: 0.85, changeFrequency: "weekly" as const },
+  { path: "/study-abroad", priority: 0.85, changeFrequency: "weekly" as const },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/event", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/contact", priority: 0.75, changeFrequency: "monthly" as const },
@@ -64,6 +65,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7
     }));
 
+    const dbStudyAbroadPosts = await prisma.studyAbroad.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true, publishedAt: true, updatedAt: true }
+    });
+    const studyAbroadRoutes = dbStudyAbroadPosts.map((post) => ({
+      url: `${SITE_CONFIG.url}/study-abroad/${post.slug}`,
+      lastModified: post.updatedAt || post.publishedAt || now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75
+    }));
+
     
     const dbArticles = await prisma.article.findMany({
       where: { status: "PUBLISHED" },
@@ -87,7 +99,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.75
     }));
 
-    return [...routes, ...courseRoutes, ...blogRoutes, ...articleRoutes, ...eventRoutes];
+    return [...routes, ...courseRoutes, ...studyAbroadRoutes, ...blogRoutes, ...articleRoutes, ...eventRoutes];
   } catch (error) {
     console.warn("Sitemap generated with static routes only:", error);
     return routes;
