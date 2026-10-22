@@ -35,6 +35,21 @@ export const applicationSchema = z.object({
   message: z.string().trim().max(1200).optional().or(z.literal(""))
 });
 
+export const studyAbroadApplicationSchema = z
+  .object({
+    name: z.string().trim().min(2).max(80),
+    email: z.string().trim().email(),
+    phone: indianPhone,
+    location: z.string().trim().min(2).max(120),
+    qualification: z.string().trim().min(2).max(160),
+    targetCountry: z.string().trim().min(2).max(80),
+    otherCountry: z.string().trim().max(80).optional().or(z.literal(""))
+  })
+  .refine((data) => data.targetCountry !== "Other" || (data.otherCountry?.trim().length ?? 0) >= 2, {
+    message: "Enter the country you are interested in",
+    path: ["otherCountry"]
+  });
+
 export const newsletterSchema = z.object({
   email: z.string().trim().email()
 });

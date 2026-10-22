@@ -15,6 +15,8 @@ export type LeadRow = {
   email: string;
   phone: string;
   profession: string;
+  qualification: string;
+  targetCountry: string;
   examType: string;
   source: string;
   status: string;
@@ -73,7 +75,7 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
         )
       },
       { key: "phone", header: "Phone", render: (row) => <a href={`tel:${row.phone}`} className="font-semibold text-primary">{row.phone}</a> },
-      { key: "profession", header: "Profession" },
+      { key: "profession", header: "Profile", render: (row) => <div><p>{row.qualification !== "-" ? row.qualification : row.profession}</p><p className="text-xs text-slate-500">{row.targetCountry}</p></div> },
       { key: "examType", header: "Exam", render: (row) => <Badge>{row.examType}</Badge> },
       { key: "source", header: "Source", render: (row) => <Badge variant="outline">{row.source}</Badge> },
       {
@@ -99,9 +101,9 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
 
   function exportCsv() {
     const csv = [
-      "Name,Email,Phone,Profession,Exam,Source,Status,Date",
+      "Name,Email,Phone,Profession,Qualification,Target Country,Exam,Source,Status,Date",
       ...rows.map((row) =>
-        [row.name, row.email, row.phone, row.profession, row.examType, row.source, row.status, row.date]
+        [row.name, row.email, row.phone, row.profession, row.qualification, row.targetCountry, row.examType, row.source, row.status, row.date]
           .map((value) => `"${String(value).replace(/"/g, '""')}"`)
           .join(",")
       )

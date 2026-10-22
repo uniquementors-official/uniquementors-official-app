@@ -6,11 +6,13 @@ import { getAnalyticsContext, identifyAnalyticsUser, trackAnalyticsEvent } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/common/Icon";
+import { HoneypotField, useFormProtection } from "@/components/common/FormProtection";
 
 export function NewsletterSection() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { protection, honeypot, resetProtection } = useFormProtection();
 
   async function subscribe(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,7 +24,7 @@ export function NewsletterSection() {
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, analytics: getAnalyticsContext() })
+        body: JSON.stringify({ email, ...protection, analytics: getAnalyticsContext() })
       });
       const result = (await response.json()) as { success: boolean; message?: string; error?: string };
       if (!result.success) throw new Error(result.error || "Unable to subscribe");
@@ -36,6 +38,7 @@ export function NewsletterSection() {
       });
       setSuccess(true);
       setEmail("");
+      resetProtection();
       toast.success(result.message || "Subscribed successfully.");
     } catch (error) {
       trackAnalyticsEvent("newsletter_error", {
@@ -63,7 +66,8 @@ export function NewsletterSection() {
               <span className="font-semibold">Thank you. You are on the list.</span>
             </div>
           ) : (
-            <form onSubmit={subscribe} className="mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
+            <form onSubmit={subscribe} className="relative mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
+              <HoneypotField website={honeypot.website} onChange={honeypot.setWebsite} />
               <Input
                 type="email"
                 required

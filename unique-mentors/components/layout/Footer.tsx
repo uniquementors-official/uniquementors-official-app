@@ -12,6 +12,7 @@ import { Icon } from "@/components/common/Icon";
 import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon, XIcon } from "@/components/common/SocialIcons";
 import { SchemaMarkup } from "@/components/common/SchemaMarkup";
 import { LocalBusinessSchema } from "@/lib/seo";
+import { HoneypotField, useFormProtection } from "@/components/common/FormProtection";
 
 type SocialLinksData = {
   facebook?: string;
@@ -31,6 +32,7 @@ const socialLinks = [
 export function Footer({ customSocialLinks }: { customSocialLinks?: SocialLinksData }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const { protection, honeypot, resetProtection } = useFormProtection();
 
   // Generate the list of social links to display
   const activeSocialLinks = [];
@@ -61,7 +63,7 @@ export function Footer({ customSocialLinks }: { customSocialLinks?: SocialLinksD
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, analytics: getAnalyticsContext() })
+        body: JSON.stringify({ email, ...protection, analytics: getAnalyticsContext() })
       });
       const result = (await response.json()) as { success: boolean; message?: string; error?: string };
       if (!result.success) throw new Error(result.error || "Subscription failed");
@@ -75,6 +77,7 @@ export function Footer({ customSocialLinks }: { customSocialLinks?: SocialLinksD
       });
       toast.success(result.message || "You are subscribed to Unique Mentors updates.");
       setEmail("");
+      resetProtection();
     } catch (error) {
       trackAnalyticsEvent("newsletter_error", {
         location: "footer",
@@ -163,7 +166,8 @@ export function Footer({ customSocialLinks }: { customSocialLinks?: SocialLinksD
               {SITE_CONFIG.email}
             </a>
           </div>
-          <form onSubmit={subscribe} className="mt-5 space-y-3">
+          <form onSubmit={subscribe} className="relative mt-5 space-y-3">
+            <HoneypotField website={honeypot.website} onChange={honeypot.setWebsite} />
             <label className="text-sm font-semibold" htmlFor="footer-newsletter">
               Newsletter
             </label>

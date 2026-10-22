@@ -3,14 +3,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { HoneypotField, useFormProtection } from "@/components/common/FormProtection";
 
 export default function ExamPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const { protection, honeypot } = useFormProtection();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (protection.website || Date.now() - protection.formStartedAt < 1500) return;
     setLoading(true);
     // In a real app, save to DB via API or Server Action here
     // For now, store in localStorage and go to next page
@@ -24,7 +27,8 @@ export default function ExamPage() {
         <h1 className="text-2xl font-bold mb-2">Start Your Assessment</h1>
         <p className="text-gray-600 mb-6">Please provide your details to start the exam.</p>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="relative space-y-4">
+          <HoneypotField website={honeypot.website} onChange={honeypot.setWebsite} />
           <div>
             <label className="block text-sm font-medium mb-1">Name</label>
             <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />

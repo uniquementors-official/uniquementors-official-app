@@ -13,8 +13,10 @@ type ContactEmailData = {
 
 type ApplicationEmailData = ContactEmailData & {
   location?: string;
+  qualification?: string;
   experience?: string;
   targetCountry?: string;
+  applicationType?: "MEDICAL_TRAINING" | "STUDY_ABROAD";
   referenceNumber?: string;
 };
 
@@ -110,19 +112,19 @@ export async function sendContactEmail(data: ContactEmailData) {
 
 export async function sendApplicationEmail(data: ApplicationEmailData) {
   const reference = data.referenceNumber || "Pending";
+  const isStudyAbroad = data.applicationType === "STUDY_ABROAD";
   const adminBody = renderLayout(
-    "New training application",
+    isStudyAbroad ? "New Study Abroad application" : "New training application",
     `<p><strong>Reference:</strong> ${reference}</p>
      <p><strong>Name:</strong> ${data.name}</p>
      <p><strong>Phone:</strong> ${data.phone}</p>
      <p><strong>Email:</strong> ${data.email || "Not provided"}</p>
      <p><strong>Location:</strong> ${data.location || "Not provided"}</p>
-     <p><strong>Profession:</strong> ${data.profession || "Not selected"}</p>
-     <p><strong>Experience:</strong> ${data.experience || "Not provided"}</p>
-     <p><strong>Exam type:</strong> ${data.examType || "Not selected"}</p>
+     <p><strong>${isStudyAbroad ? "Qualification" : "Profession"}:</strong> ${isStudyAbroad ? data.qualification || data.profession || "Not provided" : data.profession || "Not selected"}</p>
+     ${isStudyAbroad ? "" : `<p><strong>Experience:</strong> ${data.experience || "Not provided"}</p><p><strong>Exam type:</strong> ${data.examType || "Not selected"}</p>`}
      <p><strong>Target country:</strong> ${data.targetCountry || "Not selected"}</p>`
   );
-  const results = [await sendMail(adminEmail, `New application ${reference}`, adminBody)];
+  const results = [await sendMail(adminEmail, `${isStudyAbroad ? "New Study Abroad application" : "New application"} ${reference}`, adminBody)];
 
   if (data.email) {
     results.push(await sendWelcomeEmail(data.email, data.name, reference));

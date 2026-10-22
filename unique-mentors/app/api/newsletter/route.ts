@@ -5,10 +5,17 @@ import { ok, fail } from "@/lib/api";
 import { readAnalyticsContext, recordAnalyticsEvent } from "@/lib/analytics-server";
 import { sendWelcomeEmail } from "@/lib/email";
 import { newsletterSchema } from "@/lib/validators";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
+import { validateFormProtection } from "@/lib/form-protection";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const ip = getClientIp(request);
+    const limited = rateLimit(`newsletter:${ip}`, 5, 60 * 60 * 1000);
+    if (!limited.allowed) return fail("Too many subscription requests. Please try again later.", 429);
+    const protectionError = validateFormProtection(body);
+    if (protectionError) return fail(protectionError, 400);
     const payload = newsletterSchema.parse(body);
     const analytics = readAnalyticsContext(body);
     const existing = await prisma.newsletter.findUnique({ where: { email: payload.email.toLowerCase() } });

@@ -1,7 +1,5 @@
 "use client";
 
-import posthog from "posthog-js";
-
 type AnalyticsProperties = Record<string, string | number | boolean | null | undefined>;
 
 const distinctKey = "um_analytics_distinct_id";
@@ -30,6 +28,13 @@ function writeStorage(storage: Storage | undefined, key: string, value: string) 
   }
 }
 
+function sendToPostHog(callback: (client: typeof import("posthog-js").default) => void) {
+  if (typeof window === "undefined") return;
+  void import("posthog-js").then(({ default: client }) => callback(client)).catch(() => {
+    // First-party analytics remains available when the optional provider cannot load.
+  });
+}
+
 export function getAnalyticsContext() {
   if (typeof window === "undefined") {
     return {
@@ -40,9 +45,8 @@ export function getAnalyticsContext() {
     };
   }
 
-  const posthogDistinctId = typeof posthog.get_distinct_id === "function" ? posthog.get_distinct_id() : undefined;
   const storedDistinctId = readStorage(window.localStorage, distinctKey);
-  const distinctId = posthogDistinctId || storedDistinctId || createId("visitor");
+  const distinctId = storedDistinctId || createId("visitor");
   const sessionId = readStorage(window.sessionStorage, sessionKey) || createId("session");
 
   writeStorage(window.localStorage, distinctKey, distinctId);
@@ -69,7 +73,7 @@ export function trackAnalyticsEvent(eventName: string, properties: AnalyticsProp
     }
   };
 
-  posthog.capture(eventName, payload.properties);
+  sendToPostHog((client) => client.capture(eventName, payload.properties));
 
   const body = JSON.stringify(payload);
   if ("sendBeacon" in navigator) {
@@ -116,7 +120,7 @@ export function identifyAnalyticsUser({
     source
   };
 
-  posthog.identify(normalizedEmail, traits);
+  sendToPostHog((client) => client.identify(normalizedEmail, traits));
 
   void fetch("/api/analytics/track", {
     method: "POST",
@@ -144,10 +148,10 @@ export function trackPageView(path: string, properties: AnalyticsProperties = {}
     current_url: currentUrl
   };
 
-  posthog.capture("$pageview", {
+  sendToPostHog((client) => client.capture("$pageview", {
     $current_url: currentUrl,
     ...pageProperties
-  });
+  }));
 
   const body = JSON.stringify({
     eventName: "page_viewed",

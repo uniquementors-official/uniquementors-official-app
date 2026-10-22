@@ -13,11 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Icon } from "@/components/common/Icon";
+import { HoneypotField, useFormProtection } from "@/components/common/FormProtection";
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const { protection, honeypot, resetProtection } = useFormProtection();
   const {
     register,
     handleSubmit,
@@ -36,7 +38,7 @@ export function ContactForm() {
     const response = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...values, analytics: getAnalyticsContext() })
+      body: JSON.stringify({ ...values, ...protection, analytics: getAnalyticsContext() })
     });
     const result = (await response.json()) as { success: boolean; error?: string };
     if (!result.success) {
@@ -65,6 +67,7 @@ export function ContactForm() {
     });
     setSubmitted(true);
     reset();
+    resetProtection();
     toast.success("Your enquiry has been sent.");
   }
 
@@ -82,7 +85,8 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="surface space-y-5 p-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="surface relative space-y-5 p-6">
+      <HoneypotField website={honeypot.website} onChange={honeypot.setWebsite} />
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="name">Full Name</Label>

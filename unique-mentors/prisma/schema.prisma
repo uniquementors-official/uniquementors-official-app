@@ -27,6 +27,7 @@ enum LeadStatus {
 enum LeadSource {
   CONTACT
   APPLY
+  STUDY_ABROAD
   WHATSAPP
   MANUAL
 }
@@ -125,6 +126,7 @@ model Lead {
   phone           String
   location        String?
   profession      String?
+  qualification   String?
   experience      String?
   examType        String?
   targetCountry   String?

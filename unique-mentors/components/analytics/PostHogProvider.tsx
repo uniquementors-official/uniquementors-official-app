@@ -2,7 +2,6 @@
 
 import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import posthog from "posthog-js";
 import { trackAnalyticsEvent, trackPageView } from "@/lib/analytics-client";
 
 let posthogInitialized = false;
@@ -13,13 +12,16 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
     const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
     if (!token || !host || posthogInitialized) return;
 
-    posthog.init(token, {
-      api_host: host,
-      capture_pageview: false,
-      autocapture: true,
-      persistence: "localStorage+cookie"
+    void import("posthog-js").then(({ default: posthog }) => {
+      if (posthogInitialized) return;
+      posthog.init(token, {
+        api_host: host,
+        capture_pageview: false,
+        autocapture: true,
+        persistence: "localStorage+cookie"
+      });
+      posthogInitialized = true;
     });
-    posthogInitialized = true;
   }, []);
 
   useEffect(() => {

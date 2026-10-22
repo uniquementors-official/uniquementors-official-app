@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${jakarta.variable} font-sans`}>
-        <Script id="google-tag-manager" strategy="afterInteractive">
+        <Script id="google-tag-manager" strategy="lazyOnload">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
             new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
@@ -101,8 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SchemaMarkup schema={[OrganizationSchema(), LocalBusinessSchema(), WebsiteSchema()]} />
           {gaId ? (
             <>
-              <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
-              <Script id="google-analytics" strategy="afterInteractive">
+              <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="lazyOnload" />
+              <Script id="google-analytics" strategy="lazyOnload">
                 {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
               </Script>
             </>

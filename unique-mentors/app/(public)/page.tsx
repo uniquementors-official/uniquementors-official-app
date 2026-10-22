@@ -17,6 +17,7 @@ import { ScrollableVideoSection } from "@/components/sections/ScrollableVideoSec
 import { GlobeSection } from "@/components/sections/GlobeSection";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import type { Course, BlogPost, StudyAbroadPost } from "@/types";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -60,6 +61,12 @@ function mapDbCourseToCourse(dbCourse: any): Course {
   };
 }
 
+function toIsoDate(value: unknown) {
+  if (!value) return new Date().toISOString();
+  const date = value instanceof Date ? value : new Date(String(value));
+  return Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+}
+
 function mapDbBlogToBlogPost(dbBlog: any): BlogPost {
   return {
     id: dbBlog.id,
@@ -73,7 +80,7 @@ function mapDbBlogToBlogPost(dbBlog: any): BlogPost {
     imageAlt: dbBlog.title,
     author: dbBlog.author,
     readTime: dbBlog.readTime,
-    publishedAt: dbBlog.publishedAt ? dbBlog.publishedAt.toISOString() : new Date().toISOString(),
+    publishedAt: toIsoDate(dbBlog.publishedAt),
     featured: dbBlog.featured,
     status: dbBlog.status.toLowerCase() as any
   };
@@ -84,46 +91,36 @@ function mapDbStudyAbroadPost(dbPost: any): StudyAbroadPost {
     id: dbPost.id, title: dbPost.title, slug: dbPost.slug, excerpt: dbPost.excerpt, content: dbPost.content,
     country: dbPost.country, service: dbPost.service, intake: dbPost.intake || "", tags: dbPost.tags,
     coverImage: dbPost.coverImage || "/images/metro-pillar-candidate.png", imageAlt: dbPost.title, metaTitle: dbPost.metaTitle || "", metaDesc: dbPost.metaDesc || "",
-    author: dbPost.author, readTime: dbPost.readTime, publishedAt: dbPost.publishedAt ? dbPost.publishedAt.toISOString() : new Date().toISOString(),
+    author: dbPost.author, readTime: dbPost.readTime, publishedAt: toIsoDate(dbPost.publishedAt),
     featured: dbPost.featured, status: dbPost.status.toLowerCase() as "draft" | "published"
   };
 }
 
+const getHomeContent = unstable_cache(
+  async () =>
+    Promise.all([
+      prisma.course.findMany({ where: { status: "PUBLISHED" } }),
+      prisma.blog.findMany({ where: { status: "PUBLISHED" }, orderBy: { publishedAt: "desc" }, take: 3 }),
+      prisma.studyAbroad.findMany({ where: { status: "PUBLISHED" }, orderBy: [{ featured: "desc" }, { publishedAt: "desc" }], take: 3 }),
+      prisma.event.findMany({ where: { status: "PUBLISHED" }, orderBy: { eventDate: "desc" }, take: 3 })
+    ]),
+  ["home-content"],
+  { revalidate: 300 }
+);
+
+export const revalidate = 300;
+
 export default async function HomePage() {
-  // 1. Fetch published courses
-  const dbCourses = await prisma.course.findMany({
-    where: { status: "PUBLISHED" }
-  });
+  const [dbCourses, dbBlogs, dbStudyAbroadPosts, dbEvents] = await getHomeContent();
   const courses = dbCourses.map(mapDbCourseToCourse);
-
-  // 2. Fetch latest 3 published blogs
-  const dbBlogs = await prisma.blog.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { publishedAt: "desc" },
-    take: 3
-  });
   const blogs = dbBlogs.map(mapDbBlogToBlogPost);
-
-  // 3. Fetch the latest study abroad guides
-  const dbStudyAbroadPosts = await prisma.studyAbroad.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
-    take: 3
-  });
   const studyAbroadPosts = dbStudyAbroadPosts.map(mapDbStudyAbroadPost);
-
-  // 4. Fetch latest 3 published events
-  const dbEvents = await prisma.event.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { eventDate: "desc" },
-    take: 3
-  });
   const events = dbEvents.map((e) => ({
     id: e.id,
     title: e.title,
     slug: e.slug,
     excerpt: e.excerpt,
-    eventDate: e.eventDate.toISOString(),
+    eventDate: toIsoDate(e.eventDate),
     location: e.location,
     coverImage: e.coverImage || undefined
   }));

@@ -5,6 +5,7 @@ import { readAnalyticsContext, recordAnalyticsEvent } from "@/lib/analytics-serv
 import { sendContactEmail } from "@/lib/email";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { contactSchema } from "@/lib/validators";
+import { validateFormProtection } from "@/lib/form-protection";
 
 export async function POST(request: Request) {
   try {
@@ -13,6 +14,8 @@ export async function POST(request: Request) {
     if (!limited.allowed) return fail("Too many requests. Please try again later.", 429);
 
     const body = await request.json();
+    const protectionError = validateFormProtection(body);
+    if (protectionError) return fail(protectionError, 400);
     const payload = contactSchema.parse(body);
     const analytics = readAnalyticsContext(body);
     const lead = await prisma.lead.create({

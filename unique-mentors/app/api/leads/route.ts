@@ -35,6 +35,7 @@ export async function GET(request: Request) {
         { email: { contains: q, mode: "insensitive" } },
         { phone: { contains: q, mode: "insensitive" } },
         { profession: { contains: q, mode: "insensitive" } },
+        { qualification: { contains: q, mode: "insensitive" } },
         { examType: { contains: q, mode: "insensitive" } },
         { location: { contains: q, mode: "insensitive" } },
         { targetCountry: { contains: q, mode: "insensitive" } }

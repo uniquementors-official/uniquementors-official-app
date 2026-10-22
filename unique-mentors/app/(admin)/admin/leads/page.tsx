@@ -57,6 +57,7 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
       { email: { contains: q, mode: "insensitive" } },
       { phone: { contains: q, mode: "insensitive" } },
       { profession: { contains: q, mode: "insensitive" } },
+      { qualification: { contains: q, mode: "insensitive" } },
       { examType: { contains: q, mode: "insensitive" } },
       { location: { contains: q, mode: "insensitive" } },
       { targetCountry: { contains: q, mode: "insensitive" } }
@@ -90,6 +91,8 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
     email: display(lead.email),
     phone: lead.phone,
     profession: display(lead.profession),
+    qualification: display(lead.qualification),
+    targetCountry: display(lead.targetCountry),
     examType: display(lead.examType),
     source: lead.source,
     status: lead.status,

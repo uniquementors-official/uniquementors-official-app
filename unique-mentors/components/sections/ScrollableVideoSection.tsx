@@ -14,6 +14,20 @@ export function ScrollableVideoSection() {
   const video2Ref = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [isVideo2Active, setIsVideo2Active] = useState(false);
+  const [shouldLoadVideos, setShouldLoadVideos] = useState(false);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        setShouldLoadVideos(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: "600px 0px" });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -51,39 +65,11 @@ export function ScrollableVideoSection() {
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <motion.div style={{ scale }} className="relative h-full w-full">
 
-          {/* Video 1 – always muted */}
-          <motion.video
-            style={{ opacity: opacity1 }}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={VIDEOS[0]}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-
-          {/* Video 2 – sound-enabled, controlled via ref */}
-          <motion.video
-            ref={video2Ref}
-            style={{ opacity: opacity2 }}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={VIDEOS[1]}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-
-          {/* Video 3 – always muted */}
-          <motion.video
-            style={{ opacity: opacity3 }}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={VIDEOS[2]}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+          {shouldLoadVideos ? <>
+            <motion.video style={{ opacity: opacity1 }} className="absolute inset-0 h-full w-full object-cover" src={VIDEOS[0]} autoPlay muted loop playsInline preload="metadata" />
+            <motion.video ref={video2Ref} style={{ opacity: opacity2 }} className="absolute inset-0 h-full w-full object-cover" src={VIDEOS[1]} autoPlay muted loop playsInline preload="metadata" />
+            <motion.video style={{ opacity: opacity3 }} className="absolute inset-0 h-full w-full object-cover" src={VIDEOS[2]} autoPlay muted loop playsInline preload="metadata" />
+          </> : <div className="absolute inset-0 bg-slate-900" />}
 
           <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
 

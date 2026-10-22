@@ -1,3 +1,5 @@
+import ThumbnailButton from "@/components/ui/thumbnail-button-video-player";
+
 export function VideoSection() {
   return (
     <section className="section-padding bg-slate-950" aria-label="Unique Mentors video testimonial">
@@ -11,18 +13,12 @@ export function VideoSection() {
             Watch how Unique Mentors has helped 5000+ healthcare professionals achieve their dream of working abroad.
           </p>
         </div>
-        <div className="mx-auto mt-10 max-w-4xl">
-          <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.6)]" style={{ paddingBottom: "56.25%" }}>
-            <iframe
-              className="absolute inset-0 h-full w-full"
-              src="https://www.youtube.com/embed/sd2qJC1L3sQ"
-              title="Unique Mentors Overseas Medical Licensure Exam Training: The Journey of Preparation to Success"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          </div>
+        <div className="mx-auto mt-10 flex max-w-4xl justify-center">
+          <ThumbnailButton
+            youtubeId="sd2qJC1L3sQ"
+            title="Watch our journey"
+            className="bg-white/10"
+          />
         </div>
       </div>
     </section>
