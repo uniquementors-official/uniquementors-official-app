@@ -47,7 +47,17 @@ export default async function AdminDashboardPage() {
     prisma.newsletter.count({ where: { subscribed: true } }),
     prisma.lead.findMany({
       orderBy: { createdAt: "desc" },
-      take: 8
+      take: 8,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        examType: true,
+        source: true,
+        status: true,
+        createdAt: true
+      }
     }),
     prisma.lead.groupBy({
       by: ["status"],

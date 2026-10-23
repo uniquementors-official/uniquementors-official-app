@@ -23,6 +23,12 @@ const injectedStyles = `
     mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
   }
+  .hero-ambient-bg {
+    background:
+      radial-gradient(ellipse 72% 70% at 12% 12%, rgba(37, 99, 235, 0.46), transparent 64%),
+      radial-gradient(ellipse 55% 65% at 88% 72%, rgba(16, 185, 129, 0.13), transparent 68%),
+      linear-gradient(145deg, #061a3d 0%, #03142e 48%, #020d20 100%);
+  }
   .text-3d-matte {
     color: #ffffff;
     text-shadow: 0 20px 45px rgba(0,0,0,0.38), 0 2px 4px rgba(0,0,0,0.2);
@@ -101,7 +107,7 @@ const injectedStyles = `
     transform: rotate(-90deg);
     transform-origin: center;
     stroke-dasharray: 402;
-    stroke-dashoffset: 402;
+    stroke-dashoffset: 62;
     stroke-linecap: round;
   }
 `;
@@ -206,90 +212,18 @@ export function CinematicHero({
     };
   }, [isDesktop]);
 
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      containerRef.current?.querySelectorAll<HTMLElement>(".gsap-reveal").forEach((element) => {
-        element.style.visibility = "visible";
-        element.style.opacity = "1";
-      });
-      return;
-    }
-
-    let isActive = true;
-    let ctx: { revert: () => void } | undefined;
-
-    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ gsap }, { ScrollTrigger }]) => {
-      if (!isActive) return;
-
-      gsap.registerPlugin(ScrollTrigger);
-      ctx = gsap.context(() => {
-        const isMobile = window.matchMedia("(max-width: 767px)").matches;
-
-        gsap.set(".text-track", { autoAlpha: 1, y: 0, scale: 1, rotationX: 0 });
-        gsap.set(".text-days", { autoAlpha: 1, clipPath: "inset(0 0% 0 0)" });
-        gsap.set(".main-card", { y: window.innerHeight + 160, autoAlpha: 1 });
-        gsap.set([".card-left-text", ".card-right-text", ".mockup-scroll-wrapper", ".floating-badge", ".phone-widget"], { autoAlpha: 0 });
-        gsap.set(".cta-wrapper", { autoAlpha: 0, scale: 0.92 });
-
-        const scrollTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: isMobile ? "+=1450" : "+=1150",
-            pin: true,
-            scrub: isMobile ? 0.25 : 0.35,
-            anticipatePin: 0.5
-          }
-        });
-
-        scrollTl
-          .to([".hero-text-wrapper", ".bg-grid-theme"], { scale: 1.03, opacity: 0.16, ease: "power2.inOut", duration: 1.05 }, 0)
-          .to(".main-card", { y: 0, ease: "power3.inOut", duration: 1.15 }, 0)
-          .fromTo(".card-right-text", { x: 34, autoAlpha: 0, scale: 0.92 }, { x: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 0.9 }, 0.42)
-          .fromTo(".card-left-text", { x: -34, autoAlpha: 0 }, { x: 0, autoAlpha: 1, ease: "power4.out", duration: 0.9 }, 0.5)
-          .fromTo(
-            ".mockup-scroll-wrapper",
-            { y: isMobile ? 120 : 150, rotationX: isMobile ? 10 : 18, rotationY: isMobile ? -6 : -10, autoAlpha: 0, scale: isMobile ? 0.82 : 0.78 },
-            { y: 0, rotationX: 0, rotationY: 0, autoAlpha: 1, scale: 1, ease: "expo.out", duration: 1.35 },
-            0.55
-          )
-          .fromTo(".phone-widget", { y: 28, autoAlpha: 0, scale: 0.96 }, { y: 0, autoAlpha: 1, scale: 1, stagger: 0.1, ease: "power3.out", duration: 0.8 }, 0.85)
-          .to(".progress-ring", { strokeDashoffset: 62, duration: 1.1, ease: "power3.inOut" }, 0.92)
-          .to(".counter-val", { innerHTML: metricValue, snap: { innerHTML: 1 }, duration: 1.1, ease: "expo.out" }, 0.92)
-          .fromTo(".floating-badge", { y: 54, autoAlpha: 0, scale: 0.84, rotationZ: -4 }, { y: 0, autoAlpha: 1, scale: 1, rotationZ: 0, ease: "back.out(1.25)", duration: 0.9, stagger: 0.15 }, 1.02)
-          .to(".main-card", { width: "100%", height: "100%", borderRadius: "0px", ease: "power3.inOut", duration: 0.9 }, 1.18)
-          .to({}, { duration: 0.25 })
-          .set(".hero-text-wrapper", { autoAlpha: 0 })
-          .to([".mockup-scroll-wrapper", ".floating-badge", ".card-left-text", ".card-right-text"], {
-            scale: 0.97,
-            y: -10,
-            autoAlpha: 0.82,
-            ease: "power3.in",
-            duration: 0.32,
-            stagger: 0.04
-          })
-          .to(".main-card", { y: -window.innerHeight - 180, ease: "power3.in", duration: 0.6 }, "-=0.12");
-      }, containerRef);
-    });
-
-    return () => {
-      isActive = false;
-      ctx?.revert();
-    };
-  }, [metricValue]);
-
   return (
     <div
       ref={containerRef}
-      className={cn("relative flex h-screen w-full items-center justify-center overflow-hidden bg-brand-navy text-white antialiased", className)}
+      className={cn("hero-ambient-bg relative flex w-full flex-col text-white antialiased", className)}
       style={{ perspective: "1500px" }}
       {...props}
     >
       <style dangerouslySetInnerHTML={{ __html: injectedStyles }} />
-      <div className="film-grain" aria-hidden="true" />
-      <div className="bg-grid-theme pointer-events-none absolute inset-0 z-0 opacity-70" aria-hidden="true" />
+      <div className="film-grain hidden lg:block" aria-hidden="true" />
+      <div className="bg-grid-theme pointer-events-none absolute inset-0 z-0 opacity-90" aria-hidden="true" />
 
-      <div className="hero-text-wrapper transform-style-3d absolute z-10 flex w-full items-center justify-center px-4 pt-24 will-change-transform md:pt-20 lg:pt-16">
+      <div className="hero-text-wrapper transform-style-3d relative z-10 flex min-h-[100svh] w-full items-center justify-center px-4 pt-24 md:pt-20 lg:min-h-screen lg:pt-16">
         <div className="container grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
           <div className="text-left">
             <h1 className="text-track gsap-reveal text-3d-matte mb-4 font-display text-5xl font-bold tracking-normal md:text-7xl lg:text-[5.8rem]">
@@ -306,7 +240,7 @@ export function CinematicHero({
         </div>
       </div>
 
-      <div className="cta-wrapper gsap-reveal pointer-events-auto absolute z-10 flex w-full flex-col items-center justify-center px-4 text-center will-change-transform">
+      <div className="cta-wrapper hidden">
         <h2 className="text-silver-matte mb-6 font-display text-4xl font-bold tracking-normal md:text-6xl lg:text-7xl">{ctaHeading}</h2>
         <p className="mx-auto mb-10 max-w-xl text-lg font-light leading-relaxed text-blue-100 md:text-xl">{ctaDescription}</p>
         <div className="flex flex-col gap-4 sm:flex-row">
@@ -321,10 +255,10 @@ export function CinematicHero({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center" style={{ perspective: "1500px" }}>
+      <div className="pointer-events-none relative z-20 flex w-full items-center justify-center px-3 pb-8 sm:px-6 sm:pb-12" style={{ perspective: "1500px" }}>
         <div
           ref={mainCardRef}
-          className="main-card premium-depth-card gsap-reveal pointer-events-auto relative flex h-[90vh] w-[92vw] items-center justify-center overflow-hidden rounded-[32px] md:h-[85vh] md:w-[85vw] md:rounded-[40px]"
+          className="main-card premium-depth-card pointer-events-auto relative flex h-[82svh] w-full items-center justify-center overflow-hidden rounded-[24px] sm:h-[80svh] sm:max-w-[90vw] sm:rounded-[32px] lg:h-[78vh] lg:max-w-[86vw] lg:rounded-[40px]"
         >
           <div className="card-sheen" aria-hidden="true" />
 
@@ -386,7 +320,7 @@ export function CinematicHero({
                           <circle className="progress-ring" cx="88" cy="88" r="64" fill="none" stroke="#10B981" strokeWidth="12" />
                         </svg>
                         <div className="z-10 flex flex-col items-center text-center">
-                          <span className="counter-val text-4xl font-extrabold tracking-normal text-white">0</span>
+                          <span className="counter-val text-4xl font-extrabold tracking-normal text-white">{metricValue}</span>
                           <span className="mt-0.5 text-[8px] font-bold uppercase tracking-[0.1em] text-emerald-100/60">{metricLabel}</span>
                         </div>
                       </div>
