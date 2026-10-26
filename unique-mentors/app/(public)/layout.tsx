@@ -8,9 +8,23 @@ import { WhatsAppButton } from "@/components/common/WhatsAppButton";
 import { AnnouncementBanner } from "@/components/layout/AnnouncementBanner";
 import { CTAPopup } from "@/components/sections/CTAPopup";
 import Image from "next/image";
+import { unstable_cache } from "next/cache";
+
+const getPublicSiteSettings = unstable_cache(
+  async () => {
+    try {
+      return await prisma.siteSettings.findFirst();
+    } catch (error) {
+      console.error("public site settings unavailable", error);
+      return null;
+    }
+  },
+  ["public-site-settings"],
+  { revalidate: 300 }
+);
 
 export default async function PublicLayout({ children }: { children: ReactNode }) {
-  const settings = await prisma.siteSettings.findFirst();
+  const settings = await getPublicSiteSettings();
   const showBanner = settings?.announcementOn && settings?.announcement;
 
   return (

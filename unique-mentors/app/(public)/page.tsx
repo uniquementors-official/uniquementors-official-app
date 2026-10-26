@@ -97,13 +97,15 @@ function mapDbStudyAbroadPost(dbPost: any): StudyAbroadPost {
 }
 
 const getHomeContent = unstable_cache(
-  async () =>
-    Promise.all([
-      prisma.course.findMany({ where: { status: "PUBLISHED" } }),
-      prisma.blog.findMany({ where: { status: "PUBLISHED" }, orderBy: { publishedAt: "desc" }, take: 3 }),
-      prisma.studyAbroad.findMany({ where: { status: "PUBLISHED" }, orderBy: [{ featured: "desc" }, { publishedAt: "desc" }], take: 3 }),
-      prisma.event.findMany({ where: { status: "PUBLISHED" }, orderBy: { eventDate: "desc" }, take: 3 })
-    ]),
+  async () => {
+    // The hosted Supabase transaction pool has a deliberately low connection
+    // limit. Run this cold-cache work in sequence; subsequent visits use cache.
+    const courses = await prisma.course.findMany({ where: { status: "PUBLISHED" } });
+    const blogs = await prisma.blog.findMany({ where: { status: "PUBLISHED" }, orderBy: { publishedAt: "desc" }, take: 3 });
+    const studyAbroadPosts = await prisma.studyAbroad.findMany({ where: { status: "PUBLISHED" }, orderBy: [{ featured: "desc" }, { publishedAt: "desc" }], take: 3 });
+    const events = await prisma.event.findMany({ where: { status: "PUBLISHED" }, orderBy: { eventDate: "desc" }, take: 3 });
+    return [courses, blogs, studyAbroadPosts, events] as const;
+  },
   ["home-content"],
   { revalidate: 300 }
 );

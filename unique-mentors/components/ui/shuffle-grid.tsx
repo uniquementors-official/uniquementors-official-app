@@ -139,7 +139,7 @@ export function ShuffleGrid({ className }: { className?: string }) {
       ([entry]) => {
         setIsInView(Boolean(entry?.isIntersecting));
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     observer.observe(gridRef.current);
@@ -150,11 +150,15 @@ export function ShuffleGrid({ className }: { className?: string }) {
     if (shouldReduceMotion || !isInView) return;
 
     const shuffleSquares = () => {
+      if (typeof document !== "undefined" && document.hidden) {
+        timeoutRef.current = setTimeout(shuffleSquares, 3500);
+        return;
+      }
       setSquares(shuffle(data));
-      timeoutRef.current = setTimeout(shuffleSquares, 3200);
+      timeoutRef.current = setTimeout(shuffleSquares, 3800);
     };
 
-    timeoutRef.current = setTimeout(shuffleSquares, 800);
+    timeoutRef.current = setTimeout(shuffleSquares, 1200);
 
     return () => {
       if (timeoutRef.current) {
@@ -167,7 +171,7 @@ export function ShuffleGrid({ className }: { className?: string }) {
     <div
       ref={gridRef}
       className={cn(
-        "grid h-[360px] w-full max-w-[460px] grid-cols-4 grid-rows-4 gap-2 rounded-lg bg-white/[0.08] p-2 shadow-[0_32px_80px_rgba(0,0,0,0.3)] ring-1 ring-white/15 backdrop-blur-sm md:h-[430px]",
+        "grid h-[360px] w-full max-w-[460px] grid-cols-4 grid-rows-4 gap-2 rounded-lg bg-white/[0.08] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.3)] ring-1 ring-white/15 backdrop-blur-sm md:h-[430px]",
         className
       )}
     >
@@ -175,18 +179,19 @@ export function ShuffleGrid({ className }: { className?: string }) {
         <motion.div
           key={square.id}
           layout
-          transition={{ duration: 1.45, type: "spring", bounce: 0.18 }}
-          className="group relative h-full w-full overflow-hidden rounded-lg border border-white/10 bg-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.22)]"
+          transition={{ duration: 1.1, ease: "easeInOut" }}
+          className="group relative h-full w-full overflow-hidden rounded-lg border border-white/10 bg-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.22)]"
         >
           <Image
             src={square.src}
             alt={square.alt}
             fill
-            sizes="(max-width: 1024px) 0px, 120px"
-            quality={62}
+            sizes="120px"
+            quality={60}
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             style={{ objectPosition: square.objectPosition ?? "center" }}
-            loading="eager" priority={index < 4}
+            loading={index < 4 ? "eager" : "lazy"}
+            priority={index < 2}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/20 to-transparent" />
         </motion.div>

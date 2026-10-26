@@ -8,8 +8,9 @@ import { Icon } from "@/components/common/Icon";
 import { ShuffleGrid } from "@/components/ui/shuffle-grid";
 
 const injectedStyles = `
-  /* .gsap-reveal is visible by default to prevent blank loading flash */
-  .transform-style-3d { transform-style: preserve-3d; }
+  @media (min-width: 1024px) {
+    .transform-style-3d { transform-style: preserve-3d; }
+  }
   .film-grain {
     position: absolute; inset: 0; width: 100%; height: 100%;
     pointer-events: none; z-index: 50; opacity: 0.045; mix-blend-mode: overlay;
@@ -31,7 +32,7 @@ const injectedStyles = `
   }
   .text-3d-matte {
     color: #ffffff;
-    text-shadow: 0 20px 45px rgba(0,0,0,0.38), 0 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
   }
   .text-silver-matte {
     background: linear-gradient(180deg, #ffffff 0%, #9cc8ff 54%, #10b981 115%);
@@ -39,7 +40,7 @@ const injectedStyles = `
     -webkit-text-fill-color: transparent;
     background-clip: text;
     transform: translateZ(0);
-    filter: drop-shadow(0 18px 28px rgba(0,0,0,0.28));
+    filter: drop-shadow(0 12px 20px rgba(0,0,0,0.25));
   }
   .text-card-silver-matte {
     background: linear-gradient(180deg, #ffffff 0%, #a8c6ff 100%);
@@ -47,31 +48,51 @@ const injectedStyles = `
     -webkit-text-fill-color: transparent;
     background-clip: text;
     transform: translateZ(0);
-    filter: drop-shadow(0 12px 24px rgba(0,0,0,0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.55));
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6));
   }
   .premium-depth-card {
     background: linear-gradient(145deg, #1657c2 0%, #061733 52%, #05101f 100%);
-    box-shadow:
-      0 40px 100px -20px rgba(0,0,0,0.84),
-      0 20px 40px -20px rgba(0,0,0,0.76),
-      inset 0 1px 2px rgba(255,255,255,0.2),
-      inset 0 -2px 4px rgba(0,0,0,0.74);
     border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 16px 36px -10px rgba(0,0,0,0.6);
     position: relative;
+    transform: translateZ(0);
+  }
+  @media (min-width: 1024px) {
+    .premium-depth-card {
+      box-shadow:
+        0 40px 100px -20px rgba(0,0,0,0.84),
+        0 20px 40px -20px rgba(0,0,0,0.76),
+        inset 0 1px 2px rgba(255,255,255,0.2),
+        inset 0 -2px 4px rgba(0,0,0,0.74);
+    }
   }
   .card-sheen {
-    position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 50;
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.08) 0%, transparent 42%);
-    mix-blend-mode: screen;
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .card-sheen {
+      display: block;
+      position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 50;
+      background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.08) 0%, transparent 42%);
+      mix-blend-mode: screen;
+    }
   }
   .iphone-bezel {
     background-color: #111;
+    border: 1px solid rgba(255,255,255,0.1);
     box-shadow:
-      inset 0 0 0 2px #52525b,
-      inset 0 0 0 7px #000,
-      0 40px 80px -15px rgba(0,0,0,0.9),
-      0 15px 25px -5px rgba(0,0,0,0.7);
-    transform-style: preserve-3d;
+      inset 0 0 0 2px #3f3f46,
+      inset 0 0 0 6px #000,
+      0 16px 32px -8px rgba(0,0,0,0.6);
+  }
+  @media (min-width: 1024px) {
+    .iphone-bezel {
+      box-shadow:
+        inset 0 0 0 2px #52525b,
+        inset 0 0 0 7px #000,
+        0 40px 80px -15px rgba(0,0,0,0.9),
+        0 15px 25px -5px rgba(0,0,0,0.7);
+    }
   }
   .hardware-btn {
     background: linear-gradient(90deg, #404040 0%, #171717 100%);
@@ -81,28 +102,45 @@ const injectedStyles = `
   .screen-glare { background: linear-gradient(110deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 45%); }
   .widget-depth {
     background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05), inset 0 -1px 1px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.04);
   }
   .floating-ui-badge {
-    background: linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 100%);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.11), 0 25px 50px -12px rgba(0,0,0,0.75), inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -1px 1px rgba(0,0,0,0.5);
+    background: rgba(11, 23, 44, 0.94);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 20px -4px rgba(0,0,0,0.6);
   }
-  .btn-modern-light, .btn-modern-dark { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+  @media (min-width: 1024px) {
+    .floating-ui-badge {
+      background: linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.11), 0 25px 50px -12px rgba(0,0,0,0.75), inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -1px 1px rgba(0,0,0,0.5);
+    }
+  }
+  .phone-subcard {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  @media (min-width: 1024px) {
+    .phone-subcard {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  }
+  .btn-modern-light, .btn-modern-dark { transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
   .btn-modern-light {
     background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
     color: #0f172a;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 12px 24px -4px rgba(0,0,0,0.28), inset 0 1px 1px rgba(255,255,255,1), inset 0 -3px 6px rgba(0,0,0,0.06);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 8px 16px -4px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,1);
   }
-  .btn-modern-light:hover { transform: translateY(-3px); }
+  .btn-modern-light:hover { transform: translateY(-2px); }
   .btn-modern-dark {
     background: linear-gradient(180deg, #0f9f8f 0%, #0a706a 100%);
     color: #ffffff;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 12px 24px -4px rgba(0,0,0,0.72), inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -3px 6px rgba(0,0,0,0.45);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 8px 16px -4px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.15);
   }
-  .btn-modern-dark:hover { transform: translateY(-3px); }
+  .btn-modern-dark:hover { transform: translateY(-2px); }
   .progress-ring {
     transform: rotate(-90deg);
     transform-origin: center;
@@ -152,9 +190,11 @@ export function CinematicHero({
 }: CinematicHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mainCardRef = useRef<HTMLDivElement>(null);
+  const cardSectionRef = useRef<HTMLDivElement>(null);
   const mockupRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef<number>(0);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [cardVisible, setCardVisible] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
@@ -212,18 +252,39 @@ export function CinematicHero({
     };
   }, [isDesktop]);
 
+  useEffect(() => {
+    const cardSection = cardSectionRef.current;
+    if (!cardSection || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCardVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setCardVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -8%", threshold: 0.08 }
+    );
+
+    observer.observe(cardSection);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       ref={containerRef}
       className={cn("hero-ambient-bg relative flex w-full flex-col text-white antialiased", className)}
-      style={{ perspective: "1500px" }}
       {...props}
     >
       <style dangerouslySetInnerHTML={{ __html: injectedStyles }} />
       <div className="film-grain hidden lg:block" aria-hidden="true" />
       <div className="bg-grid-theme pointer-events-none absolute inset-0 z-0 opacity-90" aria-hidden="true" />
 
-      <div className="hero-text-wrapper transform-style-3d relative z-10 flex min-h-[100svh] w-full items-center justify-center px-4 pt-24 md:pt-20 lg:min-h-screen lg:pt-16">
+      <div className="hero-text-wrapper relative z-10 flex min-h-[92svh] sm:min-h-[100svh] w-full items-center justify-center px-4 pt-24 md:pt-20 lg:min-h-screen lg:pt-16">
         <div className="container grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
           <div className="text-left">
             <h1 className="text-track gsap-reveal text-3d-matte mb-4 font-display text-5xl font-bold tracking-normal md:text-7xl lg:text-[5.8rem]">
@@ -234,9 +295,11 @@ export function CinematicHero({
               MOH, DHA, HAAD, CORU, Dataflow and overseas medical licensing support for healthcare professionals ready to move with confidence.
             </p>
           </div>
-          <div className="text-track gsap-reveal hidden justify-end lg:flex">
-            <ShuffleGrid />
-          </div>
+          {isDesktop ? (
+            <div className="text-track gsap-reveal hidden justify-end lg:flex">
+              <ShuffleGrid />
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -255,30 +318,39 @@ export function CinematicHero({
         </div>
       </div>
 
-      <div className="pointer-events-none relative z-20 flex w-full items-center justify-center px-3 pb-8 sm:px-6 sm:pb-12" style={{ perspective: "1500px" }}>
+      <div
+        ref={cardSectionRef}
+        className="pointer-events-none relative z-20 flex w-full items-center justify-center px-3 pb-8 sm:px-6 sm:pb-12 lg:[perspective:1500px]"
+      >
         <div
           ref={mainCardRef}
-          className="main-card premium-depth-card pointer-events-auto relative flex h-[82svh] w-full items-center justify-center overflow-hidden rounded-[24px] sm:h-[80svh] sm:max-w-[90vw] sm:rounded-[32px] lg:h-[78vh] lg:max-w-[86vw] lg:rounded-[40px]"
+          className={cn(
+            "main-card premium-depth-card pointer-events-auto relative flex min-h-[620px] h-auto w-full items-center justify-center overflow-hidden rounded-[24px] sm:min-h-[680px] sm:max-w-[90vw] sm:rounded-[32px] lg:h-[78vh] lg:min-h-0 lg:max-w-[86vw] lg:rounded-[40px] lg:transition-[transform,opacity] lg:duration-500 lg:ease-out",
+            cardVisible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-6"
+          )}
         >
           <div className="card-sheen" aria-hidden="true" />
 
-          <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-evenly px-4 py-6 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-between gap-6 px-4 py-8 lg:grid lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-0">
             <div className="card-right-text gsap-reveal order-1 z-20 flex w-full justify-center lg:order-3 lg:justify-end">
               <h2 className="text-card-silver-matte max-w-[18rem] text-center font-display text-4xl font-black uppercase leading-[0.9] tracking-normal md:max-w-[26rem] md:text-[4.5rem] lg:max-w-[34rem] lg:text-right lg:text-[5.75rem]">
                 {brandName}
               </h2>
             </div>
 
-            <div className="mockup-scroll-wrapper order-2 relative z-10 flex h-[380px] w-full items-center justify-center lg:order-2 lg:h-[600px]" style={{ perspective: "1000px" }}>
-              <div className="relative flex h-full w-full scale-[0.65] items-center justify-center md:scale-[0.85] lg:scale-100">
-                <div ref={mockupRef} className="iphone-bezel transform-style-3d relative flex h-[580px] w-[280px] flex-col rounded-[3rem] will-change-transform">
+            <div className="mockup-scroll-wrapper order-2 relative z-10 flex h-[480px] w-full items-center justify-center sm:h-[540px] lg:order-2 lg:h-[600px] lg:[perspective:1000px]">
+              <div className="relative flex h-full w-full scale-[0.80] items-center justify-center sm:scale-90 lg:scale-100">
+                <div
+                  ref={mockupRef}
+                  className="iphone-bezel transform-style-3d relative flex h-[580px] w-[280px] flex-col rounded-[3rem] lg:will-change-transform"
+                >
                   <div className="hardware-btn absolute -left-[3px] top-[120px] z-0 h-[25px] w-[3px] rounded-l-md" aria-hidden="true" />
                   <div className="hardware-btn absolute -left-[3px] top-[160px] z-0 h-[45px] w-[3px] rounded-l-md" aria-hidden="true" />
                   <div className="hardware-btn absolute -left-[3px] top-[220px] z-0 h-[45px] w-[3px] rounded-l-md" aria-hidden="true" />
                   <div className="hardware-btn absolute -right-[3px] top-[170px] z-0 h-[70px] w-[3px] scale-x-[-1] rounded-r-md" aria-hidden="true" />
 
                   <div className="absolute inset-[7px] z-10 overflow-hidden rounded-[2.5rem] bg-[#050914] text-white shadow-[inset_0_0_15px_rgba(0,0,0,1)]">
-                    <div className="screen-glare pointer-events-none absolute inset-0 z-40" aria-hidden="true" />
+                    <div className="screen-glare pointer-events-none absolute inset-0 z-40 hidden lg:block" aria-hidden="true" />
                     <div className="absolute left-1/2 top-[5px] z-50 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-end rounded-full bg-black px-3 shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)]">
                       <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
                     </div>
@@ -300,7 +372,7 @@ export function CinematicHero({
                         </div>
                       </div>
 
-                      <div className="phone-widget absolute right-5 top-[98px] z-20 overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-1.5 shadow-2xl backdrop-blur-md">
+                      <div className="phone-widget phone-subcard absolute right-5 top-[98px] z-20 overflow-hidden rounded-2xl p-1.5 shadow-xl">
                         <div className="relative h-28 w-20 overflow-hidden rounded-xl bg-slate-100">
                           <Image
                             src="/images/herocarousel/image copy 19.png"
@@ -309,12 +381,12 @@ export function CinematicHero({
                             sizes="80px"
                             className="object-cover object-[50%_24%]"
                             loading="lazy"
-                            quality={82}
+                            quality={80}
                           />
                         </div>
                       </div>
 
-                      <div className="phone-widget relative mx-auto mb-8 flex h-44 w-44 items-center justify-center drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)]">
+                      <div className="phone-widget relative mx-auto mb-8 flex h-44 w-44 items-center justify-center drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]">
                         <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
                           <circle cx="88" cy="88" r="64" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="12" />
                           <circle className="progress-ring" cx="88" cy="88" r="64" fill="none" stroke="#10B981" strokeWidth="12" />
