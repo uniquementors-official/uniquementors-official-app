@@ -80,7 +80,7 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-GYVMFBS6TF";
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -105,11 +105,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
         <ThemeProvider>
           <SchemaMarkup schema={[OrganizationSchema(), LocalBusinessSchema(), WebsiteSchema()]} />
+          {/* Google Analytics 4 (gtag.js) */}
           {gaId ? (
             <>
-              <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="lazyOnload" />
-              <Script id="google-analytics" strategy="lazyOnload">
-                {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
+              <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+                strategy="afterInteractive"
+              />
+              <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaId}');
+                `}
               </Script>
             </>
           ) : null}
