@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -18,7 +19,7 @@ import { HoneypotField, useFormProtection } from "@/components/common/FormProtec
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
   const { protection, honeypot, resetProtection } = useFormProtection();
   const {
     register,
@@ -65,24 +66,12 @@ export function ContactForm() {
       phone: values.phone,
       name: values.name
     });
-    setSubmitted(true);
     reset();
     resetProtection();
-    toast.success("Your enquiry has been sent.");
+    router.push("/thank-you?type=contact");
   }
 
-  if (submitted) {
-    return (
-      <div className="surface p-8 text-center">
-        <Icon name="CheckCircle" className="mx-auto h-12 w-12 text-secondary" />
-        <h2 className="mt-4 font-display text-2xl font-bold">Enquiry received</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-300">Our counselling team will contact you shortly.</p>
-        <Button className="mt-6" variant="outline" onClick={() => setSubmitted(false)}>
-          Send another enquiry
-        </Button>
-      </div>
-    );
-  }
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="surface relative space-y-5 p-6">

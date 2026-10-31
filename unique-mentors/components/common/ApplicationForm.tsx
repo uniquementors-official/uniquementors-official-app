@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
@@ -28,8 +29,8 @@ export function ApplicationForm({ mode = "medical", studyAbroadCountries = [] }:
 }
 
 function MedicalApplicationForm() {
+  const router = useRouter();
   const [step, setStep] = useState(0);
-  const [reference, setReference] = useState<string | null>(null);
   const { protection, honeypot, resetProtection } = useFormProtection();
   const { register, handleSubmit, trigger, watch, reset, formState: { errors, isSubmitting } } = useForm<ApplicationValues>({
     resolver: zodResolver(applicationSchema),
@@ -51,13 +52,11 @@ function MedicalApplicationForm() {
     if (!result.success) return toast.error(result.error || "Unable to submit application");
     identifyAnalyticsUser({ email: data.email, name: data.name, phone: data.phone, profession: data.profession, examType: data.examType, source: "application_form" });
     trackAnalyticsEvent("application_submitted", { examType: data.examType, targetCountry: data.targetCountry, profession: data.profession, referenceNumber: result.data?.referenceNumber });
-    setReference(result.data?.referenceNumber ?? "Submitted");
+    const refNum = result.data?.referenceNumber ?? "";
     reset();
     resetProtection();
-    toast.success("Application submitted.");
+    router.push(`/thank-you?type=apply${refNum ? `&ref=${encodeURIComponent(refNum)}` : ""}`);
   }
-
-  if (reference) return <SuccessPanel reference={reference} label="Application submitted" />;
 
   return <form onSubmit={handleSubmit(onSubmit)} className="surface relative p-6">
     <HoneypotField website={honeypot.website} onChange={honeypot.setWebsite} />
@@ -71,7 +70,6 @@ function MedicalApplicationForm() {
 
 function StudyAbroadApplicationForm({ countries }: { countries: string[] }) {
   const [step, setStep] = useState(0);
-  const [reference, setReference] = useState<string | null>(null);
   const { protection, honeypot, resetProtection } = useFormProtection();
   const destinationOptions = Array.from(new Set(countries.map((country) => country.trim()).filter(Boolean))).sort();
   const { register, handleSubmit, trigger, watch, reset, formState: { errors, isSubmitting } } = useForm<StudyAbroadValues>({
@@ -95,13 +93,11 @@ function StudyAbroadApplicationForm({ countries }: { countries: string[] }) {
     if (!result.success) return toast.error(result.error || "Unable to submit your request");
     identifyAnalyticsUser({ email: data.email, name: data.name, phone: data.phone, profession: data.qualification, source: "study_abroad_application" });
     trackAnalyticsEvent("study_abroad_application_submitted", { targetCountry, qualification: data.qualification, referenceNumber: result.data?.referenceNumber });
-    setReference(result.data?.referenceNumber ?? "Submitted");
+    const refNum = result.data?.referenceNumber ?? "";
     reset();
     resetProtection();
-    toast.success("Study Abroad application submitted.");
+    router.push(`/thank-you?type=apply${refNum ? `&ref=${encodeURIComponent(refNum)}` : ""}`);
   }
-
-  if (reference) return <SuccessPanel reference={reference} label="Study Abroad application submitted" />;
 
   return <form onSubmit={handleSubmit(onSubmit)} className="surface relative p-6">
     <HoneypotField website={honeypot.website} onChange={honeypot.setWebsite} />
